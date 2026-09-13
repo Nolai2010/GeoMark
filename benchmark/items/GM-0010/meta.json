@@ -1,0 +1,47 @@
+{
+  "id": "GM-0010",
+  "title": "空间向量法求线面角",
+  "subject": "math",
+  "knowledgeScope": {
+    "curriculum": "人教A版",
+    "volume": "选择性必修一",
+    "unit": "立体几何中的向量方法",
+    "topics": [
+      "空间向量",
+      "法向量",
+      "线面角",
+      "等体积法"
+    ]
+  },
+  "questionType": "comprehensive",
+  "answer": "sinθ = 10√145/145",
+  "rubric": [
+    {
+      "point": "建系并写全关键点坐标",
+      "score": 3
+    },
+    {
+      "point": "平面 B₁EF 法向量 (-3,-4,-2)",
+      "score": 3
+    },
+    {
+      "point": "AE·n = -10 与模长",
+      "score": 3
+    },
+    {
+      "point": "sinθ = 10√145/145",
+      "score": 3
+    }
+  ],
+  "difficulty": "medium",
+  "figure": [
+    "assets/figure.svg"
+  ],
+  "dateAdded": "2026-09-13",
+  "tags": [
+    "立体几何",
+    "空间向量",
+    "线面角",
+    "正方体"
+  ]
+}

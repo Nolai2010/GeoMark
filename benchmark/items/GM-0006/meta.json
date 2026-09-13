@@ -1,0 +1,50 @@
+{
+  "id": "GM-0006",
+  "title": "正方体中 BD₁ ⊥ 平面 AB₁C 的证明",
+  "subject": "math",
+  "knowledgeScope": {
+    "curriculum": "人教A版",
+    "volume": "必修二/选择性必修一",
+    "unit": "立体几何",
+    "topics": [
+      "线面垂直判定",
+      "线面垂直性质",
+      "正方体"
+    ]
+  },
+  "questionType": "proof",
+  "answer": "BD₁ ⊥ 平面 AB₁C（证明见 solution.md）",
+  "rubric": [
+    {
+      "point": "AC⊥BD 与 AC⊥BB₁（AC⊥平面BDD₁B₁ 的两条垂线）",
+      "score": 2
+    },
+    {
+      "point": "判定 AC⊥平面 BDD₁B₁，进而 AC⊥BD₁",
+      "score": 2
+    },
+    {
+      "point": "AB₁⊥平面 A₁BCD₁ 的论证（A₁B、A₁D₁ 两垂线），进而 AB₁⊥BD₁",
+      "score": 3
+    },
+    {
+      "point": "同理 CB₁⊥BD₁",
+      "score": 2
+    },
+    {
+      "point": "AC∩AB₁=A，线面垂直判定得结论",
+      "score": 3
+    }
+  ],
+  "difficulty": "medium",
+  "figure": [
+    "assets/figure.svg"
+  ],
+  "dateAdded": "2026-09-13",
+  "tags": [
+    "立体几何",
+    "线面垂直",
+    "正方体",
+    "几何证明"
+  ]
+}

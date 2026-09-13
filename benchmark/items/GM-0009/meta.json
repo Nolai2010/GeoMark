@@ -1,0 +1,47 @@
+{
+  "id": "GM-0009",
+  "title": "锥体外接球的表面积",
+  "subject": "math",
+  "knowledgeScope": {
+    "curriculum": "人教A版",
+    "volume": "必修二",
+    "unit": "立体几何",
+    "topics": [
+      "外接球",
+      "球心定位",
+      "补形法",
+      "表面积"
+    ]
+  },
+  "questionType": "comprehensive",
+  "answer": "S = 12π",
+  "rubric": [
+    {
+      "point": "底面等腰直角三角形外接圆心定位（MA=√2）",
+      "score": 3
+    },
+    {
+      "point": "球心在过 M 的垂线上并设参/建系",
+      "score": 3
+    },
+    {
+      "point": "解得球心与 R=√3",
+      "score": 4
+    },
+    {
+      "point": "S = 12π",
+      "score": 2
+    }
+  ],
+  "difficulty": "medium",
+  "figure": [
+    "assets/figure.svg"
+  ],
+  "dateAdded": "2026-09-13",
+  "tags": [
+    "立体几何",
+    "外接球",
+    "表面积",
+    "补形法"
+  ]
+}

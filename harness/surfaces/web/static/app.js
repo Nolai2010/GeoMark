@@ -10,8 +10,57 @@
 const $ = (id) => document.getElementById(id);
 const state = {
   models: [], files: [], messages: [], running: false, presets: [], editingModelId: null,
-  sessionId: null, sessionName: '', currentExpId: null,
+  sessionId: null, sessionName: '', currentExpId: null, lang: 'zh',
 };
+
+// ================= i18n（中文默认，EN 可切换；覆盖静态界面与状态徽标） =================
+const I18N = {
+  zh: {
+    btn_theme: '主题', theme_light: '亮色', theme_dark: '暗色', theme_system: '主题',
+    brand_sub: 'GeoMark Harness · 模型无关的实验环境', btn_keys: 'API 密钥',
+    manage_models: '管理模型', sysprompt: '系统提示词', temperature: '温度', maxtokens: '最大词元数',
+    legend_reasoning: '推理（模型原生，直接透传）', effort_label: '推理力度 Effort（OpenAI 风格）',
+    budget_label: '思考词元预算 Budget（Anthropic 风格）', legend_files: '文件（显式附加，仅读取所选文件）',
+    reasoning_enabled: '启用推理（若模型支持）', save_experiment: '保存实验', clear_chat: '清空对话',
+    send: '发送', sessions: '对话记录', experiments: '实验记录',
+    dlg_keys: 'API 密钥', dlg_model: '模型配置', dlg_exp: '实验详情', close: '关闭',
+    save: '保存', delete_model: '删除此模型', test_connection: '测试连接', save_model: '保存模型',
+    restore_chat: '恢复为当前对话', exp_default_title: '实验详情',
+    sysprompt_ph: '留空则不发送系统提示词', prompt_ph: '输入提示词…（Enter 发送，Shift+Enter 换行）',
+    status_idle: '就绪', status_connecting: '连接中…', status_failed: '失败',
+    status_streaming: '流式输出中…', status_reasoning: '推理中…', status_done: '已完成', status_aborted: '已停止',
+  },
+  en: {
+    btn_theme: 'Theme', theme_light: 'Light', theme_dark: 'Dark', theme_system: 'Theme',
+    brand_sub: 'GeoMark Harness · Model-agnostic experiment environment', btn_keys: 'API Keys',
+    manage_models: 'Manage Models', sysprompt: 'System Prompt', temperature: 'Temperature', maxtokens: 'Max Tokens',
+    legend_reasoning: 'Reasoning (native, passed through)', effort_label: 'Reasoning effort (OpenAI style)',
+    budget_label: 'Thinking budget (Anthropic style)', legend_files: 'Files (explicit attachments only)',
+    reasoning_enabled: 'Enable reasoning (if supported)', save_experiment: 'Save experiment', clear_chat: 'Clear Chat',
+    send: 'Send', sessions: 'Chat History', experiments: 'Experiment Records',
+    dlg_keys: 'API Keys', dlg_model: 'Model Configuration', dlg_exp: 'Experiment Details', close: 'Close',
+    save: 'Save', delete_model: 'Delete Model', test_connection: 'Test Connection', save_model: 'Save Model',
+    restore_chat: 'Restore as Chat', exp_default_title: 'Experiment Details',
+    sysprompt_ph: 'Leave empty to omit the system prompt', prompt_ph: 'Type your prompt… (Enter to send, Shift+Enter for newline)',
+    status_idle: 'Ready', status_connecting: 'Connecting…', status_failed: 'Failed',
+    status_streaming: 'Streaming…', status_reasoning: 'Reasoning…', status_done: 'Completed', status_aborted: 'Stopped',
+  },
+};
+state.lang = (() => { try { const q = new URLSearchParams(location.search).get('lang'); return q || localStorage.getItem('gm-lang') || 'zh'; } catch { return 'zh'; } })();
+// DOM 就绪后应用语言（脚本位于 body 末尾）
+function t(key) { return I18N[state.lang]?.[key] ?? I18N.zh[key] ?? ''; }
+applyLang();
+function applyLang() {
+  document.documentElement.lang = state.lang === 'en' ? 'en' : 'zh-CN';
+  document.querySelectorAll('[data-i18n]').forEach((el) => { el.textContent = t(el.dataset.i18n); });
+  document.querySelectorAll('[data-i18n-ph]').forEach((el) => { el.placeholder = t(el.dataset.i18nPh); });
+  const btn = $('btn-lang');
+  if (btn) btn.textContent = state.lang === 'zh' ? 'EN' : '中文';
+  const st = $('run-status');
+  if (st && st.dataset.textRaw !== undefined) setRunStatus(st.dataset.state, st.dataset.textRaw);
+  try { localStorage.setItem('gm-lang', state.lang); } catch { /* ignore */ }
+}
+$('btn-lang').addEventListener('click', () => { state.lang = state.lang === 'zh' ? 'en' : 'zh'; applyLang(); });
 
 /* =========================================================================
  * 会话持久化：刷新后可回到上次对话；对话记录保存在本机 localStorage
@@ -225,7 +274,7 @@ function applyTheme() {
     dark = theme.mode === 'dark';
   }
   document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-  $('btn-theme').textContent = LABELS[theme.mode];
+  $('btn-theme').textContent = t('theme_' + theme.mode) || LABELS[theme.mode];
   try { localStorage.setItem(THEME_KEY, theme.mode); } catch { /* ignore */ }
 }
 
@@ -529,11 +578,13 @@ function renderMD(text) {
   catch { return esc(text); }
 }
 
+const STATUS_KEY = { '就绪': 'status_idle', '连接中…': 'status_connecting', '失败': 'status_failed', '流式输出中…': 'status_streaming', '推理中…': 'status_reasoning', '已完成': 'status_done', '已停止': 'status_aborted' };
 function setRunStatus(stateName, text) {
   const el = $('run-status');
   el.dataset.state = stateName;
   el.className = `chip status-${stateName}`;
-  el.textContent = text;
+  el.dataset.textRaw = text;
+  el.textContent = t(STATUS_KEY[text] || '') || text;
 }
 
 function clearChat() {

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 420" font-family="Georgia, serif" font-style="italic">
+  <rect width="560" height="420" fill="#faf7f2"/>
+  <g transform="translate(40,40)" font-size="26">
+    <line x1="240" y1="230" x2="120" y2="180" stroke="#8a8a8a" stroke-width="1.8" stroke-dasharray="6 4"/>
+    <line x1="40" y1="230" x2="320" y2="180" stroke="#8a8a8a" stroke-width="1.8" stroke-dasharray="6 4"/>
+    <path d="M 40 230 L 240 230 L 320 180 L 120 180 Z" fill="none" stroke="#2b2b2b" stroke-width="2.4"/>
+    <line x1="40" y1="230" x2="40" y2="60" stroke="#2b2b2b" stroke-width="2.4"/>
+    <line x1="40" y1="60" x2="240" y2="230" stroke="#2b2b2b" stroke-width="2.2"/>
+    <line x1="40" y1="60" x2="320" y2="180" stroke="#2b2b2b" stroke-width="2.2"/>
+    <line x1="40" y1="60" x2="120" y2="180" stroke="#2b2b2b" stroke-width="2.2"/>
+    <circle cx="40" cy="230" r="4" fill="#2b2b2b"/><circle cx="240" cy="230" r="4" fill="#2b2b2b"/>
+    <circle cx="320" cy="180" r="4" fill="#2b2b2b"/><circle cx="120" cy="180" r="4" fill="#8a8a8a"/>
+    <circle cx="40" cy="60" r="4" fill="#b54434"/>
+    <text x="10" y="254">A</text><text x="246" y="254">B</text><text x="330" y="202">C</text><text x="92" y="202" fill="#8a8a8a">D</text>
+    <text x="10" y="52" font-size="26" fill="#b54434">P</text>
+    <text x="70" y="120" font-size="20" fill="#888">PA=2, PA⊥底面</text>
+    <text x="150" y="380" font-size="17" font-style="normal" fill="#666">底面 ABCD 为正方形，边长 2</text>
+  </g>
+</svg>

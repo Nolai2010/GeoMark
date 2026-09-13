@@ -6,7 +6,12 @@
     "curriculum": "人教A版",
     "volume": "必修二",
     "unit": "平面向量",
-    "topics": ["基底分解", "中点公式", "共线向量定理", "定比分点"]
+    "topics": [
+      "基底分解",
+      "中点公式",
+      "共线向量定理",
+      "定比分点"
+    ]
   },
   "questionType": "proof",
   "answer": "见 solution.md（BF = (3/5)BE，F 在线段 BE 内）",
@@ -19,5 +24,25 @@
   "figure": "assets/figure.svg",
   "transcriptionNote": "原始转录笔误已修正：EF=2EC 应为 AE=2EC；EF=(4/5)AB 应为 AF=(4/5)AD（以 λ=3/5 与图形交叉验证确认）",
   "dateAdded": "2026-09-13",
-  "tags": ["平面向量", "基底", "共线向量定理", "中点公式", "几何推理"]
+  "tags": [
+    "平面向量",
+    "基底",
+    "共线向量定理",
+    "中点公式",
+    "几何推理"
+  ],
+  "rubric": [
+    {
+      "point": "AE = 2EC => AE = (2/3)b，写出 BE = (2/3)b - a",
+      "score": 4
+    },
+    {
+      "point": "中点公式 AD = (1/2)(a+b)，AF = (4/5)AD = (2/5)a + (2/5)b",
+      "score": 4
+    },
+    {
+      "point": "BF = -(3/5)a + (2/5)b = (3/5)BE，引用共线向量定理收尾",
+      "score": 4
+    }
+  ]
 }

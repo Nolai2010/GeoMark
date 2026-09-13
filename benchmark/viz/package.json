@@ -1,0 +1,16 @@
+{
+  "name": "geomark-benchmark-viz",
+  "private": true,
+  "version": "1.0.0",
+  "description": "GeoMark Benchmark 结果 Remotion 动画（读取 summarize.mjs 产出的 summary.json）",
+  "scripts": {
+    "studio": "remotion studio index.jsx",
+    "render": "remotion render index.jsx BenchmarkResults GeoMark-Benchmark.mp4"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "4.0.0"
+  }
+}

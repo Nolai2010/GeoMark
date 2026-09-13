@@ -6,7 +6,13 @@
     "curriculum": "人教A版",
     "volume": "必修二",
     "unit": "平面向量（综合应用）",
-    "topics": ["黄金矩形", "轴对称折叠", "勾股定理", "梯形面积分割", "共线与垂直的判定"]
+    "topics": [
+      "黄金矩形",
+      "轴对称折叠",
+      "勾股定理",
+      "梯形面积分割",
+      "共线与垂直的判定"
+    ]
   },
   "questionType": "comprehensive",
   "answer": "(1) AB=2；(2) 见解析；(3) 是黄金矩形，BP=√5−1",
@@ -18,8 +24,40 @@
     "BP/BF = (√5−1)/2，BFQP 为黄金矩形"
   ],
   "difficulty": "hard",
-  "figure": ["assets/figure-1.svg", "assets/figure-2.svg"],
+  "figure": [
+    "assets/figure-1.svg",
+    "assets/figure-2.svg"
+  ],
   "transcriptionNote": "原始转录多处错乱已修正：①'沿AE折叠使B落在AD上的F'字母互换，应为沿AF折叠使B落在AD上的E处（图10虚线为AF）；②'将△EGF沿FG折叠使E落在FH上'应为'将△PBF沿PF折叠使B恰好落在射线FG上的点H处'——以解析自身的 FH=FB=2、BP=PH、∠PHF=90° 与 x=√5−1 做坐标级交叉验证确认；③'点P为BP与PQ的交点'为病句，应为 P 在 AB 上、PQ∥AD 交 EF 于 Q。",
   "dateAdded": "2026-09-13",
-  "tags": ["黄金矩形", "折叠", "轴对称", "面积法", "几何综合", "多步推理"]
+  "tags": [
+    "黄金矩形",
+    "折叠",
+    "轴对称",
+    "面积法",
+    "几何综合",
+    "多步推理"
+  ],
+  "rubric": [
+    {
+      "point": "AB = (√5−1)/2 · (√5+1) = 2（共轭运算）",
+      "score": 2
+    },
+    {
+      "point": "折叠得 ABFE 为正方形；DE = CF = √5−1，DE/EF = (√5−1)/2",
+      "score": 2
+    },
+    {
+      "point": "折叠三性质：FH=FB=2、PH=PB、∠PHF=90°；H∈FG => PH⊥FG 为 △PGF 的高",
+      "score": 2
+    },
+    {
+      "point": "面积法：3 = ½·1·(2−x) + ½·2·x + ½·√5·x => x = √5−1",
+      "score": 2
+    },
+    {
+      "point": "BP/BF = (√5−1)/2，BFQP 为黄金矩形",
+      "score": 4
+    }
+  ]
 }

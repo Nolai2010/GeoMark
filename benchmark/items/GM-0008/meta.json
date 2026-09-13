@@ -1,0 +1,48 @@
+{
+  "id": "GM-0008",
+  "title": "三棱锥中的线面垂直与二面角",
+  "subject": "math",
+  "knowledgeScope": {
+    "curriculum": "人教A版",
+    "volume": "必修二/选择性必修一",
+    "unit": "立体几何",
+    "topics": [
+      "线面垂直判定",
+      "面面垂直",
+      "二面角",
+      "三垂线定理",
+      "空间向量"
+    ]
+  },
+  "questionType": "comprehensive",
+  "answer": "(1) 证明见解析；(2) cos = 1/2",
+  "rubric": [
+    {
+      "point": "BC⊥AB、BC⊥SA，判定 BC⊥平面 SAB",
+      "score": 4
+    },
+    {
+      "point": "面面垂直识别并作 AH⊥SB，证 AH⊥平面 SBC",
+      "score": 3
+    },
+    {
+      "point": "三垂线定位平面角 ∠AKH（或求两面法向量）",
+      "score": 3
+    },
+    {
+      "point": "cos = 1/2",
+      "score": 2
+    }
+  ],
+  "difficulty": "medium",
+  "figure": [
+    "assets/figure.svg"
+  ],
+  "dateAdded": "2026-09-13",
+  "tags": [
+    "立体几何",
+    "二面角",
+    "三垂线",
+    "空间向量"
+  ]
+}
