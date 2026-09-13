@@ -1,0 +1,35 @@
+{
+  "modelId": "example-model",
+  "provider": "openai-compatible",
+  "baseUrl": "http://127.0.0.1:9911/v1",
+  "apiModelId": "mock-1",
+  "systemPrompt": "",
+  "messages": [
+    {
+      "role": "user",
+      "content": "证明：正方形对角线互相垂直平分",
+      "fileIds": []
+    }
+  ],
+  "files": [],
+  "temperature": null,
+  "topP": null,
+  "maxTokens": null,
+  "reasoning": {
+    "enabled": false,
+    "effort": null,
+    "budgetTokens": null
+  },
+  "timeoutMs": null,
+  "maxRetries": 0,
+  "endpointPath": null,
+  "customHeaders": null,
+  "modelDefaults": {
+    "temperature": null,
+    "maxTokens": null
+  },
+  "temperatureSource": "unset",
+  "extraBody": {},
+  "requestId": "f67d906c4b9049ff9d8c48759bcb89f6",
+  "createdAt": 1789277783990
+}

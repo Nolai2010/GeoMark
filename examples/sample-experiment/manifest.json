@@ -1,0 +1,23 @@
+{
+  "experimentId": "exp-2026-09-13T05-36-23-f67d906c",
+  "chainRoot": "3270fbfc005fa40d020833c506100bd880da0c127fba800ed63c11cb6465dd5c",
+  "artifacts": {
+    "config.json": "a624d45f71b488e14e367ceb3365f2d5a6a3331675b6ce4d87d6f9360f019f8a",
+    "prompt.txt": "b68e3ea2fb8128536476ccc6cfa810bf0f5cae40490145f89a058a738e26f5cf",
+    "events.jsonl": "57f4387be36bd82fecf8c182dac3f300299c1007e6148136cfe66fdc5674008e",
+    "result.json": "be4f36c6c4b535e339f4ba8916fc2efb79840db1f98fb7ca92c69c5e06beee19",
+    "request.json": "4d4956faee8e1d3134b47ff86d8102d9b8b4a5125913fa113a1a39a401fdcd8d",
+    "raw/response.sse": "b4c1bbf82c74d877361a14d817b013e08f186c328635655abb2cf07d5177ba1b"
+  },
+  "files": {},
+  "fileRecords": [],
+  "harnessVersion": "0.6.0",
+  "runtime": {
+    "node": "v22.22.2"
+  },
+  "adapterSpec": {
+    "provider": "openai-compatible",
+    "version": 1,
+    "sha256": "9eb7b3a3382b98959c15eff0a4ba132dc9788706e53e81144689fa34fc8288b6"
+  }
+}

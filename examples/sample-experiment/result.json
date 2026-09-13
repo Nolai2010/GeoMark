@@ -1,0 +1,29 @@
+{
+  "requestId": "f67d906c4b9049ff9d8c48759bcb89f6",
+  "status": "ok",
+  "completion": "completed",
+  "attempts": 1,
+  "retries": 0,
+  "text": "收到 [{\"r\":\"user\",\"c\":\"证明：正方形对角线互相垂直平分\"}] | no-effort | max_tokens=unset",
+  "reasoningText": "QA思考中…",
+  "finishReason": "stop",
+  "usage": {
+    "inputTokens": 5,
+    "outputTokens": 9,
+    "raw": {
+      "prompt_tokens": 5,
+      "completion_tokens": 9
+    }
+  },
+  "ttftMs": 45.9983,
+  "totalMs": 46.9913,
+  "error": "",
+  "startedAt": 1789277783997,
+  "finishedAt": 1789277784044,
+  "renderedMessages": [
+    {
+      "role": "user",
+      "content": "证明：正方形对角线互相垂直平分"
+    }
+  ]
+}

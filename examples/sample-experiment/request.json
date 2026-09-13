@@ -1,0 +1,53 @@
+{
+  "provider": "openai-compatible",
+  "baseUrl": "http://127.0.0.1:9911/v1",
+  "endpoint": "/v1/chat/completions",
+  "method": "POST",
+  "headers": {
+    "content-type": "application/json",
+    "accept": "text/event-stream",
+    "authorization": "[REDACTED]"
+  },
+  "body": {
+    "model": "mock-1",
+    "messages": [
+      {
+        "role": "user",
+        "content": "证明：正方形对角线互相垂直平分"
+      }
+    ],
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    }
+  },
+  "requestedConfig": {
+    "temperature": null,
+    "topP": null,
+    "maxTokens": null,
+    "reasoning": {
+      "enabled": false,
+      "effort": null,
+      "budgetTokens": null
+    },
+    "timeoutMs": null,
+    "maxRetries": 0,
+    "extraBody": {}
+  },
+  "resolvedConfig": {
+    "model": "mock-1",
+    "stream": true,
+    "stream_options": {
+      "include_usage": true
+    }
+  },
+  "harnessVersion": "0.6.0",
+  "runtime": {
+    "node": "v22.22.2"
+  },
+  "adapterSpec": {
+    "provider": "openai-compatible",
+    "version": 1,
+    "sha256": "9eb7b3a3382b98959c15eff0a4ba132dc9788706e53e81144689fa34fc8288b6"
+  }
+}

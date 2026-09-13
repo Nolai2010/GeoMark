@@ -1,0 +1,10 @@
+data: {"choices":[{"delta":{"reasoning_content":"QA思考中…"}}]}
+
+data: {"choices":[{"delta":{"content":"收到 [{\"r\":\"user\",\"c\":\"证明：正方形对角线互相垂直平分\"}] | no-effort | max_tokens=unset"}}]}
+
+data: {"choices":[{"delta":{},"finish_reason":"stop"}]}
+
+data: {"choices":[],"usage":{"prompt_tokens":5,"completion_tokens":9}}
+
+data: [DONE]
+
