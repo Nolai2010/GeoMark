@@ -16,12 +16,16 @@ const state = {
 // ================= i18n（中文默认，EN 可切换；覆盖静态界面与状态徽标） =================
 const I18N = {
   zh: {
+    doc_title: '格物台 · GeoMark Harness', brand: '格物台', seal: '格物', poem: '同题共答　千帆竞渡',
+    empty_sub: '同一个问题、同一份文件、同一套配置，交给不同的模型。<br>实验环境只负责把条件原样送达每个模型，不做任何偏袒。',
+    modelagnostic_note: '（<a class="term" data-term="modelagnostic">模型无关</a>，可随时切换）', sysprompt_note: '（对所有模型完全一致）',
     btn_theme: '主题', theme_light: '亮色', theme_dark: '暗色', theme_system: '主题',
     brand_sub: 'GeoMark Harness · 模型无关的实验环境', btn_keys: 'API 密钥',
     manage_models: '管理模型', sysprompt: '系统提示词', temperature: '温度', maxtokens: '最大词元数',
     legend_reasoning: '推理（模型原生，直接透传）', effort_label: '推理力度 Effort（OpenAI 风格）',
-    budget_label: '思考词元预算 Budget（Anthropic 风格）', legend_files: '文件（显式附加，仅读取所选文件）',
+    budget_label: '思考词元预算 Budget（Anthropic 风格）', budget_ph: '如 8192', legend_files: '文件（显式附加，仅读取所选文件）',
     reasoning_enabled: '启用推理（若模型支持）', save_experiment: '保存实验', clear_chat: '清空对话',
+    model: '模型',
     send: '发送', sessions: '对话记录', experiments: '实验记录',
     dlg_keys: 'API 密钥', dlg_model: '模型配置', dlg_exp: '实验详情', close: '关闭',
     save: '保存', delete_model: '删除此模型', test_connection: '测试连接', save_model: '保存模型',
@@ -29,14 +33,44 @@ const I18N = {
     sysprompt_ph: '留空则不发送系统提示词', prompt_ph: '输入提示词…（Enter 发送，Shift+Enter 换行）',
     status_idle: '就绪', status_connecting: '连接中…', status_failed: '失败',
     status_streaming: '流式输出中…', status_reasoning: '推理中…', status_done: '已完成', status_aborted: '已停止',
+    key_openai_label: 'OpenAI Compatible 协议密钥', key_anthropic_label: 'Anthropic 协议密钥',
+    keys_fineprint: '密钥只保存在本机 config/secrets.json（已被 git 忽略），只进内存，绝不写入日志与实验记录。',
+    existing_label: '已有模型（选中即编辑其配置）', new_model: '＋ 新建模型',
+    preset_label: '从预设开始（仅填充协议、地址与模型 ID，可自由修改）', custom_endpoint: '自定义接口',
+    provider_label: '协议类型', name_label: '显示名称', name_ph: '如 DeepSeek', baseurl_label: 'API 地址（Base URL）',
+    endpoint_label: '接口路径（可选，默认按协议）', modelid_label: '模型 ID',
+    modelkey_label: 'API 密钥（可留空使用全局密钥；只保存在本机）', def_temp: '默认温度', def_max: '默认最大词元数',
+    unset_ph: '默认', omit_opt: '（不发送）', supports_reasoning: '该模型支持原生推理',
+    extra_label: 'Extra Body（JSON，可选；会原样并入请求体并记录）', rename: '重命名', delete_exp: '删除实验',
+    term_footer: '术语说明 · 固定文案，非模型生成',
+    unnamed_chat: '未命名对话', unnamed_exp: '未命名实验',
+    act_open: '恢复', act_details: '详情', act_restore: '恢复为对话', act_rename: '重命名', act_delete: '删除',
+    no_sessions: '暂无对话记录（发送第一条消息后自动保存）',
+    no_experiments: '暂无实验。发送消息时勾选「保存实验」即生成可复现的实验包。',
+    configured: '已配置', not_configured: '未配置', native_reasoning: ' · 支持原生推理',
+    no_models_hint: '尚未配置模型：点击「管理模型」从预设添加',
+    finish_reason: '结束原因', ttft: '首词元延迟（TTFT）', total_time: '总耗时', tokens_in: '输入词元', tokens_out: '输出词元', tokens_unit: '词元',
+    confirm_del_session: '删除这条对话记录？（不影响已保存的实验包）',
+    confirm_del_model: '确定删除模型「{id}」？此操作不会删除已有实验记录。',
+    confirm_del_exp: '删除这个实验包？其全部文件（含原始字节与哈希链）将被移除，不可恢复。',
+    rename_failed: '重命名失败', delete_failed: '删除失败', nothing_to_restore: '该实验没有可恢复的对话内容',
+    verify_ok: '✓ 校验通过，记录完整', verify_bad: '✗ 校验失败，记录可能被改动', chain_root: '链根', produced_by: '由 Harness v{v} 产生',
+    h_sysprompt: '系统提示词（发送给模型的原文）', h_rendered: '模型实际看到的输入', h_resolved: '模型与实际生效配置',
+    h_final: '最终回答', h_metrics: '运行指标', h_events: '事件流（{n} 条，哈希成链）', h_verify: '完整性校验明细',
+    m_status: '状态', m_completion: '完成状态', m_finish: '结束原因', m_ttft: '首词元延迟', m_total: '总耗时',
+    m_usage: '词元用量', m_in: '输入', m_out: '输出', m_attempts: '尝试次数', m_retries: '重试',
   },
   en: {
+    doc_title: 'GeoMark Studio · GeoMark Harness', brand: 'GeoMark Studio', seal: 'GM', poem: 'Same question, shared answers — a thousand sails race.',
+    empty_sub: 'The same question, the same files, the same configuration — handed to different models.<br>The harness only delivers conditions verbatim; it favors no one.',
+    modelagnostic_note: ' (Model-agnostic — switch any time)', sysprompt_note: ' (identical for every model)',
     btn_theme: 'Theme', theme_light: 'Light', theme_dark: 'Dark', theme_system: 'Theme',
     brand_sub: 'GeoMark Harness · Model-agnostic experiment environment', btn_keys: 'API Keys',
     manage_models: 'Manage Models', sysprompt: 'System Prompt', temperature: 'Temperature', maxtokens: 'Max Tokens',
     legend_reasoning: 'Reasoning (native, passed through)', effort_label: 'Reasoning effort (OpenAI style)',
-    budget_label: 'Thinking budget (Anthropic style)', legend_files: 'Files (explicit attachments only)',
+    budget_label: 'Thinking budget (Anthropic style)', budget_ph: 'e.g. 8192', legend_files: 'Files (explicit attachments only)',
     reasoning_enabled: 'Enable reasoning (if supported)', save_experiment: 'Save experiment', clear_chat: 'Clear Chat',
+    model: 'Model',
     send: 'Send', sessions: 'Chat History', experiments: 'Experiment Records',
     dlg_keys: 'API Keys', dlg_model: 'Model Configuration', dlg_exp: 'Experiment Details', close: 'Close',
     save: 'Save', delete_model: 'Delete Model', test_connection: 'Test Connection', save_model: 'Save Model',
@@ -44,16 +78,46 @@ const I18N = {
     sysprompt_ph: 'Leave empty to omit the system prompt', prompt_ph: 'Type your prompt… (Enter to send, Shift+Enter for newline)',
     status_idle: 'Ready', status_connecting: 'Connecting…', status_failed: 'Failed',
     status_streaming: 'Streaming…', status_reasoning: 'Reasoning…', status_done: 'Completed', status_aborted: 'Stopped',
+    key_openai_label: 'OpenAI-compatible API key', key_anthropic_label: 'Anthropic API key',
+    keys_fineprint: 'Keys are stored only in local config/secrets.json (git-ignored), kept in memory, and never written to logs or experiment records.',
+    existing_label: 'Existing models (select to edit)', new_model: '＋ New model',
+    preset_label: 'Start from a preset (fills protocol, URL and model ID — edit freely)', custom_endpoint: 'Custom endpoint',
+    provider_label: 'Protocol', name_label: 'Display name', name_ph: 'e.g. DeepSeek', baseurl_label: 'API address (Base URL)',
+    endpoint_label: 'Endpoint path (optional, defaults per protocol)', modelid_label: 'Model ID',
+    modelkey_label: 'API key (leave empty to use the global key; stored locally only)', def_temp: 'Default temperature', def_max: 'Default max tokens',
+    unset_ph: 'default', omit_opt: '(omit)', supports_reasoning: 'This model supports native reasoning',
+    extra_label: 'Extra Body (JSON, optional; merged into the request body and recorded)', rename: 'Rename', delete_exp: 'Delete experiment',
+    term_footer: 'Glossary · fixed copy, not model-generated',
+    unnamed_chat: 'Untitled chat', unnamed_exp: 'Untitled experiment',
+    act_open: 'Restore', act_details: 'Details', act_restore: 'Restore as chat', act_rename: 'Rename', act_delete: 'Delete',
+    no_sessions: 'No chat history yet (auto-saved after your first message)',
+    no_experiments: 'No experiments yet. Tick "Save experiment" when sending a message to produce a reproducible bundle.',
+    configured: 'configured', not_configured: 'not configured', native_reasoning: ' · native reasoning',
+    no_models_hint: 'No models yet: click "Manage Models" to add from presets',
+    finish_reason: 'Finish', ttft: 'TTFT', total_time: 'Total time', tokens_in: 'In tokens', tokens_out: 'Out tokens', tokens_unit: 'tok',
+    confirm_del_session: 'Delete this chat history? (Saved experiment bundles are not affected)',
+    confirm_del_model: 'Delete model "{id}"? Existing experiment records are not affected.',
+    confirm_del_exp: 'Delete this experiment bundle? All files (raw bytes and hash chain) will be removed. This cannot be undone.',
+    rename_failed: 'Rename failed', delete_failed: 'Delete failed', nothing_to_restore: 'This experiment has no restorable conversation',
+    verify_ok: '✓ Verification passed, records intact', verify_bad: '✗ Verification failed, records may have been altered', chain_root: 'Chain root', produced_by: 'produced by Harness v{v}',
+    h_sysprompt: 'System prompt (verbatim, as sent to the model)', h_rendered: 'What the model actually saw', h_resolved: 'Model & effective configuration',
+    h_final: 'Final answer', h_metrics: 'Run metrics', h_events: 'Event stream ({n} entries, hash-chained)', h_verify: 'Integrity verification details',
+    m_status: 'Status', m_completion: 'Completion', m_finish: 'Finish reason', m_ttft: 'TTFT', m_total: 'Total time',
+    m_usage: 'Token usage', m_in: 'in', m_out: 'out', m_attempts: 'Attempts', m_retries: 'Retries',
   },
 };
 state.lang = (() => { try { const q = new URLSearchParams(location.search).get('lang'); return q || localStorage.getItem('gm-lang') || 'zh'; } catch { return 'zh'; } })();
 // DOM 就绪后应用语言（脚本位于 body 末尾）
 function t(key) { return I18N[state.lang]?.[key] ?? I18N.zh[key] ?? ''; }
 applyLang();
+function fmt(key, map) { return Object.entries(map || {}).reduce((s, [k, v]) => s.split('{' + k + '}').join(v), t(key)); }
 function applyLang() {
   document.documentElement.lang = state.lang === 'en' ? 'en' : 'zh-CN';
+  document.title = t('doc_title');
   document.querySelectorAll('[data-i18n]').forEach((el) => { el.textContent = t(el.dataset.i18n); });
+  document.querySelectorAll('[data-i18n-html]').forEach((el) => { el.innerHTML = t(el.dataset.i18nHtml); });
   document.querySelectorAll('[data-i18n-ph]').forEach((el) => { el.placeholder = t(el.dataset.i18nPh); });
+  try { renderSessionList(); showModelInfo(); refreshKeyDots(); refreshExperiments(); } catch { /* boot 期忽略 */ }
   const btn = $('btn-lang');
   if (btn) btn.textContent = state.lang === 'zh' ? 'EN' : '中文';
   const st = $('run-status');
@@ -73,7 +137,7 @@ function readSessions() {
 }
 
 function sessionNameOf(s) {
-  return s.name || (s.messages.find((m) => m.role === 'user')?.content ?? '未命名对话').slice(0, 24);
+  return s.name || (s.messages.find((m) => m.role === 'user')?.content ?? t('unnamed_chat')).slice(0, 24);
 }
 
 function persistSession() {
@@ -136,10 +200,10 @@ function renderSessionList() {
       const n = esc(sessionNameOf(s));
       return `<li data-id="${esc(s.id)}" title="${esc(n)}">
         <span class="rname">${n}</span> <span class="fineprint">${esc(d)}</span>
-        <div class="acts"><a data-act="open">恢复</a><a data-act="rename">重命名</a><a data-act="del" class="danger">删除</a></div>
+        <div class="acts"><a data-act="open">${t('act_open')}</a><a data-act="rename">${t('act_rename')}</a><a data-act="del" class="danger">${t('act_delete')}</a></div>
       </li>`;
     }).join('')
-    : '<li class="fineprint">暂无对话记录（发送第一条消息后自动保存）</li>';
+    :  `<li class="fineprint">${t('no_sessions')}</li>`;
   $('session-list').querySelectorAll('li[data-id]').forEach((li) => {
     li.addEventListener('click', (e) => {
       if (e.target.closest('.acts')) return;
@@ -163,7 +227,7 @@ function renderSessionList() {
       renderSessionList();
     });
     li.querySelector('[data-act="del"]').addEventListener('click', () => {
-      if (!confirm('删除这条对话记录？（不影响已保存的实验包）')) return;
+      if (!confirm(t('confirm_del_session'))) return;
       try {
         localStorage.setItem(SESSIONS_KEY, JSON.stringify(readSessions().filter((x) => x.id !== li.dataset.id)));
         if (state.sessionId === li.dataset.id) localStorage.removeItem(SESSION_KEY);
@@ -304,8 +368,8 @@ async function refreshKeyDots() {
   try {
     const { providers } = await (await fetch('/api/keys/status')).json();
     $('key-dots').innerHTML =
-      `<i class="${providers['openai-compatible'] ? 'on' : ''}" title="OpenAI Compatible：${providers['openai-compatible'] ? '已配置' : '未配置'}"></i>` +
-      `<i class="${providers.anthropic ? 'on' : ''}" title="Anthropic：${providers.anthropic ? '已配置' : '未配置'}"></i>`;
+      `<i class="${providers['openai-compatible'] ? 'on' : ''}" title="OpenAI Compatible：${providers['openai-compatible'] ? t('configured') : t('not_configured')}"></i>` +
+      `<i class="${providers.anthropic ? 'on' : ''}" title="Anthropic：${providers.anthropic ? t('configured') : t('not_configured')}"></i>`;
   } catch {
     $('key-dots').innerHTML = '';
   }
@@ -375,8 +439,8 @@ function currentModel() {
 function showModelInfo() {
   const m = currentModel();
   $('model-info').textContent = m
-    ? `${m.apiModelId} · ${m.baseUrl}${m.supportsReasoning ? ' · 支持原生推理' : ''}`
-    : '尚未配置模型：点击「管理模型」从预设添加';
+    ? `${m.apiModelId} · ${m.baseUrl}${m.supportsReasoning ? t('native_reasoning') : ''}`
+    : t('no_models_hint');
 }
 
 function openModelDialog(modelId = null) {
@@ -502,7 +566,7 @@ async function saveModelFromDialog() {
 
 async function deleteModelFromDialog() {
   if (!state.editingModelId) return;
-  if (!confirm(`确定删除模型「${state.editingModelId}」？此操作不会删除已有实验记录。`)) return;
+  if (!confirm(fmt('confirm_del_model', { id: state.editingModelId }))) return;
   await fetch(`/api/models/${encodeURIComponent(state.editingModelId)}`, { method: 'DELETE' });
   $('model-dialog').close();
   await refreshModels();
@@ -720,7 +784,7 @@ async function onSend(e) {
             const meta = document.createElement('div');
             meta.className = 'meta';
             meta.textContent =
-              `结束原因=${ev.data.finishReason ?? '-'} · 首词元延迟（TTFT）=${t.ttftMs?.toFixed(0) ?? '-'}ms · 总耗时=${t.totalMs?.toFixed(0) ?? '-'}ms · 输入词元=${u.inputTokens ?? '-'} / 输出词元=${u.outputTokens ?? '-'}`;
+              `${t('finish_reason')}=${ev.data.finishReason ?? '-'} · ${t('ttft')}=${t.ttftMs?.toFixed(0) ?? '-'}ms · ${t('total_time')}=${t.totalMs?.toFixed(0) ?? '-'}ms · ${t('tokens_in')}=${u.inputTokens ?? '-'} / ${t('tokens_out')}=${u.outputTokens ?? '-'}`;
             bubble.parentElement.appendChild(meta);
             termify(meta);
             state.messages.push({ role: 'assistant', content: acc });
@@ -767,16 +831,16 @@ async function refreshExperiments() {
   $('exp-list').innerHTML = experiments.length
     ? experiments.map((x) => {
       const d = new Date(x.finishedAt * 1000).toLocaleString();
-      const stateText = x.completion ?? (x.status === 'ok' ? '已完成' : '失败');
-      const name = esc(x.name || '未命名实验');
+      const stateText = x.completion ?? (x.status === 'ok' ? t('status_done') : t('status_failed'));
+      const name = esc(x.name || t('unnamed_exp'));
       const st = x.status === 'ok' ? '<span class="st ok">●</span>' : '<span class="st error">✖</span>';
       return `<li data-id="${esc(x.experimentId)}">
         ${st} <span class="rname" title="${esc(x.experimentId)}">${name}</span> <span class="fineprint">${stateText}</span><br>
-        <span class="muted">${esc(d)} · ${x.totalMs?.toFixed(0) ?? '?'}ms · ${x.inputTokens ?? '?'}/${x.outputTokens ?? '?'} 词元</span>
-        <div class="acts"><a data-act="open">详情</a><a data-act="restore">恢复为对话</a><a data-act="rename">重命名</a><a data-act="del" class="danger">删除</a></div>
+        <span class="muted">${esc(d)} · ${x.totalMs?.toFixed(0) ?? '?'}ms · ${x.inputTokens ?? '?'}/${x.outputTokens ?? '?'} ${t('tokens_unit')}</span>
+        <div class="acts"><a data-act="open">${t('act_details')}</a><a data-act="restore">${t('act_restore')}</a><a data-act="rename">${t('act_rename')}</a><a data-act="del" class="danger">${t('act_delete')}</a></div>
       </li>`;
     }).join('')
-    : '<li class="fineprint">暂无实验。发送消息时勾选「保存实验」即生成可复现的实验包。</li>';
+    :  `<li class="fineprint">${t('no_experiments')}</li>`;
   $('exp-list').querySelectorAll('li[data-id]').forEach((li) => {
     li.querySelector('[data-act="open"]').addEventListener('click', () => openExperiment(li.dataset.id));
     li.querySelector('[data-act="restore"]').addEventListener('click', () => restoreFromExperiment(li.dataset.id));
@@ -793,14 +857,14 @@ async function renameExperiment(id) {
     method: 'POST', headers: { 'content-type': 'application/json' },
     body: JSON.stringify({ name }),
   });
-  if (!res.ok) return alert((await res.json()).error ?? '重命名失败');
+  if (!res.ok) return alert((await res.json()).error ?? t('rename_failed'));
   refreshExperiments();
 }
 
 async function deleteExperiment(id) {
-  if (!confirm('删除这个实验包？其全部文件（含原始字节与哈希链）将被移除，不可恢复。')) return false;
+  if (!confirm(t('confirm_del_exp'))) return false;
   const res = await fetch(`/api/experiments/${encodeURIComponent(id)}/delete`, { method: 'POST' });
-  if (!res.ok) { alert('删除失败'); return false; }
+  if (!res.ok) { alert(t('delete_failed')); return false; }
   refreshExperiments();
   return true;
 }
@@ -810,7 +874,7 @@ async function restoreFromExperiment(id) {
   const msgs = (d.config?.messages ?? [])
     .filter((m) => m.role === 'user' || m.role === 'assistant')
     .map((m) => ({ role: m.role, content: m.content, fileIds: [] })); // 附件需重新上传
-  if (!msgs.length) return alert('该实验没有可恢复的对话内容');
+  if (!msgs.length) return alert(t('nothing_to_restore'));
   state.sessionId = 'sess-exp-' + id.slice(-10);
   state.sessionName = d.name || (d.prompt ?? '').slice(0, 24);
   state.messages = msgs;
@@ -825,17 +889,17 @@ async function openExperiment(id) {
   const d = await (await fetch(`/api/experiments/${encodeURIComponent(id)}`)).json();
   state.currentExpId = id;
   const v = await (await fetch(`/api/experiments/${encodeURIComponent(id)}/verify`)).json();
-  $('exp-title').textContent = d.name || '实验详情';
+  $('exp-title').textContent = d.name || t('exp_default_title');
   $('exp-body').innerHTML = `
-    <p><span class="${v.ok ? 'verify-ok' : 'verify-bad'}">${v.ok ? '✓ 校验通过，记录完整' : '✗ 校验失败，记录可能被改动'}</span>
-       <span class="fineprint">链根 ${(d.manifest?.chainRoot ?? '').slice(0, 16)}… · 由 Harness v${esc(d.manifest?.harnessVersion ?? '?')} 产生</span></p>
-    <h4>系统提示词（发送给模型的原文）</h4><pre>${esc(d.config?.systemPrompt ?? '')}</pre>
-    <h4>模型实际看到的输入</h4><pre>${esc(JSON.stringify(d.result?.renderedMessages ?? [], null, 2))}</pre>
-    <h4>模型与实际生效配置</h4><pre>${esc(JSON.stringify({ model: d.config?.modelId, provider: d.config?.provider, apiModelId: d.config?.apiModelId, requested: { temperature: d.request?.requestedConfig?.temperature, maxTokens: d.request?.requestedConfig?.maxTokens }, resolved: d.request?.resolvedConfig, temperatureSource: d.config?.temperatureSource }, null, 2))}</pre>
-    <h4>最终回答</h4><pre>${esc(d.result?.text ?? '')}</pre>
-    <h4>运行指标</h4><pre>状态=${esc(d.result?.status)} 完成状态=${esc(d.result?.completion)} 结束原因=${esc(d.result?.finishReason)} 首词元延迟=${esc(d.result?.ttftMs)}ms 总耗时=${esc(d.result?.totalMs)}ms 词元用量=${esc(JSON.stringify({ 输入: d.result?.usage?.inputTokens, 输出: d.result?.usage?.outputTokens }))} 尝试次数=${esc(d.result?.attempts)} 重试=${esc(d.result?.retries)}</pre>
-    <h4>事件流（${(d.events ?? []).length} 条，哈希成链）</h4><pre>${esc((d.events ?? []).map((e) => `${e.seq} ${e.type}`).join('\n'))}</pre>
-    <h4>完整性校验明细</h4><pre>${esc(v.checks.map((c) => `${c.ok ? 'OK  ' : 'FAIL'} ${c.name}${c.detail ? ' — ' + c.detail : ''}`).join('\n'))}</pre>`;
+    <p><span class="${v.ok ? 'verify-ok' : 'verify-bad'}">${v.ok ? t('verify_ok') : t('verify_bad')}</span>
+       <span class="fineprint">${t('chain_root')} ${(d.manifest?.chainRoot ?? '').slice(0, 16)}… · ${fmt('produced_by', { v: esc(d.manifest?.harnessVersion ?? '?') })}</span></p>
+    <h4>${t('h_sysprompt')}</h4><pre>${esc(d.config?.systemPrompt ?? '')}</pre>
+    <h4>${t('h_rendered')}</h4><pre>${esc(JSON.stringify(d.result?.renderedMessages ?? [], null, 2))}</pre>
+    <h4>${t('h_resolved')}</h4><pre>${esc(JSON.stringify({ model: d.config?.modelId, provider: d.config?.provider, apiModelId: d.config?.apiModelId, requested: { temperature: d.request?.requestedConfig?.temperature, maxTokens: d.request?.requestedConfig?.maxTokens }, resolved: d.request?.resolvedConfig, temperatureSource: d.config?.temperatureSource }, null, 2))}</pre>
+    <h4>${t('h_final')}</h4><pre>${esc(d.result?.text ?? '')}</pre>
+    <h4>${t('h_metrics')}</h4><pre>${t('m_status')}=${esc(d.result?.status)} ${t('m_completion')}=${esc(d.result?.completion)} ${t('m_finish')}=${esc(d.result?.finishReason)} ${t('m_ttft')}=${esc(d.result?.ttftMs)}ms ${t('m_total')}=${esc(d.result?.totalMs)}ms ${t('m_usage')}=${esc(JSON.stringify({ [t('m_in')]: d.result?.usage?.inputTokens, [t('m_out')]: d.result?.usage?.outputTokens }))} ${t('m_attempts')}=${esc(d.result?.attempts)} ${t('m_retries')}=${esc(d.result?.retries)}</pre>
+    <h4>${fmt('h_events', { n: (d.events ?? []).length })}</h4><pre>${esc((d.events ?? []).map((e) => `${e.seq} ${e.type}`).join('\n'))}</pre>
+    <h4>${t('h_verify')}</h4><pre>${esc(v.checks.map((c) => `${c.ok ? 'OK  ' : 'FAIL'} ${c.name}${c.detail ? ' — ' + c.detail : ''}`).join('\n'))}</pre>`;
   termify($('exp-body'));
   $('exp-dialog').showModal();
 }
@@ -940,7 +1004,7 @@ function demoRun() {
   ].join('\n'));
   const meta = document.createElement('div');
   meta.className = 'meta';
-  meta.textContent = '结束原因=stop · 首词元延迟（TTFT）=412ms · 总耗时=2210ms · 输入词元=37 / 输出词元=89';
+  meta.textContent = `${t('finish_reason')}=stop · ${t('ttft')}=412ms · ${t('total_time')}=2210ms · ${t('tokens_in')}=37 / ${t('tokens_out')}=89`;
   a.parentElement.appendChild(meta);
   termify($('chat'));
 }

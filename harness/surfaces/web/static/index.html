@@ -14,9 +14,9 @@
 
 <header class="topbar">
   <div class="brand">
-    <span class="seal" aria-hidden="true">格物</span>
+    <span class="seal" aria-hidden="true" data-i18n="seal">格物</span>
     <div class="brand-text">
-      <h1>格物台</h1>
+      <h1 data-i18n="brand">格物台</h1>
       <p data-i18n="brand_sub">GeoMark Harness · 模型无关的实验环境</p>
     </div>
   </div>
@@ -31,7 +31,7 @@
 <div id="app">
   <aside id="sidebar" class="panel">
     <section>
-      <label for="model">模型 <span class="fineprint">（<a class="term" data-term="modelagnostic">模型无关</a>，可随时切换）</span></label>
+      <label for="model"><span data-i18n="model">模型</span> <span class="fineprint"><span data-i18n-html="modelagnostic_note">（<a class="term" data-term="modelagnostic">模型无关</a>，可随时切换）</span></span></label>
       <select id="model"></select>
       <div class="row model-row">
         <div id="model-info" class="fineprint"></div>
@@ -40,18 +40,18 @@
     </section>
 
     <section>
-      <label for="system-prompt"><a class="term" data-term="systemprompt" data-i18n="sysprompt">系统提示词</a> <span class="fineprint">（对所有模型完全一致）</span></label>
+      <label for="system-prompt"><a class="term" data-term="systemprompt" data-i18n="sysprompt">系统提示词</a> <span class="fineprint" data-i18n="sysprompt_note">（对所有模型完全一致）</span></label>
       <textarea id="system-prompt" rows="4" placeholder="留空则不发送系统提示词" data-i18n-ph="sysprompt_ph"></textarea>
     </section>
 
     <section class="row">
       <div class="pair">
         <label for="temperature"><a class="term" data-term="temperature" data-i18n="temperature">温度</a>（Temperature）</label>
-        <input id="temperature" type="number" step="0.1" min="0" max="2" placeholder="默认">
+        <input id="temperature" type="number" step="0.1" min="0" max="2" placeholder="默认" data-i18n-ph="unset_ph">
       </div>
       <div class="pair">
         <label for="max-tokens"><a class="term" data-term="maxtokens" data-i18n="maxtokens">最大词元数</a></label>
-        <input id="max-tokens" type="number" step="1" min="1" placeholder="默认">
+        <input id="max-tokens" type="number" step="1" min="1" placeholder="默认" data-i18n-ph="unset_ph">
       </div>
     </section>
 
@@ -60,11 +60,11 @@
       <label class="inline"><input id="reasoning-enabled" type="checkbox"> <span data-i18n="reasoning_enabled">启用推理（若模型支持）</span></label>
       <label for="reasoning-effort" data-i18n="effort_label">推理力度 Effort（OpenAI 风格）</label>
       <select id="reasoning-effort">
-        <option value="">（不发送）</option>
+        <option value="" data-i18n="omit_opt">（不发送）</option>
         <option>low</option><option>medium</option><option>high</option>
       </select>
       <label for="reasoning-budget" data-i18n="budget_label">思考词元预算 Budget（Anthropic 风格）</label>
-      <input id="reasoning-budget" type="number" min="1024" step="1024" placeholder="如 8192">
+      <input id="reasoning-budget" type="number" min="1024" step="1024" placeholder="如 8192" data-i18n-ph="budget_ph">
     </fieldset>
 
     <fieldset>
@@ -83,8 +83,8 @@
   <main id="main">
     <div id="chat">
       <div class="empty-state">
-        <p class="poem" aria-hidden="true">同题共答　千帆竞渡</p>
-        <p class="empty-sub">同一个问题、同一份文件、同一套配置，交给不同的模型。<br>
+        <p class="poem" aria-hidden="true" data-i18n="poem">同题共答　千帆竞渡</p>
+        <p class="empty-sub" data-i18n-html="empty_sub">同一个问题、同一份文件、同一套配置，交给不同的模型。<br>
         实验环境只负责把条件原样送达每个模型，不做任何偏袒。</p>
       </div>
     </div>
@@ -93,7 +93,7 @@
     </button>
     <form id="composer">
       <div class="composer-left">
-        <span id="run-status" class="chip status-idle" data-state="idle">就绪</span>
+        <span id="run-status" class="chip status-idle" data-state="idle" data-i18n="status_idle">就绪</span>
       </div>
       <textarea id="prompt" rows="3" placeholder="输入提示词…（Enter 发送，Shift+Enter 换行）" data-i18n-ph="prompt_ph"></textarea>
       <button type="submit" id="btn-send" class="btn primary" data-i18n="send">发送</button>
@@ -113,7 +113,7 @@
   <article>
     <header><h3 id="term-title"></h3><button id="term-close" class="btn ghost close" type="button" data-i18n="close">关闭</button></header>
     <p id="term-body"></p>
-    <footer class="fineprint">术语说明 · 固定文案，非模型生成</footer>
+    <footer class="fineprint" data-i18n="term_footer">术语说明 · 固定文案，非模型生成</footer>
   </article>
 </dialog>
 
@@ -121,10 +121,10 @@
 <dialog id="keys-dialog" class="term-dialog">
   <article>
     <header><h3 data-i18n="dlg_keys">API 密钥</h3><button id="keys-close" class="btn ghost close" type="button" data-i18n="close">关闭</button></header>
-    <p class="fineprint">密钥只保存在本机 config/secrets.json（已被 git 忽略），只进内存，绝不写入日志与实验记录。</p>
-    <label for="key-openai">OpenAI Compatible 协议密钥</label>
+    <p class="fineprint" data-i18n="keys_fineprint">密钥只保存在本机 config/secrets.json（已被 git 忽略），只进内存，绝不写入日志与实验记录。</p>
+    <label for="key-openai" data-i18n="key_openai_label">OpenAI Compatible 协议密钥</label>
     <input id="key-openai" type="password" autocomplete="off" placeholder="sk-…">
-    <label for="key-anthropic">Anthropic 协议密钥</label>
+    <label for="key-anthropic" data-i18n="key_anthropic_label">Anthropic 协议密钥</label>
     <input id="key-anthropic" type="password" autocomplete="off" placeholder="sk-ant-…">
     <div class="dialog-foot">
       <span id="keys-msg" class="fineprint"></span>
@@ -137,53 +137,53 @@
 <dialog id="model-dialog" class="term-dialog wide">
   <article>
     <header><h3 data-i18n="dlg_model">模型配置</h3><button id="model-close" class="btn ghost close" type="button" data-i18n="close">关闭</button></header>
-    <label for="model-existing">已有模型（选中即编辑其配置）</label>
+    <label for="model-existing" data-i18n="existing_label">已有模型（选中即编辑其配置）</label>
     <select id="model-existing">
-      <option value="">＋ 新建模型</option>
+      <option value="" data-i18n="new_model">＋ 新建模型</option>
     </select>
-    <label for="model-preset">从预设开始（仅填充协议、地址与模型 ID，可自由修改）</label>
+    <label for="model-preset" data-i18n="preset_label">从预设开始（仅填充协议、地址与模型 ID，可自由修改）</label>
     <select id="model-preset">
-      <option value="">自定义接口</option>
+      <option value="" data-i18n="custom_endpoint">自定义接口</option>
     </select>
     <div class="row">
       <div class="pair">
-        <label for="model-provider">协议类型</label>
+        <label for="model-provider" data-i18n="provider_label">协议类型</label>
         <select id="model-provider">
           <option value="openai-compatible">OpenAI Compatible</option>
           <option value="anthropic">Anthropic</option>
         </select>
       </div>
       <div class="pair">
-        <label for="model-name">显示名称</label>
-        <input id="model-name" type="text" placeholder="如 DeepSeek">
+        <label for="model-name" data-i18n="name_label">显示名称</label>
+        <input id="model-name" type="text" placeholder="如 DeepSeek" data-i18n-ph="name_ph">
       </div>
     </div>
-    <label for="model-baseurl">API 地址（Base URL）</label>
+    <label for="model-baseurl" data-i18n="baseurl_label">API 地址（Base URL）</label>
     <input id="model-baseurl" type="text" placeholder="https://api.example.com/v1">
     <div class="row">
       <div class="pair">
-        <label for="model-endpoint">接口路径（可选，默认按协议）</label>
+        <label for="model-endpoint" data-i18n="endpoint_label">接口路径（可选，默认按协议）</label>
         <input id="model-endpoint" type="text" placeholder="/chat/completions">
       </div>
       <div class="pair">
-        <label for="model-id">模型 ID</label>
+        <label for="model-id" data-i18n="modelid_label">模型 ID</label>
         <input id="model-id" type="text" placeholder="example-model">
       </div>
     </div>
-    <label for="model-key">API 密钥（可留空使用全局密钥；只保存在本机）</label>
+    <label for="model-key" data-i18n="modelkey_label">API 密钥（可留空使用全局密钥；只保存在本机）</label>
     <input id="model-key" type="password" autocomplete="off" placeholder="••••••••">
     <div class="row">
       <div class="pair">
-        <label for="model-def-temp">默认温度</label>
-        <input id="model-def-temp" type="number" step="0.1" min="0" max="2" placeholder="不设置">
+        <label for="model-def-temp" data-i18n="def_temp">默认温度</label>
+        <input id="model-def-temp" type="number" step="0.1" min="0" max="2" placeholder="不设置" data-i18n-ph="unset_ph">
       </div>
       <div class="pair">
-        <label for="model-def-max">默认最大词元数</label>
-        <input id="model-def-max" type="number" step="1" min="1" placeholder="不设置">
+        <label for="model-def-max" data-i18n="def_max">默认最大词元数</label>
+        <input id="model-def-max" type="number" step="1" min="1" placeholder="不设置" data-i18n-ph="unset_ph">
       </div>
     </div>
-    <label class="inline"><input id="model-reasoning" type="checkbox"> 该模型支持原生推理</label>
-    <label for="model-extra">Extra Body（JSON，可选；会原样并入请求体并记录）</label>
+    <label class="inline"><input id="model-reasoning" type="checkbox"> <span data-i18n="supports_reasoning">该模型支持原生推理</span></label>
+    <label for="model-extra" data-i18n="extra_label">Extra Body（JSON，可选；会原样并入请求体并记录）</label>
     <textarea id="model-extra" rows="2" placeholder='如 {"top_k": 5}'></textarea>
     <div class="dialog-foot">
       <button id="model-delete" class="btn ghost" type="button" data-i18n="delete_model">删除此模型</button>
@@ -204,8 +204,8 @@
     <div class="dialog-foot" id="exp-actions">
       <button id="exp-restore" class="btn primary" type="button" data-i18n="restore_chat">恢复为当前对话</button>
       <span class="dialog-foot-right">
-        <button id="exp-rename" class="btn ghost" type="button">重命名</button>
-        <button id="exp-delete" class="btn ghost" type="button">删除实验</button>
+        <button id="exp-rename" class="btn ghost" type="button" data-i18n="rename">重命名</button>
+        <button id="exp-delete" class="btn ghost" type="button" data-i18n="delete_exp">删除实验</button>
       </span>
     </div>
   </article>

@@ -409,3 +409,6 @@ a.term:focus-visible { outline: 1px dashed var(--gold-dim); outline-offset: 2px;
   }
   #chat { scroll-behavior: auto; }
 }
+
+/* 英文模式下空态诗改横排（中文竖排仅适用于汉字） */
+html[lang="en"] .poem { writing-mode: horizontal-tb; letter-spacing: 3px; font-size: 26px; }
