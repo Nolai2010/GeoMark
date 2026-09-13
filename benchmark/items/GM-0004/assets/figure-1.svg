@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 380" font-family="Georgia, 'Times New Roman', serif" font-style="italic">
+  <!-- 图10：黄金矩形 ABCD 与第一次折叠 -->
+  <g transform="translate(30,40)">
+    <rect x="0" y="0" width="485" height="300" fill="none" stroke="#2b2b2b" stroke-width="2.5"/>
+    <line x1="0" y1="0" x2="300" y2="300" stroke="#8a8a8a" stroke-width="2" stroke-dasharray="7 5"/>
+    <line x1="300" y1="0" x2="300" y2="300" stroke="#b54434" stroke-width="2"/>
+    <circle cx="300" cy="0" r="4.5" fill="#2b2b2b"/>
+    <circle cx="300" cy="300" r="4.5" fill="#2b2b2b"/>
+    <text x="-22" y="8" font-size="24">A</text>
+    <text x="290" y="-12" font-size="24">E</text>
+    <text x="496" y="8" font-size="24">D</text>
+    <text x="-22" y="310" font-size="24">B</text>
+    <text x="292" y="326" font-size="24">F</text>
+    <text x="496" y="310" font-size="24">C</text>
+    <text x="180" y="360" font-size="18" font-style="normal" fill="#666">图 10　沿 AF 折叠，使点 B 落在 AD 上的点 E 处</text>
+  </g>
+</svg>

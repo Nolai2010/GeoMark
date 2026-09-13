@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 420" font-family="Georgia, 'Times New Roman', serif" font-style="italic">
+  <!-- 图11：第二次折叠（沿 PF，B 落在 FG 上的 H） -->
+  <g transform="translate(40,50)">
+    <rect x="0" y="0" width="485" height="300" fill="none" stroke="#2b2b2b" stroke-width="2.5"/>
+    <!-- EF -->
+    <line x1="300" y1="0" x2="300" y2="300" stroke="#8a8a8a" stroke-width="1.8"/>
+    <!-- crease PF -->
+    <line x1="0" y1="114.6" x2="300" y2="300" stroke="#b54434" stroke-width="2.2"/>
+    <!-- folded image PH and HF (along FG) -->
+    <line x1="0" y1="114.6" x2="165.8" y2="31.7" stroke="#1f6f5c" stroke-width="2.2"/>
+    <line x1="165.8" y1="31.7" x2="300" y2="300" stroke="#1f6f5c" stroke-width="2.2" stroke-dasharray="5 4"/>
+    <!-- FG extended lightly -->
+    <line x1="150" y1="0" x2="165.8" y2="31.7" stroke="#1f6f5c" stroke-width="1.6" stroke-dasharray="3 4"/>
+    <!-- PQ -->
+    <line x1="0" y1="114.6" x2="300" y2="114.6" stroke="#2b2b2b" stroke-width="1.6" stroke-dasharray="6 4"/>
+    <!-- right angle mark at H -->
+    <path d="M 158 45 l 12 -6.5 l 7.5 13.5" fill="none" stroke="#1f6f5c" stroke-width="1.6"/>
+    <!-- points -->
+    <circle cx="150" cy="0" r="4.5" fill="#2b2b2b"/>
+    <circle cx="165.8" cy="31.7" r="4.5" fill="#1f6f5c"/>
+    <circle cx="0" cy="114.6" r="4.5" fill="#b54434"/>
+    <circle cx="300" cy="114.6" r="4.5" fill="#2b2b2b"/>
+    <circle cx="300" cy="0" r="4.5" fill="#2b2b2b"/>
+    <circle cx="300" cy="300" r="4.5" fill="#2b2b2b"/>
+    <!-- labels -->
+    <text x="-22" y="6" font-size="24">A</text>
+    <text x="132" y="-12" font-size="24">G</text>
+    <text x="292" y="-12" font-size="24">E</text>
+    <text x="496" y="6" font-size="24">D</text>
+    <text x="184" y="30" font-size="24" fill="#1f6f5c">H</text>
+    <text x="-22" y="122" font-size="24" fill="#b54434">P</text>
+    <text x="310" y="120" font-size="24">Q</text>
+    <text x="-22" y="310" font-size="24">B</text>
+    <text x="292" y="326" font-size="24">F</text>
+    <text x="496" y="310" font-size="24">C</text>
+    <text x="60" y="366" font-size="18" font-style="normal" fill="#666">图 11　沿 PF 折叠，使点 B 落在 FG 上的点 H 处（PQ ∥ AD）</text>
+  </g>
+</svg>
