@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>格物台 · GeoMark Harness</title>
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23c34a2f'/%3E%3Ctext x='16' y='22' font-size='14' text-anchor='middle' fill='%23f5efe0' font-family='serif'%3E格%3C/text%3E%3C/svg%3E">
+<script src="theme.js"></script>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="seal" aria-hidden="true">格物</span>
+    <div class="brand-text">
+      <h1>格物台</h1>
+      <p>GeoMark Harness · 模型无关的实验环境</p>
+    </div>
+  </div>
+  <div class="topbar-actions">
+    <span id="key-dots" class="key-dots" title="API 密钥状态"></span>
+    <button id="btn-keys" class="btn ghost" type="button">API 密钥</button>
+    <button id="btn-theme" class="btn ghost" type="button" title="切换亮色 / 暗色 / 跟随系统">主题</button>
+  </div>
+</header>
+
+<div id="app">
+  <aside id="sidebar" class="panel">
+    <section>
+      <label for="model">模型 <span class="fineprint">（<a class="term" data-term="modelagnostic">模型无关</a>，可随时切换）</span></label>
+      <select id="model"></select>
+      <div class="row model-row">
+        <div id="model-info" class="fineprint"></div>
+        <button id="btn-model-manage" class="btn ghost small-btn" type="button">管理模型</button>
+      </div>
+    </section>
+
+    <section>
+      <label for="system-prompt"><a class="term" data-term="systemprompt">系统提示词</a> <span class="fineprint">（对所有模型完全一致）</span></label>
+      <textarea id="system-prompt" rows="4" placeholder="留空则不发送系统提示词"></textarea>
+    </section>
+
+    <section class="row">
+      <div class="pair">
+        <label for="temperature"><a class="term" data-term="temperature">温度</a>（Temperature）</label>
+        <input id="temperature" type="number" step="0.1" min="0" max="2" placeholder="默认">
+      </div>
+      <div class="pair">
+        <label for="max-tokens"><a class="term" data-term="maxtokens">最大词元数</a></label>
+        <input id="max-tokens" type="number" step="1" min="1" placeholder="默认">
+      </div>
+    </section>
+
+    <fieldset>
+      <legend>推理（模型原生，直接透传）</legend>
+      <label class="inline"><input id="reasoning-enabled" type="checkbox"> 启用推理（若模型支持）</label>
+      <label for="reasoning-effort">推理力度 Effort（OpenAI 风格）</label>
+      <select id="reasoning-effort">
+        <option value="">（不发送）</option>
+        <option>low</option><option>medium</option><option>high</option>
+      </select>
+      <label for="reasoning-budget">思考词元预算 Budget（Anthropic 风格）</label>
+      <input id="reasoning-budget" type="number" min="1024" step="1024" placeholder="如 8192">
+    </fieldset>
+
+    <fieldset>
+      <legend>文件（显式附加，仅读取所选文件）</legend>
+      <input id="file-input" type="file" multiple>
+      <ul id="file-list" class="fineprint"></ul>
+    </fieldset>
+
+    <label class="inline mode-line">
+      <input id="experiment-mode" type="checkbox" checked>
+      保存实验（<a class="term" data-term="expbundle">实验包</a>完整存档）
+    </label>
+    <button id="btn-clear" class="btn ghost" type="button">清空对话</button>
+  </aside>
+
+  <main id="main">
+    <div id="chat">
+      <div class="empty-state">
+        <p class="poem" aria-hidden="true">同题共答　千帆竞渡</p>
+        <p class="empty-sub">同一个问题、同一份文件、同一套配置，交给不同的模型。<br>
+        实验环境只负责把条件原样送达每个模型，不做任何偏袒。</p>
+      </div>
+    </div>
+    <button id="btn-to-bottom" class="scroll-btn" type="button" aria-label="跳到最新回复" title="跳到最新回复">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 4v14m0 0l-6-6m6 6l6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <form id="composer">
+      <div class="composer-left">
+        <span id="run-status" class="chip status-idle" data-state="idle">就绪</span>
+      </div>
+      <textarea id="prompt" rows="3" placeholder="输入提示词…（Enter 发送，Shift+Enter 换行）"></textarea>
+      <button type="submit" id="btn-send" class="btn primary">发送</button>
+    </form>
+  </main>
+
+  <aside id="rightbar" class="panel">
+    <h2>对话记录</h2>
+    <ul id="session-list" class="record-list"></ul>
+    <h2>实验记录</h2>
+    <ul id="exp-list"></ul>
+  </aside>
+</div>
+
+<!-- 术语说明：原生 <dialog>，点击页面中同貌术语即展开（打字机流式呈现固定文案） -->
+<dialog id="term-dialog" class="term-dialog">
+  <article>
+    <header><h3 id="term-title"></h3><button id="term-close" class="btn ghost close" type="button">关闭</button></header>
+    <p id="term-body"></p>
+    <footer class="fineprint">术语说明 · 固定文案，非模型生成</footer>
+  </article>
+</dialog>
+
+<!-- API 密钥：页面内配置，无需命令行 -->
+<dialog id="keys-dialog" class="term-dialog">
+  <article>
+    <header><h3>API 密钥</h3><button id="keys-close" class="btn ghost close" type="button">关闭</button></header>
+    <p class="fineprint">密钥只保存在本机 config/secrets.json（已被 git 忽略），只进内存，绝不写入日志与实验记录。</p>
+    <label for="key-openai">OpenAI Compatible 协议密钥</label>
+    <input id="key-openai" type="password" autocomplete="off" placeholder="sk-…">
+    <label for="key-anthropic">Anthropic 协议密钥</label>
+    <input id="key-anthropic" type="password" autocomplete="off" placeholder="sk-ant-…">
+    <div class="dialog-foot">
+      <span id="keys-msg" class="fineprint"></span>
+      <button id="keys-save" class="btn primary" type="button">保存</button>
+    </div>
+  </article>
+</dialog>
+
+<!-- 模型配置：预设 / 自定义接口 -->
+<dialog id="model-dialog" class="term-dialog wide">
+  <article>
+    <header><h3>模型配置</h3><button id="model-close" class="btn ghost close" type="button">关闭</button></header>
+    <label for="model-existing">已有模型（选中即编辑其配置）</label>
+    <select id="model-existing">
+      <option value="">＋ 新建模型</option>
+    </select>
+    <label for="model-preset">从预设开始（仅填充协议、地址与模型 ID，可自由修改）</label>
+    <select id="model-preset">
+      <option value="">自定义接口</option>
+    </select>
+    <div class="row">
+      <div class="pair">
+        <label for="model-provider">协议类型</label>
+        <select id="model-provider">
+          <option value="openai-compatible">OpenAI Compatible</option>
+          <option value="anthropic">Anthropic</option>
+        </select>
+      </div>
+      <div class="pair">
+        <label for="model-name">显示名称</label>
+        <input id="model-name" type="text" placeholder="如 DeepSeek">
+      </div>
+    </div>
+    <label for="model-baseurl">API 地址（Base URL）</label>
+    <input id="model-baseurl" type="text" placeholder="https://api.example.com/v1">
+    <div class="row">
+      <div class="pair">
+        <label for="model-endpoint">接口路径（可选，默认按协议）</label>
+        <input id="model-endpoint" type="text" placeholder="/chat/completions">
+      </div>
+      <div class="pair">
+        <label for="model-id">模型 ID</label>
+        <input id="model-id" type="text" placeholder="example-model">
+      </div>
+    </div>
+    <label for="model-key">API 密钥（可留空使用全局密钥；只保存在本机）</label>
+    <input id="model-key" type="password" autocomplete="off" placeholder="••••••••">
+    <div class="row">
+      <div class="pair">
+        <label for="model-def-temp">默认温度</label>
+        <input id="model-def-temp" type="number" step="0.1" min="0" max="2" placeholder="不设置">
+      </div>
+      <div class="pair">
+        <label for="model-def-max">默认最大词元数</label>
+        <input id="model-def-max" type="number" step="1" min="1" placeholder="不设置">
+      </div>
+    </div>
+    <label class="inline"><input id="model-reasoning" type="checkbox"> 该模型支持原生推理</label>
+    <label for="model-extra">Extra Body（JSON，可选；会原样并入请求体并记录）</label>
+    <textarea id="model-extra" rows="2" placeholder='如 {"top_k": 5}'></textarea>
+    <div class="dialog-foot">
+      <button id="model-delete" class="btn ghost" type="button">删除此模型</button>
+      <span class="dialog-foot-right">
+        <span id="model-test-msg" class="fineprint"></span>
+        <button id="model-test" class="btn ghost" type="button">测试连接</button>
+        <button id="model-save" class="btn primary" type="button">保存模型</button>
+      </span>
+    </div>
+  </article>
+</dialog>
+
+<!-- 实验详情 -->
+<dialog id="exp-dialog" class="term-dialog wide">
+  <article>
+    <header><h3 id="exp-title">实验详情</h3><button id="exp-close" class="btn ghost close" type="button">关闭</button></header>
+    <div id="exp-body"></div>
+    <div class="dialog-foot" id="exp-actions">
+      <button id="exp-restore" class="btn primary" type="button">恢复为当前对话</button>
+      <span class="dialog-foot-right">
+        <button id="exp-rename" class="btn ghost" type="button">重命名</button>
+        <button id="exp-delete" class="btn ghost" type="button">删除实验</button>
+      </span>
+    </div>
+  </article>
+</dialog>
+
+<script src="vendor/katex/katex.min.js"></script>
+<script src="markdown.js"></script>
+<script src="glossary.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+{
+  "provider": "openai-compatible",
+  "specVersion": 1,
+  "endpoint": { "path": "/chat/completions", "method": "POST" },
+  "auth": { "type": "bearer" },
+  "fixedHeaders": { "content-type": "application/json", "accept": "text/event-stream" },
+  "messagesStyle": "openai",
+  "request": {
+    "template": {
+      "model": "$.apiModelId",
+      "messages": "$.messages",
+      "stream": true,
+      "stream_options": { "include_usage": true }
+    },
+    "optional": {
+      "temperature": "$.temperature",
+      "top_p": "$.topP",
+      "max_tokens": "$.maxTokens",
+      "reasoning_effort": "$.reasoning.effort"
+    }
+  },
+  "stream": { "doneMarker": "[DONE]" },
+  "events": [
+    {
+      "when": [
+        { "path": "data.choices.0.delta.content", "present": true },
+        { "path": "data.choices.0.delta.content", "notEquals": null }
+      ],
+      "text": "data.choices.0.delta.content"
+    },
+    {
+      "when": [
+        { "path": "data.choices.0.delta.reasoning_content", "present": true },
+        { "path": "data.choices.0.delta.reasoning_content", "notEquals": null }
+      ],
+      "reasoningText": "data.choices.0.delta.reasoning_content"
+    },
+    {
+      "when": [
+        { "path": "data.choices.0.delta.reasoning", "present": true },
+        { "path": "data.choices.0.delta.reasoning", "notEquals": null }
+      ],
+      "reasoningText": "data.choices.0.delta.reasoning"
+    },
+    {
+      "when": [
+        { "path": "data.choices.0.finish_reason", "present": true },
+        { "path": "data.choices.0.finish_reason", "notEquals": null }
+      ],
+      "finishReason": "data.choices.0.finish_reason"
+    },
+    {
+      "when": [{ "path": "data.usage", "present": true }],
+      "usage": {
+        "inputPath": "data.usage.prompt_tokens",
+        "outputPath": "data.usage.completion_tokens",
+        "raw": "data.usage"
+      }
+    },
+    {
+      "when": [{ "path": "data.error", "present": true }],
+      "error": { "message": "data.error.message", "fallback": "provider returned an error" }
+    }
+  ]
+}

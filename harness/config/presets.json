@@ -1,0 +1,60 @@
+{
+  "presets": [
+    {
+      "id": "deepseek",
+      "label": "DeepSeek",
+      "provider": "openai-compatible",
+      "baseUrl": "https://api.deepseek.com",
+      "apiModelId": "deepseek-flash",
+      "endpointPath": "/chat/completions"
+    },
+    {
+      "id": "qwen",
+      "label": "Qwen（通义千问）",
+      "provider": "openai-compatible",
+      "baseUrl": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+      "apiModelId": "qwen-plus",
+      "endpointPath": "/chat/completions"
+    },
+    {
+      "id": "kimi",
+      "label": "Kimi（月之暗面）",
+      "provider": "openai-compatible",
+      "baseUrl": "https://api.moonshot.cn/v1",
+      "apiModelId": "kimi-k2-turbo-preview",
+      "endpointPath": "/chat/completions"
+    },
+    {
+      "id": "minimax",
+      "label": "MiniMax",
+      "provider": "openai-compatible",
+      "baseUrl": "https://api.minimaxi.com/v1",
+      "apiModelId": "MiniMax-Text-01",
+      "endpointPath": "/chat/completions"
+    },
+    {
+      "id": "chatglm",
+      "label": "ChatGLM（智谱）",
+      "provider": "openai-compatible",
+      "baseUrl": "https://open.bigmodel.cn/api/paas/v4",
+      "apiModelId": "glm-4-plus",
+      "endpointPath": "/chat/completions"
+    },
+    {
+      "id": "openai",
+      "label": "OpenAI",
+      "provider": "openai-compatible",
+      "baseUrl": "https://api.openai.com/v1",
+      "apiModelId": "gpt-4o-mini",
+      "endpointPath": "/chat/completions"
+    },
+    {
+      "id": "anthropic",
+      "label": "Anthropic",
+      "provider": "anthropic",
+      "baseUrl": "https://api.anthropic.com",
+      "apiModelId": "claude-sonnet-4-5",
+      "endpointPath": "/v1/messages"
+    }
+  ]
+}

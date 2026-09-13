@@ -1,0 +1,9 @@
+# secrets & runs never leave the machine
+config/secrets.json
+uploads/
+experiments/*
+!experiments/.gitkeep
+__pycache__/
+node_modules/
+config/models.json
+config/secrets.json

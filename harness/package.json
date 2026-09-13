@@ -1,0 +1,16 @@
+{
+  "name": "geomark-harness",
+  "version": "0.6.0",
+  "private": true,
+  "description": "Model-agnostic, neutral, auditable AI Agent experiment harness. Zero npm dependencies, zero build step.",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node surfaces/web/server.mjs",
+    "cli": "node surfaces/cli/cli.mjs",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "license": "MIT"
+}

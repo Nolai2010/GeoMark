@@ -1,0 +1,22 @@
+{
+  "models": [
+    {
+      "id": "example-openai-compat",
+      "provider": "openai-compatible",
+      "base_url": "http://127.0.0.1:15721/v1",
+      "api_model_id": "gpt-5.6-sol",
+      "display_name": "Example (OpenAI-compatible proxy)",
+      "supports_reasoning": true,
+      "extra_body": {}
+    },
+    {
+      "id": "example-anthropic",
+      "provider": "anthropic",
+      "base_url": "https://api.anthropic.com",
+      "api_model_id": "claude-sonnet-4-5",
+      "display_name": "Example (Anthropic)",
+      "supports_reasoning": true,
+      "extra_body": {}
+    }
+  ]
+}

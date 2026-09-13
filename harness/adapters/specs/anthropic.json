@@ -1,0 +1,77 @@
+{
+  "provider": "anthropic",
+  "specVersion": 1,
+  "endpoint": { "path": "/v1/messages", "method": "POST" },
+  "auth": { "type": "header", "name": "x-api-key" },
+  "fixedHeaders": {
+    "content-type": "application/json",
+    "accept": "text/event-stream",
+    "anthropic-version": "2023-06-01"
+  },
+  "messagesStyle": "anthropic",
+  "request": {
+    "template": {
+      "model": "$.apiModelId",
+      "messages": "$.messages",
+      "system": "$.system",
+      "stream": true,
+      "max_tokens": { "$from": "$.maxTokens", "$default": 4096 }
+    },
+    "optional": {
+      "temperature": "$.temperature",
+      "top_p": "$.topP",
+      "thinking": {
+        "$if": "$.reasoning.hasBudget",
+        "$then": { "type": "enabled", "budget_tokens": "$.reasoning.budgetTokens" },
+        "$else": null
+      }
+    }
+  },
+  "stream": { "doneMarker": null },
+  "events": [
+    {
+      "when": [
+        { "path": "sseEvent", "equals": "content_block_delta" },
+        { "path": "data.delta.type", "equals": "text_delta" }
+      ],
+      "text": "data.delta.text"
+    },
+    {
+      "when": [
+        { "path": "sseEvent", "equals": "content_block_delta" },
+        { "path": "data.delta.type", "equals": "thinking_delta" }
+      ],
+      "reasoningText": "data.delta.thinking"
+    },
+    {
+      "when": [
+        { "path": "sseEvent", "equals": "message_delta" },
+        { "path": "data.delta.stop_reason", "present": true }
+      ],
+      "finishReason": "data.delta.stop_reason"
+    },
+    {
+      "when": [{ "path": "sseEvent", "equals": "message_start" }],
+      "usage": {
+        "inputPath": "data.message.usage.input_tokens",
+        "outputPath": "data.message.usage.output_tokens",
+        "raw": "data.message.usage"
+      }
+    },
+    {
+      "when": [
+        { "path": "sseEvent", "equals": "message_delta" },
+        { "path": "data.usage.output_tokens", "present": true }
+      ],
+      "usage": { "outputPath": "data.usage.output_tokens" }
+    },
+    {
+      "when": [{ "path": "sseEvent", "equals": "message_stop" }],
+      "markComplete": true
+    },
+    {
+      "when": [{ "path": "data.type", "equals": "error" }],
+      "error": { "message": "data.error.message", "fallback": "provider returned an error" }
+    }
+  ]
+}

@@ -1,0 +1,180 @@
+/* 术语说明 · GeoMark Harness
+ * 所有解释均为预先写定的文字（非 AI 对话）。点击页面中出现的本词即可展开，逐字流式呈现。
+ * 这些文案只属于界面说明，不属于模型输入，不会进入任何实验记录。
+ */
+window.GLOSSARY = [
+  {
+    key: 'reasoning',
+    match: ['推理', 'Reasoning', 'reasoning', '思考链', '思维链'],
+    title: '推理（Reasoning）',
+    body: '有的模型在给出答案前，会先在内部推演一遍，并把中间过程单独输出，这就是模型原生的推理能力。本实验环境不做任何加工：模型支持，就把开关原样传给接口；模型不支持，也不会假装它有。界面上看到的思考过程是模型自己输出的原文，一字未改。',
+  },
+  {
+    key: 'streaming',
+    match: ['流式输出', '流式', 'Streaming', 'streaming', 'SSE'],
+    title: '流式输出（Streaming / SSE）',
+    body: '模型一边生成、一边把文字分段传回，而不是等全部完成再返回，这就是流式输出。底层使用 SSE（Server-Sent Events）：服务端单向持续推送，前端收到一段就显示一段。你看到的逐字浮现就是这条通道在工作。',
+  },
+  {
+    key: 'token',
+    match: ['词元', 'Token', 'token', 'tokens'],
+    title: '词元（Token）',
+    body: '模型读写文本的基本单位是词元：大约半个到一个汉字，或大半个英文单词。接口统计的输入词元与输出词元，就是本次对话各自的消耗量，也是计费和速度的主要依据。',
+  },
+  {
+    key: 'temperature',
+    match: ['温度', 'Temperature', 'temperature'],
+    title: '温度（Temperature）',
+    body: '温度控制模型选词的随机程度。低温更稳定保守，高温更多样。留空则不发送该参数，由服务方使用默认值。实验环境只负责原样传递，不做二次调整。',
+  },
+  {
+    key: 'topp',
+    match: ['Top-P', 'top_p', 'topP', '核采样'],
+    title: 'Top-P（核采样）',
+    body: '另一种限制选词范围的方法：只在累计概率前 P 的候选词元中选取。它与温度是两套并行的机制，通常调其中一个即可。留空同样不发送。',
+  },
+  {
+    key: 'systemprompt',
+    match: ['系统提示词', 'System Prompt', 'system prompt'],
+    title: '系统提示词（System Prompt）',
+    body: '在用户问题之前给模型的一段设定，决定它的角色、语气与边界。本实验环境的规则：所有模型收到逐字节相同的系统提示词，没有隐藏版本。输入框里写什么，模型就收到什么。',
+  },
+  {
+    key: 'maxtokens',
+    match: ['最大词元数', 'Max Tokens', 'max_tokens', 'maxTokens'],
+    title: '最大词元数（Max Tokens）',
+    body: '回答长度的上限，到达即停止。注意 Anthropic 协议把这项列为必填，所以本环境在该协议下默认 4096，并如实写入实验记录。留空则使用协议默认值。',
+  },
+  {
+    key: 'ttft',
+    match: ['TTFT', '首词元延迟', 'ttftMs'],
+    title: '首词元延迟（TTFT）',
+    body: 'Time To First Token：从发出请求到第一个词元出现的毫秒数，也就是"等多久开始出字"。它与总耗时分开记录，是衡量流式体验最直接的指标。',
+  },
+  {
+    key: 'finishreason',
+    match: ['结束原因', 'finish_reason', 'finishReason'],
+    title: '结束原因（finish_reason）',
+    body: '模型停止时留下的说明：正常说完（stop）、到达长度上限，还是被其他原因截断。比较模型时值得一并查看，因为"没说完"和"说完了"不是一个结果。',
+  },
+  {
+    key: 'adapter',
+    match: ['适配器', 'Adapter', 'adapter'],
+    title: '适配器（Adapter）',
+    body: '各家模型的接口协议不同，适配器只做一件事：把统一的问题翻译成目标协议格式，再把返回内容翻译回统一格式。翻译之外，一字不增、一字不减。',
+  },
+  {
+    key: 'spec',
+    match: ['协议规范', '声明式', 'spec'],
+    title: '协议规范（Spec）',
+    body: '适配器的全部协议知识写在公开的 JSON 映射文件里：字段从哪来、到哪里去、何时触发，逐条可见。审计中立性时读表即可，不需要猜代码里藏了什么。',
+  },
+  {
+    key: 'provider',
+    match: ['服务提供商', 'Provider', 'provider', '服务商'],
+    title: '服务提供商（Provider）',
+    body: '提供模型 API 的服务方。本环境按协议区分：OpenAI Compatible（兼容 OpenAI 接口的大量服务，如 DeepSeek、Qwen、Kimi、MiniMax、ChatGLM 等）与 Anthropic。接入新的服务只需要填对协议、API 地址和模型 ID。',
+  },
+  {
+    key: 'customendpoint',
+    match: ['自定义接口', 'Custom Endpoint'],
+    title: '自定义接口（Custom Endpoint）',
+    body: '当预设不满足时，可以自行配置：协议类型、API 地址、接口路径、API 密钥、模型 ID、自定义请求头与 Extra Body。所有配置都会原样写入实验记录，密钥除外。',
+  },
+  {
+    key: 'preset',
+    match: ['预设', 'Preset', 'preset'],
+    title: '预设（Preset）',
+    body: '预设只是一份配置模板：协议类型、API 地址、默认模型 ID。它不包含任何提示词，也不会改变实验环境的行为——选不同预设，实验条件依然只由你的输入决定。',
+  },
+  {
+    key: 'baseurl',
+    match: ['API 地址', '基础 URL', 'Base URL', 'base_url'],
+    title: 'API 地址（Base URL）',
+    body: '服务方接口的根地址，例如 https://api.deepseek.com。实验环境会在它后面拼接接口路径发起请求。填写时去掉末尾多余的斜杠即可。',
+  },
+  {
+    key: 'hashchain',
+    match: ['Merkle 哈希链', '哈希链', '事件链', '链根', 'hash chain'],
+    title: '哈希链',
+    body: '每条事件在记录时都计算一个指纹，且指纹里包含上一条的指纹。环环相扣：改动任何一条，其后所有指纹都对不上。实验记录里的"链根"就是整条链的最终指纹。',
+  },
+  {
+    key: 'sha256',
+    match: ['SHA-256', 'sha256', '指纹'],
+    title: 'SHA-256',
+    body: '一种标准摘要算法：任意内容输入后得到一串 64 位十六进制指纹。内容改变一个标点，指纹就完全不同。本环境用它为事件与文件封存。',
+  },
+  {
+    key: 'expbundle',
+    match: ['实验包', '实验目录'],
+    title: '实验包',
+    body: '一次运行对应一个独立目录：config.json 是当时的请求配置，prompt.txt 是最终提示词，files/ 是输入文件的逐字节副本，request.json 是适配器实际发送的请求（已脱敏），events.jsonl 是哈希链事件流，raw/ 是模型返回的原始字节，result.json 是最终结果，manifest.json 是全部产物的指纹清单。',
+  },
+  {
+    key: 'rawcapture',
+    match: ['原始字节', '原始捕获', 'response.sse'],
+    title: '原始字节捕获',
+    body: '模型返回的每一个字节都原样留存。它不是整理后的摘要，而是通信本来的样子。有了它，任何一次实验都可以在之后重新完整重放。',
+  },
+  {
+    key: 'replay',
+    match: ['离线重放', '重放', 'Replay', 'replay'],
+    title: '离线重放',
+    body: '不联网、不调接口，用留存的原始字节驱动同一套规则引擎，逐字还原当时的输出。科研复核与演示都可以使用，结果与当天完全一致。',
+  },
+  {
+    key: 'guard',
+    match: ['中立卫兵', '中立性', '冻结', '快照'],
+    title: '中立卫兵',
+    body: '发给适配器之前，渲染好的输入会被冻结并记录指纹；适配器返回后立即复核。任何改动——哪怕一个空格——本次运行立即作废并留下记录。模型不会被偏袒。',
+  },
+  {
+    key: 'modelagnostic',
+    match: ['模型无关', 'Model-Agnostic'],
+    title: '模型无关',
+    body: '本实验环境不为任何模型调参、写暗号或开小灶。同样的题、同样的文件、同样的流程，换模型只换名字。它比拼的不是谁的分数高，而是谁的条件公平。',
+  },
+  {
+    key: 'extrabody',
+    match: ['Extra Body', 'extra_body', '额外参数'],
+    title: 'Extra Body（额外参数）',
+    body: '某些服务有独有参数时，可以在模型配置的 Extra Body 里以 JSON 写明。它会原样并入请求体并如实记录：由你亲手填写、亲手查看，实验环境绝不代劳。',
+  },
+  {
+    key: 'effort',
+    match: ['reasoning_effort', 'Effort', 'effort', '推理力度'],
+    title: 'Effort（推理力度）',
+    body: 'OpenAI 风格接口控制思考深度的档位：low、medium、high。原样传给接口，模型如何使用由它自己决定，实验环境不做二次解读。',
+  },
+  {
+    key: 'budget',
+    match: ['budget_tokens', 'Budget', '思考词元预算'],
+    title: 'Budget Tokens（思考词元预算）',
+    body: 'Anthropic 风格接口下，允许模型"花"在思考上的词元额度。额度越大，思考越久。同样是原样透传，填写后才会发送。',
+  },
+  {
+    key: 'failclosed',
+    match: ['fail-closed', '先行失败'],
+    title: 'Fail-closed（先行失败）',
+    body: '宁可不做，也不将就。文件读不到、密钥不对、输入不完整，实验立即中止并留下记录，绝不带着残缺的输入去问模型——残缺的实验比没有实验更误事。',
+  },
+  {
+    key: 'manifest',
+    match: ['清单', 'manifest', 'manifest.json'],
+    title: '清单（Manifest）',
+    body: '实验包的封皮：记录每个产物的 SHA-256 指纹、事件链的链根，以及产生这次实验的软件版本。校验器拿它逐一比对，任何改动都会被发现。',
+  },
+  {
+    key: 'rendered',
+    match: ['渲染', 'renderedMessages', '模型看到的'],
+    title: '渲染后的输入',
+    body: '文件不是被神秘地"喂"给模型：它的文字会包进一个固定模板，拼接在提问之后。你可以在实验详情的"模型实际看到的输入"里查看完整原文，一个字都不用猜。',
+  },
+  {
+    key: 'completion',
+    match: ['完成状态', 'completed', 'truncated', '中断'],
+    title: '完成状态',
+    body: '每次运行都会记录流式输出如何结束：completed 表示模型正常说完；truncated 表示连接关闭但模型没说完；network_error 是网络中断；timeout 是超时；aborted 是主动取消；provider_error 是服务方返回错误。只有 completed 才计入成功，这是实验公平性的底线。',
+  },
+];
