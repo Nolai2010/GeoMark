@@ -40,7 +40,7 @@ $$
 = \frac{3}{5}\,\overrightarrow{BE}
 $$
 
-由共线向量定理（$\overrightarrow{BE} \neq \vec{0}$，因 $E$ 在 $AC$ 上且 $E \neq A$），$\overrightarrow{BF} = \dfrac{3}{5}\overrightarrow{BE}$，故 $B$、$E$、$F$ 三点共线。$\blacksquare$
+由共线向量定理（$\overrightarrow{BE} \neq \vec{0}$，因 $E$ 在 $AC$ 上且 $E \neq A$），$\overrightarrow{BF} = \dfrac{3}{5}\overrightarrow{BE}$，故 $B$、$E$、$F$ 三点共线。
 
 又 $\lambda = \dfrac{3}{5} \in (0,1)$，故 $F$ 在线段 $BE$ 内部，与图形一致；同时 $\overrightarrow{EF} = -\dfrac{2}{5}\overrightarrow{BE}$。
 
