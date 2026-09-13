@@ -48,6 +48,11 @@ const MIME = {
 
 const benchRuns = new Map();
 const REPO_ROOT = path.resolve(PROJECT_ROOT, ".."); // 仓库根（benchmark/ docs/ 所在）
+function benchDir(id) { // 内存优先，磁盘兜底：服务重启后仍可回看历史评测
+  if (benchRuns.has(id)) return benchRuns.get(id).outDir;
+  const d = path.join(REPO_ROOT, "benchmark", "results", id);
+  return fs.existsSync(d) ? d : null;
+}
 const PORT = Number(process.env.HARNESS_PORT ?? 7788);
 
 // 安全头（LOW-6）：所有响应统一携带
@@ -341,7 +346,7 @@ const server = http.createServer(async (req, res) => {
       if (!model) return json(res, 400, { error: 'unknown model id' });
       const modes = Array.isArray(payload.modes) && payload.modes.length ? payload.modes : ['vision', 'coord', 'pure'];
       const runId = 'web-' + model.id.replace(/[^a-z0-9._-]/gi, '') + '-' + Date.now().toString(36);
-      const outDir = path.join(EXPERIMENTS_DIR, '..', 'benchmark', 'results', runId);
+      const outDir = path.join(REPO_ROOT, 'benchmark', 'results', runId);
       const args = [path.join(REPO_ROOT, 'benchmark', 'tools', 'pipeline.mjs'),
         '--model', model.id, '--out', outDir, '--skip-png'];
       if (Array.isArray(payload.items) && payload.items.length) args.push('--items', payload.items.join(','));
@@ -365,21 +370,58 @@ const server = http.createServer(async (req, res) => {
       return json(res, 200, { runId, outDir });
     }
     if (p === '/api/benchmark/progress' && req.method === 'GET') {
-      const rec = benchRuns.get(url.searchParams.get('id'));
-      if (!rec) return json(res, 404, { error: 'unknown run' });
-      const summaryPath = path.join(rec.outDir, 'summary.md');
+      const id = url.searchParams.get('id');
+      const outDir = benchDir(id);
+      if (!outDir) return json(res, 404, { error: 'unknown run' });
+      const rec = benchRuns.get(id);
+      const summaryPath = path.join(outDir, 'summary.md');
+      if (rec) {
+        return json(res, 200, {
+          stage: rec.stage, stageInfo: rec.stageInfo || '', exit: rec.exit,
+          lines: rec.lines.slice(-40),
+          summaryReady: rec.exit === 0 && fs.existsSync(summaryPath),
+        });
+      }
+      // 磁盘兜底：服务重启后历史评测仍可查看
+      const done = fs.existsSync(summaryPath);
       return json(res, 200, {
-        stage: rec.stage, stageInfo: rec.stageInfo || '', exit: rec.exit,
-        lines: rec.lines.slice(-40),
-        summaryReady: rec.exit === 0 && fs.existsSync(summaryPath),
+        stage: done ? 'done' : 'archived', exit: done ? 0 : null,
+        lines: [], summaryReady: done,
       });
     }
-    if (p === '/api/benchmark/summary' && req.method === 'GET') {
-      const rec = benchRuns.get(url.searchParams.get('id'));
-      if (!rec) return json(res, 404, { error: 'unknown run' });
-      const f = path.join(rec.outDir, 'summary.md');
+    if (p === '/api/benchmark/detail' && req.method === 'GET') {
+      const id = url.searchParams.get('id');
+      const item = url.searchParams.get('item');
+      const mode = url.searchParams.get('mode');
+      const outDir = benchDir(id);
+      if (!outDir || !item || !/^[A-Za-z0-9_-]+$/.test(item) || !/^[a-z]+$/.test(mode)) return json(res, 404, { error: 'not found' });
+      const read = (f) => (fs.existsSync(f) ? fs.readFileSync(f, 'utf8') : null);
+      const answer = read(path.join(outDir, item + '__' + mode + '.answer.md'));
+      const scoreF = read(path.join(outDir, 'scores', item + '__' + mode + '.score.json'));
+      const promptMeta = read(path.join(outDir, item + '__' + mode + '.meta.json'));
+      if (answer === null) return json(res, 404, { error: 'answer not found' });
+      return json(res, 200, {
+        item, mode, answer,
+        score: scoreF ? JSON.parse(scoreF) : null,
+        skipped: /skipped/.test(answer),
+        promptMeta: promptMeta ? JSON.parse(promptMeta) : null,
+      });
+    }
+    if (p === '/api/benchmark/raw' && req.method === 'GET') {
+      const id = url.searchParams.get('id');
+      const outDir = benchDir(id);
+      if (!outDir) return json(res, 404, { error: 'unknown run' });
+      const f = path.join(outDir, 'summary.md');
       if (!fs.existsSync(f)) return json(res, 404, { error: 'summary not ready' });
-      return json(res, 200, { markdown: fs.readFileSync(f, 'utf8'), outDir: rec.outDir });
+      return json(res, 200, { markdown: fs.readFileSync(f, 'utf8') });
+    }
+    if (p === '/api/benchmark/summary' && req.method === 'GET') {
+      const id = url.searchParams.get('id');
+      const outDir = benchDir(id);
+      if (!outDir) return json(res, 404, { error: 'unknown run' });
+      const f = path.join(outDir, 'summary.md');
+      if (!fs.existsSync(f)) return json(res, 404, { error: 'summary not ready' });
+      return json(res, 200, { markdown: fs.readFileSync(f, 'utf8'), outDir });
     }
     const docFile = /^\/api\/docs\/([A-Za-z0-9._-]+)$/.exec(p);
     if (docFile && req.method === 'GET') {

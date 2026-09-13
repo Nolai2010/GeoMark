@@ -38,6 +38,13 @@ const I18N = {
     onboard_3: '输入问题发送——每轮对话自动保存为可复现的实验包',
     onboard_4: '想系统了解？打开下方新手教程；想批量评测模型？点击顶栏「AI 评测」。',
     open_guide: '打开新手教程', onboard_ok: '开始使用',
+    tut_title: '新手教程', tut_loaded: '加载中…', loading: '加载中…',
+    view_table: '对比表', view_raw: 'summary 原文',
+    bench_answer: '模型作答全文', bench_score: 'judge 逐项评分', bench_close_detail: '收起详情',
+    detail_btn: '查看作答与评分', detail_hint: '提示：点击表格中的分数可查看该题的模型作答全文与 judge 逐项评分理由。',
+    skipped_note: '（已跳过：当前模型不支持图像输入）',
+    no_vision_hint: '无视觉', pick_mode: '请至少选择一种评测模式',
+    rubric_point: '得分点', rubric_score: '得分', rubric_comment: '理由',
     send: '发送', sessions: '对话记录', experiments: '实验记录',
     dlg_keys: 'API 密钥', dlg_model: '模型配置', dlg_exp: '实验详情', close: '关闭',
     save: '保存', delete_model: '删除此模型', test_connection: '测试连接', save_model: '保存模型',
@@ -95,6 +102,13 @@ const I18N = {
     onboard_3: 'Send a prompt — every turn is saved as a reproducible experiment bundle',
     onboard_4: 'Open the guide below to learn more; use "Benchmark" in the top bar for batch evaluation.',
     open_guide: 'Open the Guide', onboard_ok: 'Get started',
+    tut_title: 'Getting Started', tut_loaded: 'Loading…', loading: 'Loading…',
+    view_table: 'Comparison table', view_raw: 'Raw summary',
+    bench_answer: 'Full model answer', bench_score: 'Judge rubric scores', bench_close_detail: 'Hide details',
+    detail_btn: 'View answer & scores', detail_hint: 'Tip: click any score in the table to inspect the full model answer and the judge per-line reasoning.',
+    skipped_note: '(skipped: current model has no vision input)',
+    no_vision_hint: 'no vision', pick_mode: 'Pick at least one mode',
+    rubric_point: 'Rubric line', rubric_score: 'Score', rubric_comment: 'Comment',
     send: 'Send', sessions: 'Chat History', experiments: 'Experiment Records',
     dlg_keys: 'API Keys', dlg_model: 'Model Configuration', dlg_exp: 'Experiment Details', close: 'Close',
     save: 'Save', delete_model: 'Delete Model', test_connection: 'Test Connection', save_model: 'Save Model',
@@ -147,6 +161,8 @@ function applyLang() {
   const st = $('run-status');
   if (st && st.dataset.textRaw !== undefined) setRunStatus(st.dataset.state, st.dataset.textRaw);
   try { localStorage.setItem('gm-lang', state.lang); } catch { /* ignore */ }
+  const g = $('onboard-docs'); if (g) g.href = guideHref();
+  const tl = $('btn-guide'); if (tl) tl.textContent = t('btn_guide');
 }
 $('btn-lang').addEventListener('click', () => { state.lang = state.lang === 'zh' ? 'en' : 'zh'; applyLang(); });
 
@@ -155,7 +171,8 @@ try {
   if (!localStorage.getItem('gm-onboarded')) {
     setTimeout(() => { try { $('onboard-dialog').showModal(); } catch { /* ignore */ } }, 600);
   }
-  $('onboard-ok').addEventListener('click', () => {
+  $('onboard-docs').addEventListener('click', () => { $('onboard-dialog').close(); openTutorial(); });
+$('onboard-ok').addEventListener('click', () => {
     try { localStorage.setItem('gm-onboarded', '1'); } catch { /* ignore */ }
     $('onboard-dialog').close();
   });
@@ -183,7 +200,18 @@ function syncVisionHint() {
 $('bench-model').addEventListener('change', syncVisionHint);
 $('btn-bench').addEventListener('click', openBenchDialog);
 $('bench-close').addEventListener('click', () => $('bench-dialog').close());
-$('btn-guide').addEventListener('click', () => window.open(guideHref(), '_blank'));
+$('btn-guide').addEventListener('click', openTutorial);
+async function openTutorial() {
+  $('tut-dialog').showModal();
+  $('tut-content').innerHTML = '<p class="fineprint">…</p>';
+  try {
+    const md = await (await fetch(guideHref())).text();
+    $('tut-content').innerHTML = simpleMd(md);
+  } catch (e) {
+    $('tut-content').innerHTML = '<p class="fineprint">' + esc(String(e.message || e)) + '</p>';
+  }
+}
+$('tut-close').addEventListener('click', () => $('tut-dialog').close());
 
 $('bench-start').addEventListener('click', async () => {
   const modelId = $('bench-model').value;
@@ -203,6 +231,7 @@ $('bench-start').addEventListener('click', async () => {
     const j = await res.json();
     if (!res.ok) { $('bench-msg').textContent = j.error ?? 'error'; $('bench-start').disabled = false; return; }
     const runId = j.runId;
+    window.__benchRunId = runId;
     clearInterval(benchTimer);
     benchTimer = setInterval(async () => {
       const pr = await (await fetch('/api/benchmark/progress?id=' + encodeURIComponent(runId))).json();
@@ -215,9 +244,23 @@ $('bench-start').addEventListener('click', async () => {
         if (pr.summaryReady) {
           $('bench-msg').textContent = t('bench_done');
           const s = await (await fetch('/api/benchmark/summary?id=' + encodeURIComponent(runId))).json();
+          window.__benchSummary = s;
+          $('bench-viewbar').hidden = false;
           $('bench-result').hidden = false;
           $('bench-result').innerHTML = mdTableToHtml(s.markdown) +
-            `<p class="fineprint">${t('saved_to')}: ${esc(s.outDir)}</p>`;
+            `<p class="fineprint">${t('bench_open_summary')} ${esc(s.outDir)}</p>
+             <p class="fineprint">${t('detail_hint')}</p>`;
+          const gids = gidsOfSummary(s);
+          $('bench-result').querySelectorAll('tr').forEach((row, ri) => {
+            if (row.querySelector('th')) return;
+            const gid = gids[ri - 1];
+            if (!gid) return;
+            row.querySelectorAll('td').forEach((td, ci) => {
+              if (ci > 2 || td.textContent === '—') return;
+              td.dataset.detail = '1'; td.dataset.item = gid; td.dataset.mode = ['vision', 'coord', 'pure'][ci];
+              td.style.cursor = 'pointer'; td.title = t('detail_btn');
+            });
+          });
         } else {
           $('bench-msg').textContent = t('bench_failed');
         }
@@ -228,6 +271,83 @@ $('bench-start').addEventListener('click', async () => {
     $('bench-start').disabled = false;
   }
 });
+
+$('bench-v-table').addEventListener('click', () => {
+  $('bench-result').hidden = false; $('bench-raw').hidden = true; $('bench-detail').hidden = true;
+});
+$('bench-v-raw').addEventListener('click', () => {
+  $('bench-result').hidden = true; $('bench-detail').hidden = true;
+  $('bench-raw').hidden = false;
+  $('bench-raw').textContent = window.__benchSummary?.markdown ?? '';
+});
+$('bench-result').addEventListener('click', async (e) => {
+  const cell = e.target.closest('[data-detail]');
+  if (!cell) return;
+  const { item, mode } = cell.dataset;
+  const runId = window.__benchRunId;
+  $('bench-detail').hidden = false;
+  $('bench-detail').innerHTML = `<p class="fineprint">${t('loading')}</p>`;
+  $('bench-detail').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  try {
+    const d = await (await fetch('/api/benchmark/detail?id=' + encodeURIComponent(runId) +
+      '&item=' + encodeURIComponent(item) + '&mode=' + encodeURIComponent(mode))).json();
+    const lines = (d.score?.lines || []).map((l) =>
+      `<tr><td>${esc(l.point)}</td><td>${esc(String(l.score))}</td><td>${esc(l.comment || '')}</td></tr>`).join('');
+    $('bench-detail').innerHTML = `
+      <h4>${t('bench_answer')} — ${esc(item)} / ${esc(mode)} <button id="bench-detail-close" class="btn ghost small-btn" type="button">${t('bench_close_detail')}</button></h4>
+      <pre>${esc(d.answer || '')}</pre>
+      <h4>${t('bench_score')}：${esc(String(d.score?.total ?? '?'))} / ${esc(String(d.score?.max ?? '?'))}</h4>
+      <table><tr><th style="width:55%">${t('rubric_point')}</th><th>${t('rubric_score')}</th><th>${t('rubric_comment')}</th></tr>${lines}</table>`;
+    $('bench-detail-close').addEventListener('click', () => { $('bench-detail').hidden = true; });
+  } catch (err) {
+    $('bench-detail').innerHTML = '<p class="fineprint">' + esc(String(err.message || err)) + '</p>';
+  }
+});
+
+// 极简 Markdown 渲染（教程与 summary 用；输出经转义，无注入路径）
+function simpleMd(md) {
+  const out = [];
+  let inCode = false, code = [];
+  for (const line of md.split('\n')) {
+    if (/^\`\`\`/.test(line)) {
+      if (inCode) { out.push('<pre>' + esc(code.join('\n')) + '</pre>'); code = []; }
+      inCode = !inCode; continue;
+    }
+    if (inCode) { code.push(line); continue; }
+    if (/^\|/.test(line)) {
+      const cells = line.split('|').slice(1, -1).map((c) => c.trim());
+      if (/^\|[\s:|-]+\|?$/.test(line)) continue;
+      out.push('<tr>' + cells.map((c) => '<td>' + inline(c) + '</td>').join('') + '</tr>');
+      continue;
+    }
+    if (out.length && out[out.length - 1] === '</table>') { /* table auto-closed below */ }
+    const h = /^(#{1,4})\s+(.*)$/.exec(line);
+    if (h) { out.push(`<h${h[1].length + 2}>${inline(h[2])}</h${h[1].length + 2}>`); continue; }
+    if (/^[-*]\s/.test(line)) { out.push('<li>' + inline(line.replace(/^[-*]\s/, '')) + '</li>'); continue; }
+    if (/^\d+\.\s/.test(line)) { out.push('<li>' + inline(line.replace(/^\d+\.\s/, '')) + '</li>'); continue; }
+    if (!line.trim()) { out.push(''); continue; }
+    out.push('<p>' + inline(line) + '</p>');
+  }
+  // 包裹连续表格行
+  const wrapped = [];
+  let tbl = [];
+  for (const seg of out) {
+    if (seg.startsWith('<tr>')) tbl.push(seg);
+    else { if (tbl.length) { wrapped.push('<table>' + tbl.join('') + '</table>'); tbl = []; } wrapped.push(seg); }
+  }
+  if (tbl.length) wrapped.push('<table>' + tbl.join('') + '</table>');
+  return wrapped.filter((x) => x !== '').join('\n');
+  function inline(s) {
+    return esc(s)
+      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+      .replace(/`([^`]+)`/g, '<code>$1</code>')
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  }
+}
+
+function gidsOfSummary(s) {
+  return Object.keys(s.table || {});
+}
 
 // 极简 Markdown 表格渲染（仅用于 summary 呈现）
 function mdTableToHtml(md) {
@@ -305,16 +425,7 @@ function restoreSession(sess) {
 }
 
 function loadSessionOnBoot() {
-  try {
-    const cur = JSON.parse(localStorage.getItem(SESSION_KEY) ?? 'null');
-    if (cur?.messages?.length) {
-      state.sessionId = cur.id;
-      state.sessionName = cur.name ?? '';
-      state.messages = cur.messages.map((m) => ({ role: m.role, content: m.content, fileIds: [] }));
-      $('system-prompt').value = cur.systemPrompt ?? '';
-      renderSession(state.messages);
-    }
-  } catch { /* ignore */ }
+  // v0.6.2：默认打开即新建对话；历史对话从右栏「对话记录」手动恢复
   renderSessionList();
 }
 
@@ -1037,7 +1148,6 @@ async function openExperiment(id) {
 init();
 function init() {
   initTheme();
-  loadSessionOnBoot();
   refreshModels();
   refreshPresets();
   refreshFiles();
