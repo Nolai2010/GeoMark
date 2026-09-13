@@ -150,25 +150,35 @@ const OUT = opt.out ? path.resolve(String(opt.out)) : path.join(BENCH, 'results'
 fs.mkdirSync(OUT, { recursive: true });
 
 const gids = onlyItems || fs.readdirSync(ITEMS).filter(d => d.startsWith('GM-'));
-const manifest = { runid, model: MODEL.id || MODEL.api_model_id, provider: MODEL.provider, temperature, modes: MODES, items: [], startedAt: Date.now() };
+const manifest = { runid, model: MODEL.id || MODEL.api_model_id, provider: MODEL.provider, temperature, modes: MODES, visionOk: !!MODEL.supports_vision, items: [], startedAt: Date.now() };
 let n = 0;
 
 for (const gid of gids) {
   let item;
   try { item = loadItem(gid); } catch (e) { console.error('跳过', gid, e.message); continue; }
+  const visionOk = !!MODEL.supports_vision;
   for (const mode of MODES) {
-    const text = (mode === 'vision' ? '' : item.problem + '\n\n') + MODE_INSTRUCTION[mode];
+    if (mode === 'vision' && !visionOk) {
+      const note = '[skipped: model has no vision capability — 纯识图模式需要支持图像输入的模型]';
+      fs.writeFileSync(path.join(OUT, `${gid}__${mode}.answer.md`), note);
+      fs.writeFileSync(path.join(OUT, `${gid}__${mode}.meta.json`), JSON.stringify({ item: gid, mode, skipped: true, reason: 'no-vision' }, null, 2));
+      process.stdout.write(`== ${gid} / ${mode} ... 跳过（模型无视觉）\n`);
+      continue;
+    }
+    const imgs = visionOk ? item.images : [];
+    const text = (mode === 'vision' ? '' : item.problem + '\n\n') + MODE_INSTRUCTION[mode] + (visionOk ? '' : '\n\n（注：当前模型不支持图像输入，本题配图无法提供，请按题面文字作答。）');
+
     const promptFile = path.join(OUT, `${gid}__${mode}.prompt.json`);
-    fs.writeFileSync(promptFile, JSON.stringify({ text, images: item.images.map(p => path.basename(p)) }, null, 2));
+    fs.writeFileSync(promptFile, JSON.stringify({ text, images: imgs.map(p => path.basename(p)) }, null, 2));
     if (DRY) { console.log(`[dry] ${gid}/${mode}: 题干 ${item.problem.length} 字 + ${item.images.length} 图`); n++; continue; }
     process.stdout.write(`== ${gid} / ${mode} ... `);
     try {
-      const { text: answer, usage } = await callModel(text, item.images);
+      const { text: answer, usage } = await callModel(text, imgs);
       fs.writeFileSync(path.join(OUT, `${gid}__${mode}.answer.md`), answer);
       fs.writeFileSync(path.join(OUT, `${gid}__${mode}.meta.json`), JSON.stringify({
         item: gid, mode, model: MODEL.id || MODEL.api_model_id, provider: MODEL.provider,
         temperature, promptHash: createHash('sha256').update(text).digest('hex').slice(0, 16),
-        images: item.images.map(p => path.basename(p)), usage, finishedAt: Date.now(),
+        images: imgs.map(p => path.basename(p)), usage, finishedAt: Date.now(),
       }, null, 2));
       console.log(`完成（${answer.length} 字）`);
     } catch (e) {

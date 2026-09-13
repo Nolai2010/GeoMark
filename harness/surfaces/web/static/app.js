@@ -26,6 +26,18 @@ const I18N = {
     budget_label: '思考词元预算 Budget（Anthropic 风格）', budget_ph: '如 8192', legend_files: '文件（显式附加，仅读取所选文件）',
     reasoning_enabled: '启用推理（若模型支持）', save_experiment: '保存实验', clear_chat: '清空对话',
     model: '模型',
+    btn_bench: 'AI 评测', btn_guide: '新手教程', dlg_bench: 'AI 评测（Benchmark）',
+    bench_intro: '对当前模型运行题库三模式评测：纯识图 / 可建系 / 不可建系。作答完成后由 judge 模型按评分细则逐项打分，生成对比表。过程需要一些时间与词元消耗。',
+    bench_model: '评测模型', bench_modes: '评测模式', m_vision: '纯识图', needs_vision: '需视觉模型',
+    m_coord: '可建系', m_pure: '不可建系', bench_scope: '题目范围', scope_all: '全部 10 题',
+    scope_plane: '平面几何 GM-0001~0005', scope_solid: '立体几何 GM-0006~0010',
+    bench_start: '开始评测', bench_running: '评测进行中…', bench_failed: '评测失败', bench_done: '评测完成',
+    onboard_title: '欢迎使用 GeoMark Harness',
+    onboard_1: '右上角「API 密钥」粘贴你的密钥（只存本机）',
+    onboard_2: '左侧「管理模型」从预设添加模型并测试连接',
+    onboard_3: '输入问题发送——每轮对话自动保存为可复现的实验包',
+    onboard_4: '想系统了解？打开下方新手教程；想批量评测模型？点击顶栏「AI 评测」。',
+    open_guide: '打开新手教程', onboard_ok: '开始使用',
     send: '发送', sessions: '对话记录', experiments: '实验记录',
     dlg_keys: 'API 密钥', dlg_model: '模型配置', dlg_exp: '实验详情', close: '关闭',
     save: '保存', delete_model: '删除此模型', test_connection: '测试连接', save_model: '保存模型',
@@ -71,6 +83,18 @@ const I18N = {
     budget_label: 'Thinking budget (Anthropic style)', budget_ph: 'e.g. 8192', legend_files: 'Files (explicit attachments only)',
     reasoning_enabled: 'Enable reasoning (if supported)', save_experiment: 'Save experiment', clear_chat: 'Clear Chat',
     model: 'Model',
+    btn_bench: 'Benchmark', btn_guide: 'Guide', dlg_bench: 'AI Evaluation (Benchmark)',
+    bench_intro: 'Run the item bank against the current model in three modes: vision / coordinate / pure geometry. A judge model then grades each rubric line and produces a comparison table. This takes time and tokens.',
+    bench_model: 'Evaluation model', bench_modes: 'Modes', m_vision: 'Vision', needs_vision: 'vision model required',
+    m_coord: 'Coordinate', m_pure: 'Pure geometry', bench_scope: 'Scope', scope_all: 'All 10 items',
+    scope_plane: 'Plane geometry GM-0001~0005', scope_solid: 'Solid geometry GM-0006~0010',
+    bench_start: 'Start', bench_running: 'Running…', bench_failed: 'Failed', bench_done: 'Done',
+    onboard_title: 'Welcome to GeoMark Harness',
+    onboard_1: 'Paste your key under "API Keys" (top right; stored locally only)',
+    onboard_2: 'Add a model from presets in "Manage Models" and test the connection',
+    onboard_3: 'Send a prompt — every turn is saved as a reproducible experiment bundle',
+    onboard_4: 'Open the guide below to learn more; use "Benchmark" in the top bar for batch evaluation.',
+    open_guide: 'Open the Guide', onboard_ok: 'Get started',
     send: 'Send', sessions: 'Chat History', experiments: 'Experiment Records',
     dlg_keys: 'API Keys', dlg_model: 'Model Configuration', dlg_exp: 'Experiment Details', close: 'Close',
     save: 'Save', delete_model: 'Delete Model', test_connection: 'Test Connection', save_model: 'Save Model',
@@ -125,6 +149,108 @@ function applyLang() {
   try { localStorage.setItem('gm-lang', state.lang); } catch { /* ignore */ }
 }
 $('btn-lang').addEventListener('click', () => { state.lang = state.lang === 'zh' ? 'en' : 'zh'; applyLang(); });
+
+// ================= 新手引导 =================
+try {
+  if (!localStorage.getItem('gm-onboarded')) {
+    setTimeout(() => { try { $('onboard-dialog').showModal(); } catch { /* ignore */ } }, 600);
+  }
+  $('onboard-ok').addEventListener('click', () => {
+    try { localStorage.setItem('gm-onboarded', '1'); } catch { /* ignore */ }
+    $('onboard-dialog').close();
+  });
+} catch { /* ignore */ }
+function guideHref() { return '/api/docs/' + (state.lang === 'en' ? 'GETTING-STARTED.en.md' : 'GETTING-STARTED.zh.md'); }
+
+// ================= AI 评测（benchmark） =================
+const BENCH_SCOPE_ITEMS = { plane: ['GM-0001','GM-0002','GM-0003','GM-0004','GM-0005'], solid: ['GM-0006','GM-0007','GM-0008','GM-0009','GM-0010'] };
+let benchTimer = null;
+function openBenchDialog() {
+  const opts = state.models.map((m) => `<option value="${esc(m.id)}">${esc(m.displayName)}${m.supportsVision ? '' : ' · ' + t('no_vision_hint')}</option>`).join('');
+  $('bench-model').innerHTML = opts;
+  const cur = currentModel();
+  if (cur) $('bench-model').value = cur.id;
+  syncVisionHint();
+  $('bench-log').hidden = true; $('bench-result').hidden = true; $('bench-result').innerHTML = '';
+  $('bench-msg').textContent = '';
+  $('bench-start').disabled = false;
+  $('bench-dialog').showModal();
+}
+function syncVisionHint() {
+  const m = state.models.find((x) => x.id === $('bench-model').value);
+  $('bench-m-vision').disabled = !m?.supportsVision;
+}
+$('bench-model').addEventListener('change', syncVisionHint);
+$('btn-bench').addEventListener('click', openBenchDialog);
+$('bench-close').addEventListener('click', () => $('bench-dialog').close());
+$('btn-guide').addEventListener('click', () => window.open(guideHref(), '_blank'));
+
+$('bench-start').addEventListener('click', async () => {
+  const modelId = $('bench-model').value;
+  const modes = ['vision', 'coord', 'pure'].filter((m) => $('bench-m-' + m).checked && !$('bench-m-' + m).disabled);
+  if (!modes.length) { $('bench-msg').textContent = t('pick_mode'); return; }
+  const scope = document.querySelector('input[name="bench-scope"]:checked').value;
+  const items = BENCH_SCOPE_ITEMS[scope] || null;
+  $('bench-start').disabled = true;
+  $('bench-msg').textContent = t('bench_running');
+  $('bench-log').hidden = false;
+  $('bench-result').hidden = true;
+  try {
+    const res = await fetch('/api/benchmark/start', {
+      method: 'POST', headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ modelId, modes, items }),
+    });
+    const j = await res.json();
+    if (!res.ok) { $('bench-msg').textContent = j.error ?? 'error'; $('bench-start').disabled = false; return; }
+    const runId = j.runId;
+    clearInterval(benchTimer);
+    benchTimer = setInterval(async () => {
+      const pr = await (await fetch('/api/benchmark/progress?id=' + encodeURIComponent(runId))).json();
+      const log = $('bench-log');
+      log.textContent = pr.lines.join('\n');
+      log.scrollTop = log.scrollHeight;
+      if (pr.stage === 'done' || pr.stage === 'fail' || pr.exit !== null) {
+        clearInterval(benchTimer);
+        $('bench-start').disabled = false;
+        if (pr.summaryReady) {
+          $('bench-msg').textContent = t('bench_done');
+          const s = await (await fetch('/api/benchmark/summary?id=' + encodeURIComponent(runId))).json();
+          $('bench-result').hidden = false;
+          $('bench-result').innerHTML = mdTableToHtml(s.markdown) +
+            `<p class="fineprint">${t('saved_to')}: ${esc(s.outDir)}</p>`;
+        } else {
+          $('bench-msg').textContent = t('bench_failed');
+        }
+      }
+    }, 1500);
+  } catch (e) {
+    $('bench-msg').textContent = String(e.message || e);
+    $('bench-start').disabled = false;
+  }
+});
+
+// 极简 Markdown 表格渲染（仅用于 summary 呈现）
+function mdTableToHtml(md) {
+  const lines = md.split('\n').filter((l) => l.trim());
+  const out = [];
+  let inTable = false;
+  for (const l of lines) {
+    if (/^\|/.test(l)) {
+      const cells = l.split('|').slice(1, -1).map((c) => c.trim());
+      if (/^\|[s:|-]+\|?$/.test(l)) continue; // 分隔行
+      if (!inTable) { out.push('<table>'); inTable = true; out.push('<tr>' + cells.map((c) => '<th>' + c + '</th>').join('') + '</tr>'); continue; }
+      out.push('<tr>' + cells.map((c) => '<td>' + c + '</td>').join('') + '</tr>');
+    } else {
+      if (inTable) { out.push('</table>'); inTable = false; }
+      out.push('<p>' + l.replace(/[<>&]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c])) + '</p>');
+    }
+  }
+  if (inTable) out.push('</table>');
+  return out.join('');
+}
+// 新手教程链接随语言切换
+const _applyLang = applyLang;
+applyLang = function (...args2) { _applyLang(...args2); const g = $('onboard-docs'); if (g) g.href = guideHref(); };
 
 /* =========================================================================
  * 会话持久化：刷新后可回到上次对话；对话记录保存在本机 localStorage

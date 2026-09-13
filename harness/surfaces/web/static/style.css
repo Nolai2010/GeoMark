@@ -412,3 +412,16 @@ a.term:focus-visible { outline: 1px dashed var(--gold-dim); outline-offset: 2px;
 
 /* 英文模式下空态诗改横排（中文竖排仅适用于汉字） */
 html[lang="en"] .poem { writing-mode: horizontal-tb; letter-spacing: 3px; font-size: 26px; }
+
+/* ---------- AI 评测 ---------- */
+.bench-log {
+  max-height: 220px; overflow-y: auto; margin-top: 10px;
+  background: var(--ink-2, #14100e); color: #cfc8b8;
+  font: 12px/1.6 Consolas, monospace; padding: 10px 14px; border-radius: 8px;
+  white-space: pre-wrap; word-break: break-all;
+}
+.bench-result { margin-top: 12px; overflow-x: auto; }
+.bench-result table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+.bench-result th, .bench-result td { border: 1px solid var(--gold-dim, #8a6d3b55); padding: 6px 10px; text-align: left; }
+.bench-result th { color: var(--gold, #c9a227); font-weight: 600; }
+.onboard-steps { margin: 10px 0 6px; padding-left: 22px; line-height: 2; }

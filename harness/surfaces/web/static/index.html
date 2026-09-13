@@ -22,7 +22,9 @@
   </div>
   <div class="topbar-actions">
     <span id="key-dots" class="key-dots" title="API 密钥状态"></span>
+    <button id="btn-bench" class="btn ghost" type="button" data-i18n="btn_bench">AI 评测</button>
     <button id="btn-keys" class="btn ghost" type="button" data-i18n="btn_keys">API 密钥</button>
+    <button id="btn-guide" class="btn ghost" type="button" data-i18n="btn_guide">新手教程</button>
     <button id="btn-theme" class="btn ghost" type="button" data-i18n="btn_theme" title="切换亮色 / 暗色 / 跟随系统">主题</button>
     <button id="btn-lang" class="btn ghost" type="button" title="Language">EN</button>
   </div>
@@ -107,6 +109,51 @@
     <ul id="exp-list"></ul>
   </aside>
 </div>
+
+<!-- AI 评测 -->
+<dialog id="bench-dialog" class="term-dialog wide">
+  <article>
+    <header><h3 data-i18n="dlg_bench">AI 评测（Benchmark）</h3><button id="bench-close" class="btn ghost close" type="button" data-i18n="close">关闭</button></header>
+    <p class="fineprint" data-i18n="bench_intro">对当前模型运行题库三模式评测：纯识图 / 可建系 / 不可建系。作答完成后由 judge 模型按评分细则逐项打分，生成对比表。过程需要一些时间与词元消耗。</p>
+    <label for="bench-model" data-i18n="bench_model">评测模型</label>
+    <select id="bench-model"></select>
+    <fieldset>
+      <legend data-i18n="bench_modes">评测模式</legend>
+      <label class="inline"><input type="checkbox" id="bench-m-vision" checked> <span data-i18n="m_vision">纯识图</span>（<span data-i18n="needs_vision">需视觉模型</span>）</label>
+      <label class="inline"><input type="checkbox" id="bench-m-coord" checked> <span data-i18n="m_coord">可建系</span></label>
+      <label class="inline"><input type="checkbox" id="bench-m-pure" checked> <span data-i18n="m_pure">不可建系</span></label>
+    </fieldset>
+    <fieldset>
+      <legend data-i18n="bench_scope">题目范围</legend>
+      <label class="inline"><input type="radio" name="bench-scope" value="all" checked> <span data-i18n="scope_all">全部 10 题</span></label>
+      <label class="inline"><input type="radio" name="bench-scope" value="plane"> <span data-i18n="scope_plane">平面几何 GM-0001~0005</span></label>
+      <label class="inline"><input type="radio" name="bench-scope" value="solid"> <span data-i18n="scope_solid">立体几何 GM-0006~0010</span></label>
+    </fieldset>
+    <div class="dialog-foot">
+      <span id="bench-msg" class="fineprint"></span>
+      <button id="bench-start" class="btn primary" type="button" data-i18n="bench_start">开始评测</button>
+    </div>
+    <pre id="bench-log" class="bench-log" hidden></pre>
+    <div id="bench-result" class="bench-result" hidden></div>
+  </article>
+</dialog>
+
+<!-- 新手引导 -->
+<dialog id="onboard-dialog" class="term-dialog">
+  <article>
+    <header><h3 data-i18n="onboard_title">欢迎使用 GeoMark Harness</h3></header>
+    <ol class="onboard-steps">
+      <li data-i18n="onboard_1">右上角「API 密钥」粘贴你的密钥（只存本机）</li>
+      <li data-i18n="onboard_2">左侧「管理模型」从预设添加模型并测试连接</li>
+      <li data-i18n="onboard_3">输入问题发送——每轮对话自动保存为可复现的实验包</li>
+    </ol>
+    <p class="fineprint" data-i18n="onboard_4">想系统了解？打开下方新手教程；想批量评测模型？点击顶栏「AI 评测」。</p>
+    <div class="dialog-foot">
+      <a id="onboard-docs" class="btn ghost" href="/api/docs/GETTING-STARTED.zh.md" target="_blank" data-i18n="open_guide">打开新手教程</a>
+      <button id="onboard-ok" class="btn primary" type="button" data-i18n="onboard_ok">开始使用</button>
+    </div>
+  </article>
+</dialog>
 
 <!-- 术语说明：原生 <dialog>，点击页面中同貌术语即展开（打字机流式呈现固定文案） -->
 <dialog id="term-dialog" class="term-dialog">

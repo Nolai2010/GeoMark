@@ -26,6 +26,7 @@ import { HARNESS_VERSION, NODE_VERSION, gitCommit as GIT_COMMIT } from '../../ke
 import { EventTypes } from '../../kernel/schema.mjs';
 import { makeAdapter, supportedProviders } from '../../adapters/index.mjs';
 import { verifyBundle } from '../../kernel/verify.mjs';
+import { spawn } from 'node:child_process';
 import { parseMultipart } from './multipart.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -45,6 +46,8 @@ const MIME = {
   '.ico': 'image/x-icon',
 };
 
+const benchRuns = new Map();
+const REPO_ROOT = path.resolve(PROJECT_ROOT, ".."); // 仓库根（benchmark/ docs/ 所在）
 const PORT = Number(process.env.HARNESS_PORT ?? 7788);
 
 // 安全头（LOW-6）：所有响应统一携带
@@ -90,6 +93,7 @@ function publicModel(m) {
     apiModelId: m.apiModelId,
     displayName: m.display_name || m.id,
     supportsReasoning: m.supports_reasoning,
+    supportsVision: !!m.supports_vision,
     hasExtraBody: Object.keys(m.extra_body ?? {}).length > 0,
     extraBody: m.extra_body ?? {},
     endpointPath: m.endpoint_path ?? null,
@@ -326,6 +330,65 @@ const server = http.createServer(async (req, res) => {
       } catch (e) {
         return json(res, 200, { ok: false, status: 0, message: e.message });
       }
+    }
+
+
+    // ---------- AI 评测（benchmark）----------
+    if (p === '/api/benchmark/start' && req.method === 'POST') {
+      let payload;
+      try { payload = JSON.parse((await readBody(req)).toString('utf8')); } catch { return json(res, 400, { error: 'bad json' }); }
+      const model = loadModels(path.join(CONFIG_DIR, 'models.json')).find((m) => m.id === payload.modelId);
+      if (!model) return json(res, 400, { error: 'unknown model id' });
+      const modes = Array.isArray(payload.modes) && payload.modes.length ? payload.modes : ['vision', 'coord', 'pure'];
+      const runId = 'web-' + model.id.replace(/[^a-z0-9._-]/gi, '') + '-' + Date.now().toString(36);
+      const outDir = path.join(EXPERIMENTS_DIR, '..', 'benchmark', 'results', runId);
+      const args = [path.join(REPO_ROOT, 'benchmark', 'tools', 'pipeline.mjs'),
+        '--model', model.id, '--out', outDir, '--skip-png'];
+      if (Array.isArray(payload.items) && payload.items.length) args.push('--items', payload.items.join(','));
+      if (Array.isArray(modes) && modes.length) args.push('--modes', modes.join(','));
+      const child = spawn(process.execPath, args, { cwd: PROJECT_ROOT, env: process.env });
+      const rec = { stage: 'convert', lines: [], exit: null, startedAt: Date.now(), model: model.id, outDir };
+      benchRuns.set(runId, rec);
+      let buf = '';
+      child.stdout.on('data', (d) => {
+        buf += d.toString();
+        const lines = buf.split('\n'); buf = lines.pop();
+        for (const l of lines) {
+          const t = l.trim(); if (!t) continue;
+          rec.lines.push(t); if (rec.lines.length > 400) rec.lines.shift();
+          const m = /^STAGE (\w+) ?(.*)$/.exec(t);
+          if (m) { rec.stage = m[1]; rec.stageInfo = m[2]; }
+        }
+      });
+      child.stderr.on('data', (d) => { rec.lines.push('ERR ' + d.toString().trim()); });
+      child.on('close', (code) => { rec.exit = code; rec.stage = code === 0 ? 'done' : 'fail'; });
+      return json(res, 200, { runId, outDir });
+    }
+    if (p === '/api/benchmark/progress' && req.method === 'GET') {
+      const rec = benchRuns.get(url.searchParams.get('id'));
+      if (!rec) return json(res, 404, { error: 'unknown run' });
+      const summaryPath = path.join(rec.outDir, 'summary.md');
+      return json(res, 200, {
+        stage: rec.stage, stageInfo: rec.stageInfo || '', exit: rec.exit,
+        lines: rec.lines.slice(-40),
+        summaryReady: rec.exit === 0 && fs.existsSync(summaryPath),
+      });
+    }
+    if (p === '/api/benchmark/summary' && req.method === 'GET') {
+      const rec = benchRuns.get(url.searchParams.get('id'));
+      if (!rec) return json(res, 404, { error: 'unknown run' });
+      const f = path.join(rec.outDir, 'summary.md');
+      if (!fs.existsSync(f)) return json(res, 404, { error: 'summary not ready' });
+      return json(res, 200, { markdown: fs.readFileSync(f, 'utf8'), outDir: rec.outDir });
+    }
+    const docFile = /^\/api\/docs\/([A-Za-z0-9._-]+)$/.exec(p);
+    if (docFile && req.method === 'GET') {
+      const ALLOW = new Set(['GETTING-STARTED.md', 'GETTING-STARTED.zh.md', 'GETTING-STARTED.en.md']);
+      if (!ALLOW.has(docFile[1])) return json(res, 404, { error: 'not found' });
+      const f = path.join(REPO_ROOT, docFile[1]);
+      if (!fs.existsSync(f)) return json(res, 404, { error: 'not found' });
+      res.writeHead(200, { 'content-type': 'text/markdown; charset=utf-8', ...SEC_HEADERS });
+      return void fs.createReadStream(f).pipe(res);
     }
 
     if (p === '/api/chat' && req.method === 'POST') {

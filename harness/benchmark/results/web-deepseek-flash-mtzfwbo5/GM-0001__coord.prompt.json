@@ -1,0 +1,4 @@
+{
+  "text": "# GM-0001\n\n> 知识范围：人教A版数学必修二 · 平面向量单元\n\n平面内 $\\triangle ABC$ 及一点 $O$ 满足\n\n$$\n\\frac{\\overrightarrow{AO}\\cdot\\overrightarrow{AB}}{\\left|\\overrightarrow{AB}\\right|}\n=\\frac{\\overrightarrow{AO}\\cdot\\overrightarrow{AC}}{\\left|\\overrightarrow{AC}\\right|},\n\\qquad\n\\frac{\\overrightarrow{CO}\\cdot\\overrightarrow{CA}}{\\left|\\overrightarrow{CA}\\right|}\n=\\frac{\\overrightarrow{CO}\\cdot\\overrightarrow{CB}}{\\left|\\overrightarrow{CB}\\right|}\n$$\n\n则点 $O$ 是 $\\triangle ABC$ 的（　　）\n\n- A. 重心\n- B. 内心\n- C. 外心\n- D. 垂心\n\n---\n\n**作答要求**：直接给出选项字母，并给出完整推理过程。\n\n\n（评测要求：本题允许建立平面直角坐标系或空间直角坐标系求解。请给出完整、严谨的解答。）\n\n\n\n（注：当前模型不支持图像输入，本题配图无法提供，请按题面文字作答。）",
+  "images": []
+}

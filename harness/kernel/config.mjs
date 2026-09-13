@@ -41,6 +41,7 @@ export function loadModels(configPath = null) {
       apiModelId: item.api_model_id,
       display_name: item.display_name ?? '',
       supports_reasoning: !!item.supports_reasoning,
+      supports_vision: !!item.supports_vision,
       extra_body: item.extra_body ?? {},
       // custom endpoint / protocol-level overrides (Phase 2)
       endpoint_path: item.endpoint_path ?? null,
@@ -86,6 +87,7 @@ export function saveModel(input, configPath = null) {
     api_model_id: apiModelId,
     display_name: String(input.display_name ?? '').trim() || id,
     supports_reasoning: !!input.supports_reasoning,
+    supports_vision: !!input.supports_vision,
     extra_body: deepClean(input.extra_body ?? {}),
   };
   if (input.endpoint_path) entry.endpoint_path = String(input.endpoint_path).trim();
