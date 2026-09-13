@@ -58,7 +58,7 @@ node surfaces/cli/cli.mjs --replay experiments/exp-xxx   # 2. 离线重放
 - 统一 System Prompt：所有模型收到逐字节相同内容；不注入任何隐藏指令（全库扫描验证）。
 - 不伪造事件：模型没有 reasoning 流就绝无 `reasoning_delta`（有测试证明）。
 - 不检测模型能力、不按模型名改变行为；`supports_reasoning` 仅为用户声明的 UI 提示。
-- 第一阶段无 Skills/Plugins/MCP/联网/代码执行/Shell/浏览器，见 `docs/NEUTRALITY.md` 清单。
+- 全程不引入 Skills/Plugins/MCP/联网/代码执行/Shell/浏览器等外部能力，Harness 本体零依赖。
 - GeoMark 几何评测是使用场景而非代码：核心零几何/数学专用逻辑。
 
 ## 能力边界

@@ -7,3 +7,13 @@ __pycache__/
 node_modules/
 config/models.json
 config/secrets.json
+
+# internal development-process reports (kept locally, never committed)
+PHASE-1-REPAIR-REPORT.md
+PHASE-2-PRODUCT-REPORT.md
+SECURITY-REVIEW-CODEDEFENCER.md
+FINAL-RELEASE-REPORT.md
+RELEASE-v0.6.0.md
+QUICK-START-SELF-TEST.md
+ui-copy-guidelines.md
+docs/NEUTRALITY-SECURITY-AUDIT.md
