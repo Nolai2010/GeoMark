@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 200" font-family="Georgia, 'Times New Roman', serif" font-style="italic">
+  <g transform="translate(10,10)">
+    <!-- 图15：AC、中点 O、上方点 B -->
+    <line x1="30" y1="150" x2="330" y2="150" stroke="#2b2b2b" stroke-width="2.5"/>
+    <line x1="30" y1="150" x2="185" y2="55" stroke="#2b2b2b" stroke-width="2.5"/>
+    <line x1="185" y1="55" x2="330" y2="150" stroke="#2b2b2b" stroke-width="2.5"/>
+    <circle cx="30" cy="150" r="4.5" fill="#2b2b2b"/>
+    <circle cx="185" cy="150" r="4.5" fill="#2b2b2b"/>
+    <circle cx="330" cy="150" r="4.5" fill="#2b2b2b"/>
+    <circle cx="185" cy="55" r="4.5" fill="#2b2b2b"/>
+    <text x="10" y="170" font-size="24">A</text>
+    <text x="176" y="176" font-size="24">O</text>
+    <text x="336" y="170" font-size="24">C</text>
+    <text x="178" y="38" font-size="24">B</text>
+    <text x="150" y="196" font-size="17" font-style="normal" fill="#666">图 15（AC = 4，O 为 AC 中点）</text>
+  </g>
+</svg>

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 340" font-family="Georgia, 'Times New Roman', serif" font-style="italic">
+  <g transform="translate(10,20)">
+    <!-- 图16：E、B 在 AC 上方，F 在 AC 延长线 -->
+    <line x1="30" y1="275" x2="470" y2="275" stroke="#2b2b2b" stroke-width="2.5"/>
+    <line x1="30" y1="275" x2="95" y2="60" stroke="#2b2b2b" stroke-width="2.2"/>
+    <line x1="95" y1="60" x2="250" y2="275" stroke="#2b2b2b" stroke-width="2.2"/>
+    <line x1="30" y1="275" x2="110" y2="190" stroke="#2b2b2b" stroke-width="2.2"/>
+    <line x1="110" y1="190" x2="250" y2="275" stroke="#2b2b2b" stroke-width="2.2"/>
+    <line x1="95" y1="60" x2="110" y2="190" stroke="#8a8a8a" stroke-width="1.8"/>
+    <line x1="95" y1="60" x2="470" y2="275" stroke="#2b2b2b" stroke-width="2.2"/>
+    <circle cx="30" cy="275" r="4.5" fill="#2b2b2b"/>
+    <circle cx="140" cy="275" r="4.5" fill="#b54434"/>
+    <circle cx="250" cy="275" r="4.5" fill="#2b2b2b"/>
+    <circle cx="470" cy="275" r="4.5" fill="#2b2b2b"/>
+    <circle cx="95" cy="60" r="4.5" fill="#2b2b2b"/>
+    <circle cx="110" cy="190" r="4.5" fill="#2b2b2b"/>
+    <text x="6" y="295" font-size="24">A</text>
+    <text x="132" y="296" font-size="24" fill="#b54434">O</text>
+    <text x="244" y="296" font-size="24">C</text>
+    <text x="478" y="296" font-size="24">F</text>
+    <text x="86" y="44" font-size="24">E</text>
+    <text x="122" y="192" font-size="24">B</text>
+    <text x="200" y="326" font-size="17" font-style="normal" fill="#666">图 16（CF = AC，∠AEC = 45°，△ABC ∽ △FCE）</text>
+  </g>
+</svg>

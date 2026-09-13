@@ -1,0 +1,25 @@
+{
+  "id": "GM-0005",
+  "title": "尺规作图 + 相似传递链 + 定角定弦辅助圆：CB 的最大值",
+  "subject": "math",
+  "knowledgeScope": {
+    "curriculum": "人教A版",
+    "volume": "必修二",
+    "unit": "几何综合（相似三角形与圆）",
+    "topics": ["尺规作图", "中心对称", "平行四边形判定", "相似三角形", "圆周角定理", "定角定弦辅助圆", "最值"]
+  },
+  "questionType": "comprehensive",
+  "answer": "(2)② 存在，CB 最大值为 2√2（在 E=(4,4)、△FCE 为等腰直角三角形时取得）",
+  "answerKey": [
+    "(1) BO 延长截 OD=OB；对角线互相平分 => 平行四边形",
+    "(2)① 外角拆角得 ∠BCE = ∠BAC；CF=AC 换元比例得 AB/AC = BC/CE；SAS 相似",
+    "(2)② 定角定弦 => E 在半径 2√2 的辅助圆弧上运动",
+    "(2)② 构造 G（EF 与圆另一交点），△BAC∽△GFA => BC = AG/2",
+    "(2)② 弦最大为直径 4√2 => BC_max = 2√2；边界 G=E（切线位置）需单独验证，此时 E=(4,4) 直接成立"
+  ],
+  "difficulty": "hard",
+  "figure": ["assets/figure-1.svg", "assets/figure-2.svg", "assets/figure-3.svg", "assets/figure-4.svg"],
+  "transcriptionNote": "原始转录基本可读；'图15、图16示意图略'处已按原题照片重绘 4 幅 SVG（含作图结果与辅助圆）。解析结论验算无误，但辅助构造 G 在最值点（EF 为切线）处 G 与 E 重合，原解析未处理该边界——solution.md 补充了'最值可达性'直接验证。",
+  "dateAdded": "2026-09-13",
+  "tags": ["尺规作图", "相似三角形", "圆周角定理", "辅助圆", "最值", "几何综合", "多步推理"]
+}
