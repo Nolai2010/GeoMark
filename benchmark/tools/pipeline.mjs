@@ -15,7 +15,7 @@ const argv = process.argv.slice(2);
 const opt = {};
 for (let i = 0; i < argv.length; i++) if (argv[i].startsWith('--')) opt[argv[i].slice(2)] = argv[i + 1] !== undefined && !argv[i + 1].startsWith('--') ? argv[++i] : true;
 
-const RUN = opt.out;
+const RUN = path.resolve(String(opt.out || 'benchmark/results/run')); // 强制绝对路径，杜绝 cwd 差异产生第二份副本
 const judge = opt['judge-model'] || opt.model;
 
 function run(step, args) {
