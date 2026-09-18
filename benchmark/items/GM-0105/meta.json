@@ -1,0 +1,77 @@
+{
+  "id": "GM-0105",
+  "title": "最短路径与费马点：到两点及直线距离之和最小",
+  "subject": "math",
+  "category": "plane_geometry",
+  "coordinatePolicy": "restricted",
+  "knowledgeScope": {
+    "stage": "初中",
+    "topics": [
+      "最短路径",
+      "等边三角形与旋转",
+      "圆周角定理",
+      "矩形中的最值"
+    ]
+  },
+  "questionType": "解答题",
+  "answer": "（1）① $\\angle APD$（即 $60^\\circ$）；② 两点之间线段最短；（2）最小值 $4+3\\sqrt{3}$",
+  "answerKey": [
+    "① 填 $\\angle APD$：$A,P,C,D$ 共圆，$\\angle APD$ 与 $\\angle ACD$ 同弧 $AD$，$\\triangle ACD$ 为等边三角形故 $\\angle ACD=60^\\circ$",
+    "② 填「两点之间线段最短」",
+    "(2) 设 $P$ 到 $l$ 的距离为 $y$，由对称性 $x$ 取 $EF$ 中点，令 $PA+PB=2\\sqrt{3^2+(y-4)^2}$",
+    "对 $f(y)=2\\sqrt{9+(y-4)^2}+y$ 求导：$\\dfrac{2(4-y)}{\\sqrt{9+(y-4)^2}}=1\\Rightarrow 4-y=\\sqrt{3}$",
+    "最小值 $=2\\sqrt{12}+(4-\\sqrt{3})=4+3\\sqrt{3}\\approx9.196$"
+  ],
+  "difficulty": "hard",
+  "figure": [
+    "assets/figure-1.png",
+    "assets/figure-2.png"
+  ],
+  "source": {
+    "site": "第一试卷网",
+    "url": "https://www.shijuan1.com/a/sjsxzk/",
+    "paper": "2026年江苏省连云港市中考数学试题 第27题",
+    "region": "江苏连云港",
+    "year": 2026,
+    "license": "免费资源"
+  },
+  "dateAdded": "2026-09-18",
+  "tags": [
+    "最短路径",
+    "等边三角形与旋转",
+    "圆周角定理",
+    "矩形中的最值"
+  ],
+  "rubric": [
+    {
+      "point": "(1) 正确填出 ① $\\angle APD$、② 两点之间线段最短",
+      "score": 4
+    },
+    {
+      "point": "(2) 指出 $P$ 应取在 $EF$ 的中垂线上（对称性），设出 $P$ 到直线 $l$ 的距离并列出目标函数",
+      "score": 4
+    },
+    {
+      "point": "正确求出最小值 $4+3\\sqrt{3}$（并说明取等条件）",
+      "score": 6
+    }
+  ],
+  "visionRubric": [
+    {
+      "point": "识别图1中的锐角三角形 $ABC$ 及以 $AC$ 为边向外作的等边三角形 $ACD$",
+      "score": 3
+    },
+    {
+      "point": "指出点 $P$ 是 $BD$ 与 $\\odot O$ 的交点（$\\odot O$ 为 $\\triangle ACD$ 的外接圆）",
+      "score": 3
+    },
+    {
+      "point": "识别图2中的直线 $l$、垂直于 $l$ 的线段 $AE$、$BF$（长度相等）以及 $EF$",
+      "score": 3
+    },
+    {
+      "point": "指出 $A$、$B$ 位于直线 $l$ 同侧，$E$、$F$ 为垂足",
+      "score": 1
+    }
+  ]
+}

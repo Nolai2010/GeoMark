@@ -303,23 +303,41 @@ GeoMark is currently in an early research and development stage.
 
 ### Next
 
-* [ ] GeoMark Benchmark 0.1
-* [ ] Initial geometry dataset
-* [ ] Standardized evaluation protocol
-* [ ] Automated result aggregation
-* [ ] Repeated-run evaluation
-* [ ] Failure taxonomy
-* [ ] Benchmark result visualization
-* [ ] Reproducible experiment packages
+* [x] GeoMark Benchmark 0.1 — 版本化数据集清单 `benchmark/dataset.json`（含内容哈希，可复现）
+* [x] Initial geometry dataset — 平面几何题库（含配图、rubric、visionRubric、来源标注）
+* [x] Standardized evaluation protocol — `benchmark/docs/EVALUATION-PROTOCOL.md`
+* [x] Automated result aggregation — `benchmark/tools/summarize.mjs`（对比表 / CSV / JSON）
+* [x] Repeated-run evaluation — `summarize.mjs --runs A,B` 输出逐题差值稳定性表
+* [x] Failure taxonomy — F01–F08，见 `benchmark/docs/FAILURE-TAXONOMY.md`
+* [x] Benchmark result visualization — `benchmark/viz/`
+* [x] Reproducible experiment packages — `datasetHash` + `promptHash` + rubric/judge 配置共同锁定
 
 ### Future
 
-* [ ] Multimodal reasoning evaluation
+* [x] Multimodal reasoning evaluation — `vision` 模式（纯识图），按 `visionRubric` 判分
 * [ ] Larger benchmark datasets
 * [ ] Agent evaluation
 * [ ] Code and tool-use evaluation
 * [ ] Additional reasoning domains
 * [ ] Research publication
+
+---
+
+# Constraint Compliance
+
+GeoMark evaluates more than correctness. Under the `pure` mode (coordinate methods
+explicitly forbidden), an answer that secretly builds a coordinate system is treated as a
+**constraint violation**: the total score is zeroed and flagged as cheating, while the raw
+rubric score is preserved for review.
+
+Using **vectors with a basis** (expressing vectors as linear combinations of basis vectors,
+computing dot products via $|\vec a||\vec b|\cos\theta$, never assigning coordinates to any
+point) is a legitimate synthetic method and is **not** penalized.
+
+Detection is double-path and takes the stricter outcome: deterministic regex scanning with
+negation guards, plus an LLM compliance audit over both the reasoning trace and the final
+answer. See `benchmark/docs/EVALUATION-PROTOCOL.md` for the exact criteria.
+
 
 ---
 

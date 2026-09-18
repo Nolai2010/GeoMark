@@ -17,6 +17,16 @@
       "display_name": "Example (Anthropic)",
       "supports_reasoning": true,
       "extra_body": {}
+    },
+    {
+      "id": "example-vision",
+      "provider": "openai-compatible",
+      "base_url": "https://api.deepseek.com",
+      "api_model_id": "deepseek-chat",
+      "display_name": "Example (vision-capable)",
+      "supports_reasoning": true,
+      "supports_vision": true,
+      "extra_body": {}
     }
   ]
 }

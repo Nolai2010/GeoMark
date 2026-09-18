@@ -1,0 +1,80 @@
+{
+  "id": "GM-0101",
+  "title": "圆的切线判定与线段比值：直径、中位线与切线",
+  "subject": "math",
+  "category": "plane_geometry",
+  "coordinatePolicy": "restricted",
+  "knowledgeScope": {
+    "stage": "初中",
+    "topics": [
+      "切线的判定",
+      "直径所对圆周角",
+      "垂直平分线",
+      "三角函数"
+    ]
+  },
+  "questionType": "解答题",
+  "answer": "（1）见解析（PC ⊥ OC）；（2）① $BC=\\dfrac{4\\sqrt{5}}{5}$；② $\\tan\\angle PEC=\\dfrac{24}{7}$",
+  "answerKey": [
+    "$AB$ 为直径 $\\Rightarrow \\angle ACB=90^\\circ$，即 $BC\\perp AC$",
+    "$BC\\parallel OP$ 且 $O$ 为 $AB$ 中点 $\\Rightarrow OP$ 垂直平分 $AC$，故 $PA=PC$",
+    "$\\triangle OAP\\cong\\triangle OCP\\Rightarrow \\angle OCP=\\angle OAP=90^\\circ$，得 $PC$ 是切线",
+    "由 $\\triangle OAP$ 求 $OP=2\\sqrt{5}$，用 $\\triangle OAP\\sim\\triangle$ 关系得 $BC=4\\sqrt{5}/5$",
+    "建系（$O$ 为原点，半径 $2$，$P(-2,4)$）求 $E=DP\\cap OC$，得 $\\tan\\angle PEC=24/7$"
+  ],
+  "difficulty": "hard",
+  "figure": [
+    "assets/figure.png"
+  ],
+  "source": {
+    "site": "第一试卷网",
+    "url": "https://www.shijuan1.com/a/sjsxzk/",
+    "paper": "2026年江苏省苏州市中考数学试题 第25题",
+    "region": "江苏苏州",
+    "year": 2026,
+    "license": "免费资源"
+  },
+  "dateAdded": "2026-09-18",
+  "tags": [
+    "切线的判定",
+    "直径所对圆周角",
+    "垂直平分线",
+    "三角函数"
+  ],
+  "rubric": [
+    {
+      "point": "证明 $BC\\perp AC$（直径所对圆周角为直角）并用中位线/垂直平分线推出 $OP\\perp AC$",
+      "score": 3
+    },
+    {
+      "point": "由 $OP$ 垂直平分 $AC$ 得 $PA=PC$，进而证 $\\triangle OAP\\cong\\triangle OCP$，得出 $\\angle OCP=90^\\circ$，即 $PC$ 是切线",
+      "score": 4
+    },
+    {
+      "point": "由 $OA=2,PA=4$ 得 $OP=2\\sqrt{5}$，并正确推出 $BC=\\dfrac{4\\sqrt{5}}{5}$",
+      "score": 4
+    },
+    {
+      "point": "求出 $E$ 点位置并算出 $\\tan\\angle PEC=\\dfrac{24}{7}$",
+      "score": 5
+    }
+  ],
+  "visionRubric": [
+    {
+      "point": "识别出圆 $\\odot O$ 及其圆心 $O$、圆上三点 $A,B,C$",
+      "score": 3
+    },
+    {
+      "point": "识别出圆外点 $P$，以及从 $P$ 出发的两条切线（切点 $A$、$C$）",
+      "score": 3
+    },
+    {
+      "point": "指出 $AB$ 是过圆心 $O$ 的直径，$B$、$C$ 在圆上且 $BC$ 为弦",
+      "score": 2
+    },
+    {
+      "point": "指出 $D$ 在 $OB$ 上（$B$、$D$、$O$ 共线），连线 $DP$ 与 $OC$ 相交于 $E$",
+      "score": 2
+    }
+  ]
+}

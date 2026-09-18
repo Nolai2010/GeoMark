@@ -1,0 +1,632 @@
+{
+  "name": "GeoMark Benchmark",
+  "version": "0.1",
+  "generatedAt": "2026-09-18T14:29:14.761Z",
+  "itemCount": 18,
+  "withFigure": 16,
+  "modes": [
+    "vision",
+    "coord",
+    "pure"
+  ],
+  "scoring": {
+    "solve": "rubric（LLM-as-judge，逐项）",
+    "vision": "visionRubric（图形复述要点）",
+    "constraint": "坐标法违规归零（cheat）"
+  },
+  "datasetHash": "f73bdf36559c6e29",
+  "items": [
+    {
+      "id": "GM-0001",
+      "title": "向量数量积投影条件与三角形内心的判定",
+      "category": "geometry",
+      "coordinatePolicy": null,
+      "difficulty": "medium",
+      "questionType": "single_choice",
+      "topics": [
+        "数量积",
+        "投影",
+        "余弦夹角",
+        "三角形五心"
+      ],
+      "source": null,
+      "rubricMax": 12,
+      "visionMax": 0,
+      "hasVisionRubric": false,
+      "figure": [],
+      "assets": {},
+      "problemHash": "da72bc9317a2f2e4",
+      "solutionHash": "029528283ce56ba7",
+      "metaHash": "ceaee91ed8a73fec"
+    },
+    {
+      "id": "GM-0002",
+      "title": "基底表示与共线向量定理：证明 B、E、F 三点共线",
+      "category": "geometry",
+      "coordinatePolicy": null,
+      "difficulty": "medium",
+      "questionType": "proof",
+      "topics": [
+        "基底分解",
+        "中点公式",
+        "共线向量定理",
+        "定比分点"
+      ],
+      "source": null,
+      "rubricMax": 12,
+      "visionMax": 0,
+      "hasVisionRubric": false,
+      "figure": [
+        "assets/figure.png"
+      ],
+      "assets": {
+        "assets/figure.png": {
+          "sha256_16": "4a5281962d681b0e",
+          "bytes": 27405
+        }
+      },
+      "problemHash": "0b9d7c14960bfb80",
+      "solutionHash": "8c03320c7ed7f4f7",
+      "metaHash": "6f372476d6873b42"
+    },
+    {
+      "id": "GM-0003",
+      "title": "外心位置、投影向量与二倍角：求 μ 的取值范围",
+      "category": "geometry",
+      "coordinatePolicy": null,
+      "difficulty": "medium",
+      "questionType": "open_answer",
+      "topics": [
+        "共线向量与系数和",
+        "三角形外心",
+        "投影向量",
+        "圆周角定理",
+        "二倍角余弦"
+      ],
+      "source": null,
+      "rubricMax": 12,
+      "visionMax": 0,
+      "hasVisionRubric": false,
+      "figure": [],
+      "assets": {},
+      "problemHash": "212eecdfe6587d63",
+      "solutionHash": "f9239fc7b0a46b82",
+      "metaHash": "ff0dd8ecafcf9f10"
+    },
+    {
+      "id": "GM-0004",
+      "title": "黄金矩形双重折叠：折叠性质、投影与面积法综合",
+      "category": "geometry",
+      "coordinatePolicy": null,
+      "difficulty": "hard",
+      "questionType": "comprehensive",
+      "topics": [
+        "黄金矩形",
+        "轴对称折叠",
+        "勾股定理",
+        "梯形面积分割",
+        "共线与垂直的判定"
+      ],
+      "source": null,
+      "rubricMax": 12,
+      "visionMax": 0,
+      "hasVisionRubric": false,
+      "figure": [
+        "assets/figure-1.png",
+        "assets/figure-2.png"
+      ],
+      "assets": {
+        "assets/figure-1.png": {
+          "sha256_16": "5c38d564b51ac33e",
+          "bytes": 7974
+        },
+        "assets/figure-2.png": {
+          "sha256_16": "c262b13e12295af6",
+          "bytes": 21865
+        }
+      },
+      "problemHash": "f775ad0c389c4198",
+      "solutionHash": "6e01e8689b34d677",
+      "metaHash": "a36cfc013954fc53"
+    },
+    {
+      "id": "GM-0005",
+      "title": "尺规作图 + 相似传递链 + 定角定弦辅助圆：CB 的最大值",
+      "category": "geometry",
+      "coordinatePolicy": null,
+      "difficulty": "hard",
+      "questionType": "comprehensive",
+      "topics": [
+        "尺规作图",
+        "中心对称",
+        "平行四边形判定",
+        "相似三角形",
+        "圆周角定理",
+        "定角定弦辅助圆",
+        "最值"
+      ],
+      "source": null,
+      "rubricMax": 12,
+      "visionMax": 0,
+      "hasVisionRubric": false,
+      "figure": [
+        "assets/figure-1.png",
+        "assets/figure-2.png",
+        "assets/figure-3.png",
+        "assets/figure-4.png"
+      ],
+      "assets": {
+        "assets/figure-1.png": {
+          "sha256_16": "a0ef35094dc72a2c",
+          "bytes": 7915
+        },
+        "assets/figure-2.png": {
+          "sha256_16": "bb4978280d534ab6",
+          "bytes": 7764
+        },
+        "assets/figure-3.png": {
+          "sha256_16": "9c5bbbcd6c9ec6f3",
+          "bytes": 18841
+        },
+        "assets/figure-4.png": {
+          "sha256_16": "e512f2daed2d83e1",
+          "bytes": 33786
+        }
+      },
+      "problemHash": "69dd6a825600642f",
+      "solutionHash": "58f0f1860d5b6fbd",
+      "metaHash": "0461bd0648d1ce9b"
+    },
+    {
+      "id": "GM-0006",
+      "title": "正方体中 BD₁ ⊥ 平面 AB₁C 的证明",
+      "category": "geometry",
+      "coordinatePolicy": null,
+      "difficulty": "medium",
+      "questionType": "proof",
+      "topics": [
+        "线面垂直判定",
+        "线面垂直性质",
+        "正方体"
+      ],
+      "source": null,
+      "rubricMax": 12,
+      "visionMax": 0,
+      "hasVisionRubric": false,
+      "figure": [
+        "assets/figure.png"
+      ],
+      "assets": {
+        "assets/figure.png": {
+          "sha256_16": "247a21f0c8292e6f",
+          "bytes": 18207
+        }
+      },
+      "problemHash": "17cbd29f585619eb",
+      "solutionHash": "33adcf4858c595ed",
+      "metaHash": "a5ef9fb3a5197b0d"
+    },
+    {
+      "id": "GM-0007",
+      "title": "四棱锥中的线面垂直与线面角",
+      "category": "geometry",
+      "coordinatePolicy": null,
+      "difficulty": "medium",
+      "questionType": "comprehensive",
+      "topics": [
+        "线面垂直判定",
+        "直线与平面所成角",
+        "等体积法",
+        "空间向量"
+      ],
+      "source": null,
+      "rubricMax": 12,
+      "visionMax": 0,
+      "hasVisionRubric": false,
+      "figure": [
+        "assets/figure.png"
+      ],
+      "assets": {
+        "assets/figure.png": {
+          "sha256_16": "270424eaaaac44fc",
+          "bytes": 20381
+        }
+      },
+      "problemHash": "4beac0066c5bb8d7",
+      "solutionHash": "38a7977eaf637f74",
+      "metaHash": "3aebdc1c64476b3f"
+    },
+    {
+      "id": "GM-0008",
+      "title": "三棱锥中的线面垂直与二面角",
+      "category": "geometry",
+      "coordinatePolicy": null,
+      "difficulty": "medium",
+      "questionType": "comprehensive",
+      "topics": [
+        "线面垂直判定",
+        "面面垂直",
+        "二面角",
+        "三垂线定理",
+        "空间向量"
+      ],
+      "source": null,
+      "rubricMax": 12,
+      "visionMax": 0,
+      "hasVisionRubric": false,
+      "figure": [
+        "assets/figure.png"
+      ],
+      "assets": {
+        "assets/figure.png": {
+          "sha256_16": "e3bbecc0a44314ad",
+          "bytes": 13047
+        }
+      },
+      "problemHash": "4064155cf261fcd5",
+      "solutionHash": "84cd195074f04761",
+      "metaHash": "5c9023b0a24e9873"
+    },
+    {
+      "id": "GM-0009",
+      "title": "锥体外接球的表面积",
+      "category": "geometry",
+      "coordinatePolicy": null,
+      "difficulty": "medium",
+      "questionType": "comprehensive",
+      "topics": [
+        "外接球",
+        "球心定位",
+        "补形法",
+        "表面积"
+      ],
+      "source": null,
+      "rubricMax": 12,
+      "visionMax": 0,
+      "hasVisionRubric": false,
+      "figure": [
+        "assets/figure.png"
+      ],
+      "assets": {
+        "assets/figure.png": {
+          "sha256_16": "47f4e01af09abb16",
+          "bytes": 15580
+        }
+      },
+      "problemHash": "3807106f654853bb",
+      "solutionHash": "6e001e19e7c8fdca",
+      "metaHash": "43791e64b372c4a0"
+    },
+    {
+      "id": "GM-0010",
+      "title": "空间向量法求线面角",
+      "category": "geometry",
+      "coordinatePolicy": null,
+      "difficulty": "medium",
+      "questionType": "comprehensive",
+      "topics": [
+        "空间向量",
+        "法向量",
+        "线面角",
+        "等体积法"
+      ],
+      "source": null,
+      "rubricMax": 12,
+      "visionMax": 0,
+      "hasVisionRubric": false,
+      "figure": [
+        "assets/figure.png"
+      ],
+      "assets": {
+        "assets/figure.png": {
+          "sha256_16": "93d83621272fedea",
+          "bytes": 20481
+        }
+      },
+      "problemHash": "542d617ec7e516e0",
+      "solutionHash": "85d8c975547af8cb",
+      "metaHash": "5c2b2cdcb6f3362e"
+    },
+    {
+      "id": "GM-0101",
+      "title": "圆的切线判定与线段比值：直径、中位线与切线",
+      "category": "plane_geometry",
+      "coordinatePolicy": "restricted",
+      "difficulty": "hard",
+      "questionType": "解答题",
+      "topics": [
+        "切线的判定",
+        "直径所对圆周角",
+        "垂直平分线",
+        "三角函数"
+      ],
+      "source": {
+        "site": "第一试卷网",
+        "url": "https://www.shijuan1.com/a/sjsxzk/",
+        "paper": "2026年江苏省苏州市中考数学试题 第25题",
+        "region": "江苏苏州",
+        "year": 2026,
+        "license": "免费资源"
+      },
+      "rubricMax": 16,
+      "visionMax": 10,
+      "hasVisionRubric": true,
+      "figure": [
+        "assets/figure.png"
+      ],
+      "assets": {
+        "assets/figure.png": {
+          "sha256_16": "33d771caf24d3ddd",
+          "bytes": 30151
+        }
+      },
+      "problemHash": "867a8b2c7369fdb7",
+      "solutionHash": "b8c9d0fd04ec0802",
+      "metaHash": "b6174b97e11f165e"
+    },
+    {
+      "id": "GM-0102",
+      "title": "外接圆与切线：圆周角、弦切角与线段长",
+      "category": "plane_geometry",
+      "coordinatePolicy": "restricted",
+      "difficulty": "hard",
+      "questionType": "解答题",
+      "topics": [
+        "外接圆",
+        "切线的性质",
+        "圆周角定理",
+        "解直角三角形"
+      ],
+      "source": {
+        "site": "第一试卷网",
+        "url": "https://www.shijuan1.com/a/sjsxzk/",
+        "paper": "2025年甘肃省兰州市中考数学试题 第24题",
+        "region": "甘肃兰州",
+        "year": 2025,
+        "license": "免费资源"
+      },
+      "rubricMax": 14,
+      "visionMax": 10,
+      "hasVisionRubric": true,
+      "figure": [
+        "assets/figure.png"
+      ],
+      "assets": {
+        "assets/figure.png": {
+          "sha256_16": "bbccd5e5e96611cb",
+          "bytes": 26905
+        }
+      },
+      "problemHash": "ae8eee4cfde5ebe5",
+      "solutionHash": "2ee87ffce69ba66f",
+      "metaHash": "9a3617800a3c5e07"
+    },
+    {
+      "id": "GM-0103",
+      "title": "尺规作图与切线半径：直角三角形内的切圆",
+      "category": "plane_geometry",
+      "coordinatePolicy": "restricted",
+      "difficulty": "hard",
+      "questionType": "作图+解答题",
+      "topics": [
+        "尺规作图",
+        "切线的判定与性质",
+        "垂直平分线",
+        "解直角三角形"
+      ],
+      "source": {
+        "site": "第一试卷网",
+        "url": "https://www.shijuan1.com/a/sjsxzk/",
+        "paper": "2026年江苏省扬州市中考数学试题 第26题",
+        "region": "江苏扬州",
+        "year": 2026,
+        "license": "免费资源"
+      },
+      "rubricMax": 14,
+      "visionMax": 10,
+      "hasVisionRubric": true,
+      "figure": [
+        "assets/figure.png"
+      ],
+      "assets": {
+        "assets/figure.png": {
+          "sha256_16": "1568637373c6ac2a",
+          "bytes": 5198
+        }
+      },
+      "problemHash": "0d779967df421025",
+      "solutionHash": "5ed0a28b7accbdec",
+      "metaHash": "eadbdc5781f70478"
+    },
+    {
+      "id": "GM-0104",
+      "title": "尺规作图与二倍角：矩形中的角度关系",
+      "category": "plane_geometry",
+      "coordinatePolicy": "restricted",
+      "difficulty": "hard",
+      "questionType": "作图+解答题",
+      "topics": [
+        "尺规作图",
+        "矩形的性质",
+        "二倍角",
+        "解直角三角形"
+      ],
+      "source": {
+        "site": "第一试卷网",
+        "url": "https://www.shijuan1.com/a/sjsxzk/",
+        "paper": "2026年福建省中考数学真题 第20题",
+        "region": "福建",
+        "year": 2026,
+        "license": "免费资源"
+      },
+      "rubricMax": 14,
+      "visionMax": 10,
+      "hasVisionRubric": true,
+      "figure": [
+        "assets/figure.png"
+      ],
+      "assets": {
+        "assets/figure.png": {
+          "sha256_16": "a01cba4601a2e432",
+          "bytes": 7296
+        }
+      },
+      "problemHash": "73efe8037b7b9c5f",
+      "solutionHash": "73be11a1cf9b6abf",
+      "metaHash": "c7b3f5de44e9ca29"
+    },
+    {
+      "id": "GM-0105",
+      "title": "最短路径与费马点：到两点及直线距离之和最小",
+      "category": "plane_geometry",
+      "coordinatePolicy": "restricted",
+      "difficulty": "hard",
+      "questionType": "解答题",
+      "topics": [
+        "最短路径",
+        "等边三角形与旋转",
+        "圆周角定理",
+        "矩形中的最值"
+      ],
+      "source": {
+        "site": "第一试卷网",
+        "url": "https://www.shijuan1.com/a/sjsxzk/",
+        "paper": "2026年江苏省连云港市中考数学试题 第27题",
+        "region": "江苏连云港",
+        "year": 2026,
+        "license": "免费资源"
+      },
+      "rubricMax": 14,
+      "visionMax": 10,
+      "hasVisionRubric": true,
+      "figure": [
+        "assets/figure-1.png",
+        "assets/figure-2.png"
+      ],
+      "assets": {
+        "assets/figure-1.png": {
+          "sha256_16": "2084637650d952ff",
+          "bytes": 37681
+        },
+        "assets/figure-2.png": {
+          "sha256_16": "5d45fdf037ea811f",
+          "bytes": 5835
+        }
+      },
+      "problemHash": "7cb0dc8421817b52",
+      "solutionHash": "c1a3bc3275a0cfed",
+      "metaHash": "a796eaa0a05cbc33"
+    },
+    {
+      "id": "GM-0106",
+      "title": "矩形中的中点与角平分线：定比与线段比",
+      "category": "plane_geometry",
+      "coordinatePolicy": "restricted",
+      "difficulty": "hard",
+      "questionType": "解答题",
+      "topics": [
+        "矩形",
+        "三角形中位线",
+        "角平分线",
+        "比例线段"
+      ],
+      "source": {
+        "site": "第一试卷网",
+        "url": "https://www.shijuan1.com/a/sjsxzk/",
+        "paper": "2025年江苏省南通市中考数学试卷 第25题",
+        "region": "江苏南通",
+        "year": 2025,
+        "license": "免费资源"
+      },
+      "rubricMax": 15,
+      "visionMax": 10,
+      "hasVisionRubric": true,
+      "figure": [
+        "assets/figure.png"
+      ],
+      "assets": {
+        "assets/figure.png": {
+          "sha256_16": "5d6e85a1f3ba330f",
+          "bytes": 39211
+        }
+      },
+      "problemHash": "b021de7ccf622abc",
+      "solutionHash": "3c2b914d77958a90",
+      "metaHash": "e01f8d2b6d95acde"
+    },
+    {
+      "id": "GM-0107",
+      "title": "最短路径的图形变化：对称与两点间线段最短",
+      "category": "plane_geometry",
+      "coordinatePolicy": "restricted",
+      "difficulty": "hard",
+      "questionType": "解答题",
+      "topics": [
+        "最短路径",
+        "轴对称",
+        "两点之间线段最短",
+        "解三角形"
+      ],
+      "source": {
+        "site": "第一试卷网",
+        "url": "https://www.shijuan1.com/a/sjsxzk/",
+        "paper": "2026年贵州省中考数学试题 第24题",
+        "region": "贵州",
+        "year": 2026,
+        "license": "免费资源"
+      },
+      "rubricMax": 14,
+      "visionMax": 10,
+      "hasVisionRubric": true,
+      "figure": [
+        "assets/figure.png"
+      ],
+      "assets": {
+        "assets/figure.png": {
+          "sha256_16": "29b2a7517f3b0c5c",
+          "bytes": 33972
+        }
+      },
+      "problemHash": "8b8823e0c3db52c6",
+      "solutionHash": "eaf6ddbd6f8649ff",
+      "metaHash": "4f8e160e407d0f73"
+    },
+    {
+      "id": "GM-0108",
+      "title": "旋转与面积：直角三角形绕直角顶点旋转",
+      "category": "plane_geometry",
+      "coordinatePolicy": "restricted",
+      "difficulty": "hard",
+      "questionType": "解答题",
+      "topics": [
+        "旋转",
+        "面积关系",
+        "三点共线",
+        "最值"
+      ],
+      "source": {
+        "site": "第一试卷网",
+        "url": "https://www.shijuan1.com/a/sjsxzk/",
+        "paper": "2025年江苏省徐州市中考数学真题 第28题",
+        "region": "江苏徐州",
+        "year": 2025,
+        "license": "免费资源"
+      },
+      "rubricMax": 15,
+      "visionMax": 10,
+      "hasVisionRubric": true,
+      "figure": [
+        "assets/figure.png"
+      ],
+      "assets": {
+        "assets/figure.png": {
+          "sha256_16": "7d50e4b715b9c15b",
+          "bytes": 67258
+        }
+      },
+      "problemHash": "d4c0b2c4f17e156e",
+      "solutionHash": "59edddf186448229",
+      "metaHash": "ee070626d653ee57"
+    }
+  ]
+}

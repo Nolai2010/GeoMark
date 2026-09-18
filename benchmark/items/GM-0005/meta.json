@@ -27,10 +27,10 @@
   ],
   "difficulty": "hard",
   "figure": [
-    "assets/figure-1.svg",
-    "assets/figure-2.svg",
-    "assets/figure-3.svg",
-    "assets/figure-4.svg"
+    "assets/figure-1.png",
+    "assets/figure-2.png",
+    "assets/figure-3.png",
+    "assets/figure-4.png"
   ],
   "transcriptionNote": "原始转录基本可读；'图15、图16示意图略'处已按原题照片重绘 4 幅 SVG（含作图结果与辅助圆）。解析结论验算无误，但辅助构造 G 在最值点（EF 为切线）处 G 与 E 重合，原解析未处理该边界——solution.md 补充了'最值可达性'直接验证。",
   "dateAdded": "2026-09-13",

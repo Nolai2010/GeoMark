@@ -142,3 +142,11 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
 **/**/benchmark/results/
+
+# GeoMark 题库采集中间产物（试卷原件、解析中间件、公式图等；不入库，可重新生成）
+benchmark/sources/
+
+# 本地调试预览图（不入库）
+benchmark/docs/.logo-*.svg
+benchmark/docs/.logo-preview.*
+benchmark/docs/redesign-*.png

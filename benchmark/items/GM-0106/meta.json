@@ -1,0 +1,80 @@
+{
+  "id": "GM-0106",
+  "title": "矩形中的中点与角平分线：定比与线段比",
+  "subject": "math",
+  "category": "plane_geometry",
+  "coordinatePolicy": "restricted",
+  "knowledgeScope": {
+    "stage": "初中",
+    "topics": [
+      "矩形",
+      "三角形中位线",
+      "角平分线",
+      "比例线段"
+    ]
+  },
+  "questionType": "解答题",
+  "answer": "（1）见解析（$AG=2GC$）；（2）① $2$；② $\\dfrac{EF}{BC}=\\dfrac{2}{3}$",
+  "answerKey": [
+    "$M$ 为 $BC$ 中点，$O$ 为对角线交点（即 $AC$ 中点），在 $\\triangle ABC$ 中 $OM\\parallel AB$，$DM$ 交 $AC$ 于 $G$",
+    "由中位线定理与相似，得 $AG:GC=2:1$",
+    "① $AB=6,BC=8$：内角平分线交点为内心，由坐标 $A(0,0),B(6,0),C(6,8),D(0,8)$ 求得 $I(4,6)$，故 $I$ 到 $BC$（直线 $x=6$）的距离为 $2$",
+    "② $AB+AC=2BC\\Rightarrow AB:BC:AC=3:4:5$；取 $AB=3,BC=4,AC=5$ 得 $I(2,3)$ 与 $G(2,8/3)$，直线 $GI$ 为 $x=2$",
+    "由 $x=2$ 与 $BD$、$CD$ 求交点得 $EF=\\dfrac{8}{3}$，故 $\\dfrac{EF}{BC}=\\dfrac{2}{3}$"
+  ],
+  "difficulty": "hard",
+  "figure": [
+    "assets/figure.png"
+  ],
+  "source": {
+    "site": "第一试卷网",
+    "url": "https://www.shijuan1.com/a/sjsxzk/",
+    "paper": "2025年江苏省南通市中考数学试卷 第25题",
+    "region": "江苏南通",
+    "year": 2025,
+    "license": "免费资源"
+  },
+  "dateAdded": "2026-09-18",
+  "tags": [
+    "矩形",
+    "三角形中位线",
+    "角平分线",
+    "比例线段"
+  ],
+  "rubric": [
+    {
+      "point": "(1) 利用中位线/相似证明 $AG=2GC$",
+      "score": 4
+    },
+    {
+      "point": "① 由角平分线交点为内心求出 $I(4,6)$，得到 $I$ 到 $BC$ 的距离为 $2$",
+      "score": 4
+    },
+    {
+      "point": "② 由 $AB+AC=2BC$ 推出三边比 $3:4:5$",
+      "score": 3
+    },
+    {
+      "point": "② 求出 $E,F$ 位置并算出 $\\dfrac{EF}{BC}=\\dfrac{2}{3}$",
+      "score": 4
+    }
+  ],
+  "visionRubric": [
+    {
+      "point": "识别出矩形 $ABCD$ 及其对角线 $AC$、$BD$ 交于点 $O$",
+      "score": 3
+    },
+    {
+      "point": "指出 $M$ 是边 $BC$ 的中点",
+      "score": 3
+    },
+    {
+      "point": "指出线段 $DM$ 与对角线 $AC$ 交于点 $G$",
+      "score": 2
+    },
+    {
+      "point": "指出点 $I$ 为角平分线的交点（位于三角形内部）",
+      "score": 2
+    }
+  ]
+}

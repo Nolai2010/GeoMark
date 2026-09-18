@@ -1,0 +1,80 @@
+{
+  "id": "GM-0108",
+  "title": "旋转与面积：直角三角形绕直角顶点旋转",
+  "subject": "math",
+  "category": "plane_geometry",
+  "coordinatePolicy": "restricted",
+  "knowledgeScope": {
+    "stage": "初中",
+    "topics": [
+      "旋转",
+      "面积关系",
+      "三点共线",
+      "最值"
+    ]
+  },
+  "questionType": "解答题",
+  "answer": "（1）$S_{\\triangle AOD}=S_{\\triangle BOC}$（面积相等）；（2）见解析；（3）最大值 $S_{\\max}=25$",
+  "answerKey": [
+    "设 $OA=x,OB=y$（$x^2+y^2=25$），旋转角为 $\\varphi$，取 $A(x,0),B(0,y),C(x\\cos\\varphi,x\\sin\\varphi),D(-y\\sin\\varphi,y\\cos\\varphi)$",
+    "(1) $S_{\\triangle AOD}=\\dfrac12 xy\\cos\\varphi=S_{\\triangle BOC}$（$|\\sin(90^\\circ\\pm\\varphi)|=|\\cos\\varphi|$），故面积相等",
+    "(2) 用向量/中点公式表示 $P,Q,R$，证明 $\\overrightarrow{PQ}$ 与 $\\overrightarrow{PR}$ 共线",
+    "(3) 四边形 $ABCD$ 面积 $S=xy(1-\\cos\\varphi)$，故 $S\\le 2xy\\le x^2+y^2=25$",
+    "当 $x=y=\\dfrac{5\\sqrt{2}}{2}$ 且 $\\varphi=180^\\circ$ 时取到 $S_{\\max}=25$"
+  ],
+  "difficulty": "hard",
+  "figure": [
+    "assets/figure.png"
+  ],
+  "source": {
+    "site": "第一试卷网",
+    "url": "https://www.shijuan1.com/a/sjsxzk/",
+    "paper": "2025年江苏省徐州市中考数学真题 第28题",
+    "region": "江苏徐州",
+    "year": 2025,
+    "license": "免费资源"
+  },
+  "dateAdded": "2026-09-18",
+  "tags": [
+    "旋转",
+    "面积关系",
+    "三点共线",
+    "最值"
+  ],
+  "rubric": [
+    {
+      "point": "(1) 得出 $S_{\\triangle AOD}=S_{\\triangle BOC}$ 并说明理由（旋转对应边长相等 + 等角）",
+      "score": 4
+    },
+    {
+      "point": "(2) 建立坐标或向量表示 $P,Q,R$ 并证明三点共线",
+      "score": 4
+    },
+    {
+      "point": "(3) 用对角线或坐标导出四边形面积 $S=xy(1-\\cos\\varphi)$",
+      "score": 4
+    },
+    {
+      "point": "(3) 求出最大值 $S_{\\max}=25$",
+      "score": 3
+    }
+  ],
+  "visionRubric": [
+    {
+      "point": "识别两个共直角顶点的直角三角形（$Rt\\triangle AOB$ 与旋转后的 $Rt\\triangle COD$）",
+      "score": 3
+    },
+    {
+      "point": "指出旋转中心是 $O$（直角顶点），$A\\to C$、$B\\to D$ 是对应点",
+      "score": 3
+    },
+    {
+      "point": "识别出四条连线段 $AD,BC,AC,BD$ 以及它们的交点 $E$",
+      "score": 2
+    },
+    {
+      "point": "指出 $OA\\perp OB$ 的直角记号位于点 $O$",
+      "score": 2
+    }
+  ]
+}

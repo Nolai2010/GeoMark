@@ -1,0 +1,80 @@
+{
+  "id": "GM-0107",
+  "title": "最短路径的图形变化：对称与两点间线段最短",
+  "subject": "math",
+  "category": "plane_geometry",
+  "coordinatePolicy": "restricted",
+  "knowledgeScope": {
+    "stage": "初中",
+    "topics": [
+      "最短路径",
+      "轴对称",
+      "两点之间线段最短",
+      "解三角形"
+    ]
+  },
+  "questionType": "解答题",
+  "answer": "（1）作点 $A$ 关于 $l$ 的对称点 $A'$，连 $A'B$ 交 $l$ 于 $P$；（2）两点之间线段最短；（3）$EF=1$",
+  "answerKey": [
+    "(1) 作 $A$ 关于直线 $l$ 的对称点 $A'$，连接 $A'B$ 与 $l$ 的交点即为 $P$",
+    "(2) 依据：两点之间线段最短",
+    "(3) 取 $B$ 为原点、$BC$ 沿 $x$ 轴，$C(2\\sqrt{3},0)$，$E(\\sqrt{3},0)$，$BD$ 方向与 $BC$ 成 $30^\\circ$，设 $F=s(\\cos30^\\circ,\\sin30^\\circ)$",
+    "$EF^2=s^2-3s+3$，$CF^2=s^2-6s+12$；令 $f(s)=\\sqrt{s^2-3s+3}+\\sqrt{s^2-6s+12}$，$f'(s)=0$ 得 $s=2$",
+    "$s=2$ 时 $EF+CF=3$ 最小，此时 $EF=\\sqrt{4-6+3}=1$"
+  ],
+  "difficulty": "hard",
+  "figure": [
+    "assets/figure.png"
+  ],
+  "source": {
+    "site": "第一试卷网",
+    "url": "https://www.shijuan1.com/a/sjsxzk/",
+    "paper": "2026年贵州省中考数学试题 第24题",
+    "region": "贵州",
+    "year": 2026,
+    "license": "免费资源"
+  },
+  "dateAdded": "2026-09-18",
+  "tags": [
+    "最短路径",
+    "轴对称",
+    "两点之间线段最短",
+    "解三角形"
+  ],
+  "rubric": [
+    {
+      "point": "(1) 正确作出点 $P$（作轴对称点后连线取交点）",
+      "score": 3
+    },
+    {
+      "point": "(2) 填「两点之间线段最短」",
+      "score": 2
+    },
+    {
+      "point": "(3) 用坐标或几何方法把 $EF+CF$ 化为单变量函数",
+      "score": 4
+    },
+    {
+      "point": "(3) 求出最小值位置并得到 $EF=1$",
+      "score": 5
+    }
+  ],
+  "visionRubric": [
+    {
+      "point": "识别图①中直线 $l$ 及其异侧两点 $A$、$B$",
+      "score": 3
+    },
+    {
+      "point": "识别图②中四边形 $ABCD$ 与对角线 $BD$，指出 $E$ 是 $BC$ 中点",
+      "score": 3
+    },
+    {
+      "point": "识别图③中的四边形 $ABCD$（$AD\\parallel BC$）、$BD=CD$ 的标记与 $CE\\perp BD$ 的直角记号",
+      "score": 3
+    },
+    {
+      "point": "指出 $angle DBC=30^\\circ$ 等角度标注位置",
+      "score": 1
+    }
+  ]
+}

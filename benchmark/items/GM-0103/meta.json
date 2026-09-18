@@ -1,0 +1,80 @@
+{
+  "id": "GM-0103",
+  "title": "尺规作图与切线半径：直角三角形内的切圆",
+  "subject": "math",
+  "category": "plane_geometry",
+  "coordinatePolicy": "restricted",
+  "knowledgeScope": {
+    "stage": "初中",
+    "topics": [
+      "尺规作图",
+      "切线的判定与性质",
+      "垂直平分线",
+      "解直角三角形"
+    ]
+  },
+  "questionType": "作图+解答题",
+  "answer": "（1）见解析（作法与理由）；（2）半径 $r=\\dfrac{3\\sqrt{5}}{4}$",
+  "answerKey": [
+    "在射线 $CA$ 上取 $D$ 使 $CD=\\dfrac{BC^2}{AC}$（尺规作第四比例项）",
+    "作线段 $AD$ 的垂直平分线交 $AB$ 于 $O$，则 $OA=OD$，$D$ 在 $\\odot O$ 上",
+    "$AC=4$、$\\tan\\angle BAC=\\dfrac{1}{2}$ 得 $BC=2$，$AB=2\\sqrt{5}$，$CD=\\dfrac{BC^2}{AC}=1$，故 $AD=3$",
+    "设半径 $r$，由 $AD=2r\\cos\\angle BAC$ 得 $r=\\dfrac{AD}{2\\cos\\angle BAC}=\\dfrac{3\\sqrt{5}}{4}$",
+    "可用坐标复核：$A(4,0),B(0,2),C(0,0),D(1,0),O(2.5,0.75)$，$OD\\perp BD$ 成立"
+  ],
+  "difficulty": "hard",
+  "figure": [
+    "assets/figure.png"
+  ],
+  "source": {
+    "site": "第一试卷网",
+    "url": "https://www.shijuan1.com/a/sjsxzk/",
+    "paper": "2026年江苏省扬州市中考数学试题 第26题",
+    "region": "江苏扬州",
+    "year": 2026,
+    "license": "免费资源"
+  },
+  "dateAdded": "2026-09-18",
+  "tags": [
+    "尺规作图",
+    "切线的判定与性质",
+    "垂直平分线",
+    "解直角三角形"
+  ],
+  "rubric": [
+    {
+      "point": "给出可行作法（确定 $D$ 与 $O$），并写出必要文字说明、保留作图痕迹",
+      "score": 4
+    },
+    {
+      "point": "说明理由：由垂直平分线得 $OA=OD$，即 $D$ 在 $\\odot O$ 上且圆心在 $AB$ 上",
+      "score": 3
+    },
+    {
+      "point": "由 $AC=4$、$\\tan\\angle BAC=\\dfrac{1}{2}$ 正确求出 $BC=2$、$AB=2\\sqrt{5}$",
+      "score": 3
+    },
+    {
+      "point": "求出半径 $r=\\dfrac{3\\sqrt{5}}{4}$",
+      "score": 4
+    }
+  ],
+  "visionRubric": [
+    {
+      "point": "识别出 $Rt\\triangle ABC$（$\\angle ACB=90^\\circ$）",
+      "score": 3
+    },
+    {
+      "point": "识别出圆 $\\odot O$，圆心 $O$ 在边 $AB$ 上，圆经过 $A$",
+      "score": 3
+    },
+    {
+      "point": "指出 $D$ 在边 $AC$ 上且也在圆上（$AD$ 为弦）",
+      "score": 2
+    },
+    {
+      "point": "指出 $BD$ 与圆相切（切点为 $D$）",
+      "score": 2
+    }
+  ]
+}

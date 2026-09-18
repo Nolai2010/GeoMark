@@ -1,0 +1,79 @@
+{
+  "id": "GM-0104",
+  "title": "尺规作图与二倍角：矩形中的角度关系",
+  "subject": "math",
+  "category": "plane_geometry",
+  "coordinatePolicy": "restricted",
+  "knowledgeScope": {
+    "stage": "初中",
+    "topics": [
+      "尺规作图",
+      "矩形的性质",
+      "二倍角",
+      "解直角三角形"
+    ]
+  },
+  "questionType": "作图+解答题",
+  "answer": "（1）见解析；（2）$AF=3$",
+  "answerKey": [
+    "由 $AB=4,BC=6,DE=2$ 得 $\\tan\\angle EBC=\\dfrac{DE}{AB}$ 相关比例，$\\tan\\angle EBC=\\dfrac{1}{2}$",
+    "$\\angle AFB=2\\angle EBC$，故 $\\tan\\angle AFB=\\dfrac{2\\tan\\angle EBC}{1-\\tan^2\\angle EBC}=\\dfrac{4}{3}$",
+    "在 $Rt\\triangle ABF$ 中 $\\dfrac{AB}{AF}=\\tan\\angle AFB$，得 $AF=\\dfrac{4}{4/3}=3$",
+    "复核：$AF=3,AB=4\\Rightarrow FB=5$，$\\cos\\angle AFB=\\dfrac{AF^2+FB^2-AB^2}{2\\cdot AF\\cdot FB}=0.6$，即 $\\angle AFB\\approx53.13^\\circ=2\\angle EBC$"
+  ],
+  "difficulty": "hard",
+  "figure": [
+    "assets/figure.png"
+  ],
+  "source": {
+    "site": "第一试卷网",
+    "url": "https://www.shijuan1.com/a/sjsxzk/",
+    "paper": "2026年福建省中考数学真题 第20题",
+    "region": "福建",
+    "year": 2026,
+    "license": "免费资源"
+  },
+  "dateAdded": "2026-09-18",
+  "tags": [
+    "尺规作图",
+    "矩形的性质",
+    "二倍角",
+    "解直角三角形"
+  ],
+  "rubric": [
+    {
+      "point": "正确作出点 $F$（尺规作图，保留痕迹），使其满足 $\\angle AFB=2\\angle EBC$",
+      "score": 4
+    },
+    {
+      "point": "由已知数据算出 $\\tan\\angle EBC=\\dfrac{1}{2}$",
+      "score": 3
+    },
+    {
+      "point": "由二倍角公式得 $\\tan\\angle AFB=\\dfrac{4}{3}$",
+      "score": 3
+    },
+    {
+      "point": "在 $Rt\\triangle ABF$ 中求得 $AF=3$",
+      "score": 4
+    }
+  ],
+  "visionRubric": [
+    {
+      "point": "识别出矩形 $ABCD$（$AB<BC$）及顶点顺序",
+      "score": 3
+    },
+    {
+      "point": "识别出点 $E$ 在 $AD$ 的延长线上（$A,D,E$ 共线）",
+      "score": 3
+    },
+    {
+      "point": "指出 $AB$ 是矩形较短边，$BC$ 为较长边",
+      "score": 2
+    },
+    {
+      "point": "指出 $DE$ 是 $AD$ 延长线上的一段（矩形外）",
+      "score": 2
+    }
+  ]
+}

@@ -25,8 +25,8 @@
   ],
   "difficulty": "hard",
   "figure": [
-    "assets/figure-1.svg",
-    "assets/figure-2.svg"
+    "assets/figure-1.png",
+    "assets/figure-2.png"
   ],
   "transcriptionNote": "原始转录多处错乱已修正：①'沿AE折叠使B落在AD上的F'字母互换，应为沿AF折叠使B落在AD上的E处（图10虚线为AF）；②'将△EGF沿FG折叠使E落在FH上'应为'将△PBF沿PF折叠使B恰好落在射线FG上的点H处'——以解析自身的 FH=FB=2、BP=PH、∠PHF=90° 与 x=√5−1 做坐标级交叉验证确认；③'点P为BP与PQ的交点'为病句，应为 P 在 AB 上、PQ∥AD 交 EF 于 Q。",
   "dateAdded": "2026-09-13",

@@ -6,10 +6,13 @@
 // 隔离保证（结构性）：作答阶段本脚本只读取 problem.md + meta.json + PNG 图片，
 // 代码中不存在任何对 solution.md 的读取路径；评分由 score.mjs 单独执行。
 //
+// 每题一次独立请求，互不携带上下文（无 conversation history），并发推送。
+//
 // 用法：
 //   node run-eval.mjs --model <models.json 中的 id> [--items GM-0006,...] [--modes vision,coord,pure]
 //        [--base-url ... --api-key ... --protocol openai|anthropic --api-model-id ...]
-//        [--temperature 0] [--out benchmark/results/<runid>] [--dry-run]
+//        [--temperature 0] [--concurrency 6] [--max-tokens 8192] [--out benchmark/results/<runid>] [--dry-run]
+//        [--resume]  跳过已存在且非空的作答文件（断点续跑）
 // 模型与密钥默认复用 Harness 配置（config/models.json + config/secrets.json 或环境变量）。
 import fs from 'node:fs';
 import path from 'node:path';
@@ -30,7 +33,10 @@ for (let i = 0; i < argv.length; i++) {
 const MODES = String(opt.modes || 'vision,coord,pure').split(',');
 const onlyItems = opt.items ? String(opt.items).split(',') : null;
 const temperature = opt.temperature !== undefined ? Number(opt.temperature) : 0;
+const maxTokens = opt['max-tokens'] !== undefined ? Number(opt['max-tokens']) : 8192;
+const CONCURRENCY = Math.max(1, opt.concurrency !== undefined ? Number(opt.concurrency) : 6);
 const DRY = !!opt['dry-run'];
+const RESUME = !!opt.resume;
 
 // ---------- model config ----------
 const CONFIG_DIR = process.env.HARNESS_CONFIG_DIR || path.join(REPO, 'config');
@@ -52,13 +58,16 @@ function resolveModel() {
       base_url: opt['base-url'],
       api_model_id: opt['api-model-id'] || 'unknown',
       _key: opt['api-key'] || 'MISSING',
+      supports_vision: !!opt.vision,
     };
   }
   const m = MODELS.find(m => m.id === opt.model);
   if (!m) { console.error(`models.json 中未找到模型 "${opt.model}"。可用：`, MODELS.map(m => m.id).join(', ')); process.exit(1); }
   const provKey = SECRET.providers?.[m.provider] ?? SECRET[m.provider];
   const modelKey = SECRET.models?.[m.id];
-  return { ...m, _key: opt['api-key'] || modelKey || provKey || process.env.HARNESS_OPENAI_API_KEY || process.env.HARNESS_ANTHROPIC_API_KEY };
+  // --vision / --no-vision 可覆盖配置，便于实验条件显式化
+  const vision = opt.vision !== undefined ? true : (opt['no-vision'] !== undefined ? false : !!m.supports_vision);
+  return { ...m, supports_vision: vision, _key: opt['api-key'] || modelKey || provKey || process.env.HARNESS_OPENAI_API_KEY || process.env.HARNESS_ANTHROPIC_API_KEY };
 }
 const MODEL = resolveModel();
 if (!MODEL._key && !DRY) { console.error('未找到 API 密钥（config/secrets.json 或 --api-key / 环境变量）'); process.exit(1); }
@@ -84,20 +93,9 @@ function loadItem(gid) {
 // ---------- provider call ----------
 function b64(p) { return fs.readFileSync(p).toString('base64'); }
 
-// 兼容 JSON 与 SSE 两种响应（部分兼容服务强制流式）
-function parseResponse(res, j) {
-  const ct = res.headers.get('content-type') || '';
-  if (!ct.includes('text/event-stream')) {
-    if (j.choices) return { text: j.choices?.[0]?.message?.content ?? '', usage: j.usage || null };
-    return { text: (j.content || []).map(c => c.text || '').join(''), usage: j.usage || null };
-  }
-  // SSE：res.json() 已经把 body 读掉了——需要调用方传原文，见 callModel
-  return null;
-}
-
 async function readSSE(res) {
   const text = await res.text();
-  let out = '', usage = null;
+  let out = '', thinking = '', usage = null;
   for (const line of text.split('\n')) {
     const l = line.trim();
     if (!l.startsWith('data:')) continue;
@@ -107,10 +105,11 @@ async function readSSE(res) {
       const j = JSON.parse(payload);
       const d = j.choices?.[0]?.delta || j.choices?.[0]?.message || {};
       if (d.content) out += d.content;
+      if (d.reasoning_content) thinking += d.reasoning_content;
       if (j.usage) usage = j.usage;
     } catch { /* 忽略非 JSON 行 */ }
   }
-  return { text: out, usage };
+  return { text: out, thinking, usage };
 }
 
 async function callModel(text, imagePaths) {
@@ -122,11 +121,16 @@ async function callModel(text, imagePaths) {
     const res = await fetch(MODEL.base_url.replace(/\/+$/, '') + '/v1/messages', {
       method: 'POST',
       headers: { 'content-type': 'application/json', 'x-api-key': MODEL._key, 'anthropic-version': '2023-06-01' },
-      body: JSON.stringify({ model: MODEL.api_model_id, max_tokens: 4096, temperature, messages: [{ role: 'user', content }] }),
+      body: JSON.stringify({ model: MODEL.api_model_id, max_tokens: maxTokens, temperature, messages: [{ role: 'user', content }] }),
     });
     const j = await res.json();
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${JSON.stringify(j).slice(0, 300)}`);
-    return { text: (j.content || []).map(c => c.text || '').join(''), usage: j.usage || null };
+    const blocks = j.content || [];
+    return {
+      text: blocks.filter(c => c.type === 'text').map(c => c.text || '').join(''),
+      thinking: blocks.filter(c => c.type === 'thinking').map(c => c.thinking || '').join(''),
+      usage: j.usage || null,
+    };
   }
   // openai-compatible
   const content = [];
@@ -135,13 +139,14 @@ async function callModel(text, imagePaths) {
   const res = await fetch(MODEL.base_url.replace(/\/+$/, '') + '/chat/completions', {
     method: 'POST',
     headers: { 'content-type': 'application/json', authorization: 'Bearer ' + MODEL._key },
-    body: JSON.stringify({ model: MODEL.api_model_id, temperature, max_tokens: 4096, messages: [{ role: 'user', content }] }),
+    body: JSON.stringify({ model: MODEL.api_model_id, temperature, max_tokens: maxTokens, messages: [{ role: 'user', content }] }),
   });
   const ct = res.headers.get('content-type') || '';
   if (ct.includes('text/event-stream')) return await readSSE(res);
   const j = await res.json();
   if (!res.ok) throw new Error(`HTTP ${res.status}: ${JSON.stringify(j).slice(0, 300)}`);
-  return { text: j.choices?.[0]?.message?.content ?? '', usage: j.usage || null };
+  const msg = j.choices?.[0]?.message || {};
+  return { text: msg.content ?? '', thinking: msg.reasoning_content ?? '', usage: j.usage || null };
 }
 
 // ---------- main ----------
@@ -149,45 +154,71 @@ const runid = opt.out ? path.basename(String(opt.out)) : new Date().toISOString(
 const OUT = opt.out ? path.resolve(String(opt.out)) : path.join(BENCH, 'results', runid);
 fs.mkdirSync(OUT, { recursive: true });
 
-const gids = onlyItems || fs.readdirSync(ITEMS).filter(d => d.startsWith('GM-'));
-const manifest = { runid, model: MODEL.id || MODEL.api_model_id, provider: MODEL.provider, temperature, modes: MODES, visionOk: !!MODEL.supports_vision, items: [], startedAt: Date.now() };
-let n = 0;
+const gids = onlyItems || fs.readdirSync(ITEMS).filter(d => d.startsWith('GM-')).sort();
+const manifest = {
+  runid, model: MODEL.id || MODEL.api_model_id, provider: MODEL.provider,
+  base_url: MODEL.base_url || null, api_model_id: MODEL.api_model_id || null,
+  temperature, maxTokens, concurrency: CONCURRENCY,
+  modes: MODES, visionOk: !!MODEL.supports_vision, items: gids, startedAt: Date.now(), requests: 0, skipped: 0, failed: 0,
+};
 
+// 构建任务队列：每题 × 每模式 = 一次完全独立的请求
+const tasks = [];
 for (const gid of gids) {
   let item;
   try { item = loadItem(gid); } catch (e) { console.error('跳过', gid, e.message); continue; }
   const visionOk = !!MODEL.supports_vision;
   for (const mode of MODES) {
     if (mode === 'vision' && !visionOk) {
-      const note = '[skipped: model has no vision capability — 纯识图模式需要支持图像输入的模型]';
-      fs.writeFileSync(path.join(OUT, `${gid}__${mode}.answer.md`), note);
+      fs.writeFileSync(path.join(OUT, `${gid}__${mode}.answer.md`), '[skipped: model has no vision capability — 纯识图模式需要支持图像输入的模型]');
       fs.writeFileSync(path.join(OUT, `${gid}__${mode}.meta.json`), JSON.stringify({ item: gid, mode, skipped: true, reason: 'no-vision' }, null, 2));
-      process.stdout.write(`== ${gid} / ${mode} ... 跳过（模型无视觉）\n`);
+      manifest.skipped++;
       continue;
     }
+    // 无配图 → 无法做纯识图考核，跳过（避免模型凭空编造）
+    if (mode === 'vision' && visionOk && item.images.length === 0) {
+      fs.writeFileSync(path.join(OUT, `${gid}__${mode}.answer.md`), '[skipped: item has no figure — 纯识图模式需要配图]');
+      fs.writeFileSync(path.join(OUT, `${gid}__${mode}.meta.json`), JSON.stringify({ item: gid, mode, skipped: true, reason: 'no-figure' }, null, 2));
+      manifest.skipped++;
+      continue;
+    }
+    const outAns = path.join(OUT, `${gid}__${mode}.answer.md`);
+    if (RESUME && fs.existsSync(outAns) && fs.statSync(outAns).size > 0) { manifest.skipped++; continue; }
     const imgs = visionOk ? item.images : [];
     const text = (mode === 'vision' ? '' : item.problem + '\n\n') + MODE_INSTRUCTION[mode] + (visionOk ? '' : '\n\n（注：当前模型不支持图像输入，本题配图无法提供，请按题面文字作答。）');
-
-    const promptFile = path.join(OUT, `${gid}__${mode}.prompt.json`);
-    fs.writeFileSync(promptFile, JSON.stringify({ text, images: imgs.map(p => path.basename(p)) }, null, 2));
-    if (DRY) { console.log(`[dry] ${gid}/${mode}: 题干 ${item.problem.length} 字 + ${item.images.length} 图`); n++; continue; }
-    process.stdout.write(`== ${gid} / ${mode} ... `);
-    try {
-      const { text: answer, usage } = await callModel(text, imgs);
-      fs.writeFileSync(path.join(OUT, `${gid}__${mode}.answer.md`), answer);
-      fs.writeFileSync(path.join(OUT, `${gid}__${mode}.meta.json`), JSON.stringify({
-        item: gid, mode, model: MODEL.id || MODEL.api_model_id, provider: MODEL.provider,
-        temperature, promptHash: createHash('sha256').update(text).digest('hex').slice(0, 16),
-        images: imgs.map(p => path.basename(p)), usage, finishedAt: Date.now(),
-      }, null, 2));
-      console.log(`完成（${answer.length} 字）`);
-    } catch (e) {
-      console.log('失败：' + e.message);
-      fs.writeFileSync(path.join(OUT, `${gid}__${mode}.error.txt`), String(e.message || e));
-    }
-    n++;
+    tasks.push({ gid, mode, text, imgs, item, visionOk });
   }
 }
-manifest.finishedAt = Date.now(); manifest.requests = n;
+
+console.log(`GeoMark 作答：${tasks.length} 个独立请求（${gids.length} 题 × ${MODES.length} 模式），并发 ${CONCURRENCY}`);
+let done = 0;
+async function worker() {
+  while (tasks.length) {
+    const t = tasks.shift();
+    if (!t) break;
+    if (DRY) { done++; continue; }
+    fs.writeFileSync(path.join(OUT, `${t.gid}__${t.mode}.prompt.json`), JSON.stringify({ text: t.text, images: t.imgs.map(p => path.basename(p)) }, null, 2));
+    try {
+      const { text: answer, thinking, usage } = await callModel(t.text, t.imgs);
+      fs.writeFileSync(path.join(OUT, `${t.gid}__${t.mode}.answer.md`), answer);
+      if (thinking) fs.writeFileSync(path.join(OUT, `${t.gid}__${t.mode}.thinking.md`), thinking);
+      fs.writeFileSync(path.join(OUT, `${t.gid}__${t.mode}.meta.json`), JSON.stringify({
+        item: t.gid, mode: t.mode, model: MODEL.id || MODEL.api_model_id, provider: MODEL.provider,
+        temperature, maxTokens, promptHash: createHash('sha256').update(t.text).digest('hex').slice(0, 16),
+        images: t.imgs.map(p => path.basename(p)), hasThinking: !!thinking,
+        answerChars: answer.length, thinkingChars: thinking.length, usage, finishedAt: Date.now(),
+      }, null, 2));
+      done++; manifest.requests++;
+      console.log(`  [${done}/${done + tasks.length}] ${t.gid}/${t.mode} ✓ ${answer.length}${thinking ? '+' + thinking.length : ''} 字`);
+    } catch (e) {
+      done++; manifest.failed++;
+      fs.writeFileSync(path.join(OUT, `${t.gid}__${t.mode}.error.txt`), String(e.message || e));
+      console.log(`  [${done}] ${t.gid}/${t.mode} ✗ ${e.message}`);
+    }
+  }
+}
+await Promise.all(Array.from({ length: CONCURRENCY }, () => worker()));
+
+manifest.finishedAt = Date.now();
 fs.writeFileSync(path.join(OUT, 'run-manifest.json'), JSON.stringify(manifest, null, 2));
-console.log(`\n评测作答完成：${n} 次请求 → ${OUT}${DRY ? '（dry-run，未调用模型）' : ''}`);
+console.log(`\n评测作答完成：成功 ${manifest.requests} · 失败 ${manifest.failed} · 跳过 ${manifest.skipped} → ${OUT}${DRY ? '（dry-run，未调用模型）' : ''}`);
