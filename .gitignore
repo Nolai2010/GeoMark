@@ -155,3 +155,7 @@ benchmark/docs/redesign-*.png
 # 混入本 MIT 仓库会造成协议混装）。用 benchmark/tools/import-*.mjs 本地重新生成；
 # import-manifest.json 仍在库内，用于记录来源与数量。
 benchmark/datasets/*/items/
+
+# 本机 Agent 清点的原始输出（含整机软件清单，含游戏/驱动等无关项，不入库）。
+# 用 harness/tools/scan-agents.ps1 本地重新生成；结论已整理进 harness/docs/AGENT-INVENTORY.md
+.scan/

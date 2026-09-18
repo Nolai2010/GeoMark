@@ -39,6 +39,10 @@ const I18N = {
     tracks_launched: '已在新终端窗口启动', tracks_failed: '启动失败',
     tracks_install_hint: '安装：', tracks_manual_install: '请自行安装后重试',
     tracks_open_site: '打开官网',
+    tracks_kind_cli: '命令行', tracks_kind_app: '桌面应用', tracks_kind_msix: '商店应用', tracks_kind_web: '官网／插件',
+    tracks_region_cn: '国内', tracks_region_intl: '国外',
+    tracks_detected: '本机已检测到', tracks_others: '其它（未安装／仅官网）',
+    tracks_launched_app: '已启动桌面应用', tracks_launched_msix: '已启动商店应用',
     guide_archive: '该平台可读压缩包：下载 ZIP 题包直接上传。',
     guide_image: '该平台可传图：用「题卡 PNG」（题面+配图合成一张图），可绕开「不能同时传文档和图片」的限制。',
     guide_text: '该平台按文字处理：用「复制题面」粘贴，配图需另传。',
@@ -124,6 +128,10 @@ const I18N = {
     tracks_launched: 'Launched in a new terminal window', tracks_failed: 'Launch failed',
     tracks_install_hint: 'Install: ', tracks_manual_install: 'install manually and retry',
     tracks_open_site: 'Open site',
+    tracks_kind_cli: 'CLI', tracks_kind_app: 'Desktop', tracks_kind_msix: 'Store', tracks_kind_web: 'Web/Plugin',
+    tracks_region_cn: 'CN', tracks_region_intl: 'INTL',
+    tracks_detected: 'Detected on this machine', tracks_others: 'Others (not installed / web only)',
+    tracks_launched_app: 'Desktop app launched', tracks_launched_msix: 'Store app launched',
     guide_archive: 'This platform reads archives: download the item ZIP and upload it directly.',
     guide_image: 'This platform accepts images: use the item card PNG (statement + figure in one image), which sidesteps the "documents and images cannot be mixed" limit.',
     guide_text: 'This platform is text-oriented: copy the statement, and upload the figure separately.',
@@ -301,14 +309,29 @@ function renderTracks(tracks) {
         `<label class="track-chip" title="${esc(trackGuide(x))}"><input type="checkbox" class="track-url-check" value="${esc(x.url)}" checked>` +
         `<span>${esc(x.name)}</span><em>${esc(x.vendor || '')}</em>${trackCapBadges(x)}</label>`).join('')}</div>` + trackExportPanel();
     } else if (tr.action === 'launch-agents') {
-      body = `<div class="track-targets">${(tr.targets || []).map((x) => {
-        if (x.installed) return `<span class="track-chip"><span>${esc(x.name)}</span><em>${esc(x.vendor || '')}</em>` +
-          `<button class="btn ghost small-btn track-launch" data-agent="${esc(x.id)}" type="button">${t('tracks_launch')}</button></span>`;
-        if (x.url) return `<span class="track-chip"><span>${esc(x.name)}</span><em>${esc(x.vendor || '')}</em>` +
-          `<button class="btn ghost small-btn track-launch" data-agent="${esc(x.id)}" type="button" title="${esc(x.note || '')}">${t('tracks_open_site')}</button></span>`;
-        return `<span class="track-chip off"><span>${esc(x.name)}</span><em>${esc(x.vendor || '')}</em>` +
+      const list = tr.targets || [];
+      const ready = list.filter((x) => x.installed);
+      const rest = list.filter((x) => !x.installed);
+      const cnCount = list.filter((x) => x.region === 'cn').length;
+      const row = (x) => {
+        const kind = `<i class="track-kind k-${esc(x.kind || 'web')}">${esc(t('tracks_kind_' + (x.kind || 'web')))}</i>`;
+        const who = `${esc(x.vendor || '')}${x.region === 'cn' ? ' · ' + t('tracks_region_cn') : x.region === 'intl' ? ' · ' + t('tracks_region_intl') : ''}`;
+        if (x.installed) {
+          return `<span class="track-chip" title="${esc(x.path || '')}">${kind}<span>${esc(x.name)}</span><em>${who}</em>` +
+            `<button class="btn ghost small-btn track-launch" data-agent="${esc(x.id)}" type="button">${t('tracks_launch')}</button></span>`;
+        }
+        if (x.url) {
+          const tip = x.install ? t('tracks_install_hint') + x.install : t('tracks_open_site');
+          return `<span class="track-chip off">${kind}<span>${esc(x.name)}</span><em>${who}</em>` +
+            `<button class="btn ghost small-btn track-launch" data-agent="${esc(x.id)}" type="button" title="${esc(tip)}">${t('tracks_open_site')}</button></span>`;
+        }
+        return `<span class="track-chip off">${kind}<span>${esc(x.name)}</span><em>${who}</em>` +
           `<span class="fineprint">${t('tracks_not_installed')}${x.install ? ' · ' + t('tracks_install_hint') + esc(x.install) : ''}</span></span>`;
-      }).join('')}</div>`;
+      };
+      body = `<div class="track-group-head">${t('tracks_detected')} <b>${ready.length}</b> / ${list.length}` +
+        `${cnCount ? ` · ${t('tracks_region_cn')} ${cnCount}` : ''}</div>` +
+        `<div class="track-targets">${ready.map(row).join('')}</div>` +
+        (rest.length ? `<div class="track-group-head">${t('tracks_others')}</div><div class="track-targets">${rest.map(row).join('')}</div>` : '');
     } else if (tr.action === 'open-benchmark') {
       body = `<div class="track-targets"><button class="btn primary small-btn track-goto-bench" type="button">${t('tracks_enter_benchmark')}</button></div>`;
     }
@@ -335,13 +358,17 @@ async function launchLocalAgent(id) {
     const j = await r.json().catch(() => ({}));
     if (!r.ok) {
       $('tracks-msg').textContent = j.error === 'not-installed'
-        ? `${t('tracks_not_installed')}：${j.bin || ''}`
+        ? `${t('tracks_not_installed')}：${j.bin || j.exe || ''}`
         : `${t('tracks_failed')}：${j.error || r.status}`;
       return;
     }
     $('tracks-msg').textContent = j.mode === 'url'
       ? `${t('tracks_open_site')}：${j.launched}`
-      : `${t('tracks_launched')}：${j.launched}`;
+      : j.mode === 'app'
+        ? `${t('tracks_launched_app')}：${j.launched}`
+        : j.mode === 'msix'
+          ? `${t('tracks_launched_msix')}：${j.launched}`
+          : `${t('tracks_launched')}：${j.launched}`;
   } catch (e) {
     $('tracks-msg').textContent = `${t('tracks_failed')}：${String(e.message || e)}`;
   }

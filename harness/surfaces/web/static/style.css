@@ -387,6 +387,23 @@ dialog h3 { margin: 0; font-size: 17px; font-family: var(--serif); font-weight: 
 .track-chip .fineprint { white-space: normal; max-width: 320px; }
 @media (prefers-reduced-motion: reduce) { .track-chip { transition: none; } }
 
+/* 赛道分组标题与形态徽标 */
+.track-group-head {
+  margin: 12px 0 8px; font-size: 12px; color: var(--muted);
+  display: flex; align-items: center; gap: 6px;
+}
+.track-group-head::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+.track-group-head b { color: var(--ink); font-size: 13px; }
+.track-kind {
+  font-style: normal; font-size: 10px; line-height: 1; padding: 3px 6px; border-radius: 4px;
+  border: 1px solid var(--border); color: var(--muted); background: var(--panel); white-space: nowrap;
+}
+.track-kind.k-app { color: var(--gold); border-color: var(--gold-dim); }
+.track-kind.k-cli { color: var(--ok); border-color: color-mix(in srgb, var(--ok) 40%, transparent); }
+.track-kind.k-msix { color: var(--cinnabar); border-color: color-mix(in srgb, var(--cinnabar) 40%, transparent); }
+
 /* 平台能力徽标 */
 .cap {
   font-style: normal; font-size: 10px; line-height: 1; padding: 3px 6px; border-radius: 4px;

@@ -1,6 +1,6 @@
 {
-  "version": 2,
-  "dataNote": "本文件的官网地址均已实测可达性（2026-09-19）。accepts 为「最佳判断」而非实测结论：各平台的上传能力会变，请在站点上确认。通用兜底方案是「题卡 PNG」——把题面文字与配图合成一张图，可绕开「国内平台普遍无法同时上传文档+图片」的限制。",
+  "version": 3,
+  "dataNote": "官网地址均已实测可达性（2026-09-19）。accepts 为「最佳判断」而非实测结论：各平台上传能力会变，请在站点上确认。通用兜底方案是「题卡 PNG」——把题面文字与配图合成一张图，可绕开「国内平台普遍无法同时上传文档+图片」的限制。Agent 赛道中 kind=app 的 exe 路径来自本机实测扫描（见 harness/docs/AGENT-INVENTORY.md），随安装位置变动可能需要更新；支持 %LOCALAPPDATA% 变量与版本号通配（exeGlob）。",
   "tracks": [
     {
       "id": "real-world",
@@ -13,20 +13,20 @@
       },
       "action": "open-urls",
       "targets": [
-        { "id": "chatgpt", "name": "ChatGPT", "vendor": "OpenAI", "url": "https://chatgpt.com/", "accepts": ["text", "image", "document", "archive"] },
-        { "id": "claude", "name": "Claude", "vendor": "Anthropic", "url": "https://claude.ai/new", "accepts": ["text", "image", "document"] },
-        { "id": "gemini", "name": "Gemini", "vendor": "Google", "url": "https://gemini.google.com/app", "accepts": ["text", "image", "document"] },
-        { "id": "grok", "name": "Grok", "vendor": "xAI", "url": "https://grok.com/", "accepts": ["text", "image", "document"] },
-        { "id": "lechat", "name": "Le Chat", "vendor": "Mistral AI", "url": "https://chat.mistral.ai/chat", "accepts": ["text", "image", "document"] },
-        { "id": "copilot", "name": "Copilot", "vendor": "Microsoft", "url": "https://copilot.microsoft.com/", "accepts": ["text", "image", "document"] },
-        { "id": "deepseek", "name": "DeepSeek", "vendor": "深度求索", "url": "https://chat.deepseek.com/", "accepts": ["text", "image", "document"] },
-        { "id": "kimi", "name": "Kimi", "vendor": "月之暗面", "url": "https://www.kimi.com/", "accepts": ["text", "image", "document"] },
-        { "id": "tongyi", "name": "通义", "vendor": "阿里巴巴", "url": "https://www.tongyi.com/", "accepts": ["text", "image", "document"] },
-        { "id": "doubao", "name": "豆包", "vendor": "字节跳动", "url": "https://www.doubao.com/chat/", "accepts": ["text", "image", "document"] },
-        { "id": "yuanbao", "name": "腾讯元宝", "vendor": "腾讯", "url": "https://yuanbao.tencent.com/chat", "accepts": ["text", "image", "document"] },
-        { "id": "ernie", "name": "文心一言", "vendor": "百度", "url": "https://yiyan.baidu.com/", "accepts": ["text", "image", "document"] },
-        { "id": "chatglm", "name": "智谱清言", "vendor": "智谱 AI", "url": "https://chatglm.cn/", "accepts": ["text", "image", "document"] },
-        { "id": "hailuo", "name": "海螺 AI", "vendor": "MiniMax", "url": "https://hailuoai.com/", "accepts": ["text", "image"] }
+        { "id": "chatgpt", "name": "ChatGPT", "vendor": "OpenAI", "region": "intl", "url": "https://chatgpt.com/", "accepts": ["text", "image", "document", "archive"] },
+        { "id": "claude", "name": "Claude", "vendor": "Anthropic", "region": "intl", "url": "https://claude.ai/new", "accepts": ["text", "image", "document"] },
+        { "id": "gemini", "name": "Gemini", "vendor": "Google", "region": "intl", "url": "https://gemini.google.com/app", "accepts": ["text", "image", "document"] },
+        { "id": "grok", "name": "Grok", "vendor": "xAI", "region": "intl", "url": "https://grok.com/", "accepts": ["text", "image", "document"] },
+        { "id": "lechat", "name": "Le Chat", "vendor": "Mistral AI", "region": "intl", "url": "https://chat.mistral.ai/chat", "accepts": ["text", "image", "document"] },
+        { "id": "copilot", "name": "Copilot", "vendor": "Microsoft", "region": "intl", "url": "https://copilot.microsoft.com/", "accepts": ["text", "image", "document"] },
+        { "id": "deepseek", "name": "DeepSeek", "vendor": "深度求索", "region": "cn", "url": "https://chat.deepseek.com/", "accepts": ["text", "image", "document"] },
+        { "id": "kimi", "name": "Kimi", "vendor": "月之暗面", "region": "cn", "url": "https://www.kimi.com/", "accepts": ["text", "image", "document"] },
+        { "id": "tongyi", "name": "通义", "vendor": "阿里巴巴", "region": "cn", "url": "https://www.tongyi.com/", "accepts": ["text", "image", "document"] },
+        { "id": "doubao", "name": "豆包", "vendor": "字节跳动", "region": "cn", "url": "https://www.doubao.com/chat/", "accepts": ["text", "image", "document"] },
+        { "id": "yuanbao", "name": "腾讯元宝", "vendor": "腾讯", "region": "cn", "url": "https://yuanbao.tencent.com/chat", "accepts": ["text", "image", "document"] },
+        { "id": "ernie", "name": "文心一言", "vendor": "百度", "region": "cn", "url": "https://yiyan.baidu.com/", "accepts": ["text", "image", "document"] },
+        { "id": "chatglm", "name": "智谱清言", "vendor": "智谱 AI", "region": "cn", "url": "https://chatglm.cn/", "accepts": ["text", "image", "document"] },
+        { "id": "hailuo", "name": "海螺 AI", "vendor": "MiniMax", "region": "cn", "url": "https://hailuoai.com/", "accepts": ["text", "image"] }
       ]
     },
     {
@@ -46,34 +46,49 @@
       "label": { "zh": "Agent Track", "en": "Agent Track" },
       "subtitle": { "zh": "Agent 赛道", "en": "Agent" },
       "desc": {
-        "zh": "连同 Agent Harness 一起评测——Agent 本身成为实验变量，而不是被隐藏的实现细节。已安装的本机 Agent 会直接启动（新终端 / 新窗口）；桌面 IDE 与未安装的项会打开官网。",
-        "en": "Evaluate models together with an agent harness — the agent itself becomes an experimental variable. Locally installed agents launch directly; desktop IDEs and missing ones open their official site."
+        "zh": "连同 Agent Harness 一起评测——Agent 本身成为实验变量，而不是被隐藏的实现细节。赛道区分三种形态：命令行（新终端启动）、桌面应用（直接拉起本机已安装的客户端，含 MSIX 应用）、以及仅有网页/插件形态的（打开官网）。所有条目都按本机实际安装情况自动判定。",
+        "en": "Evaluate models together with an agent harness — the agent itself becomes an experimental variable. Three forms are distinguished: CLI (launched in a new terminal), desktop app (launches the locally installed client, including MSIX apps), and web/plugin-only (opens the official site). Every entry is detected against the actual machine."
       },
       "action": "launch-agents",
       "targets": [
-        { "id": "claude-code", "name": "Claude Code", "vendor": "Anthropic", "bin": "claude", "install": "npm i -g @anthropic-ai/claude-code" },
-        { "id": "codex", "name": "Codex CLI", "vendor": "OpenAI", "bin": "codex", "install": "npm i -g @openai/codex" },
-        { "id": "gemini-cli", "name": "Gemini CLI", "vendor": "Google", "bin": "gemini", "install": "npm i -g @google/gemini-cli" },
-        { "id": "copilot-cli", "name": "Copilot CLI", "vendor": "GitHub", "bin": "copilot", "install": "npm i -g @github/copilot" },
-        { "id": "opencode", "name": "opencode", "vendor": "开源", "bin": "opencode", "install": "npm i -g opencode-ai" },
-        { "id": "aider", "name": "Aider", "vendor": "开源", "bin": "aider", "install": "pipx install aider-chat" },
-        { "id": "qwen-code", "name": "Qwen Code", "vendor": "阿里巴巴", "bin": "qwen", "install": "npm i -g @qwen-code/qwen-code" },
-        { "id": "cline", "name": "Cline", "vendor": "开源", "bin": "cline", "install": null },
-        { "id": "goose", "name": "Goose", "vendor": "Block", "bin": "goose", "install": null },
-        { "id": "crush", "name": "Crush", "vendor": "Charmbracelet", "bin": "crush", "install": null },
-        { "id": "amp", "name": "Amp", "vendor": "Sourcegraph", "bin": "amp", "install": null },
-        { "id": "cursor-agent", "name": "Cursor Agent", "vendor": "Cursor", "bin": "cursor-agent", "install": null },
+        { "id": "claude-code", "name": "Claude Code", "vendor": "Anthropic", "region": "intl", "kind": "cli", "bin": "claude", "install": "npm i -g @anthropic-ai/claude-code" },
+        { "id": "codex", "name": "Codex CLI", "vendor": "OpenAI", "region": "intl", "kind": "cli", "bin": "codex", "install": "npm i -g @openai/codex" },
+        { "id": "gemini-cli", "name": "Gemini CLI", "vendor": "Google", "region": "intl", "kind": "cli", "bin": "gemini", "url": "https://github.com/google-gemini/gemini-cli", "install": "npm i -g @google/gemini-cli" },
+        { "id": "copilot-cli", "name": "Copilot CLI", "vendor": "GitHub", "region": "intl", "kind": "cli", "bin": "copilot", "url": "https://github.com/github/copilot-cli", "install": "npm i -g @github/copilot" },
+        { "id": "opencode", "name": "opencode", "vendor": "开源", "region": "intl", "kind": "cli", "bin": "opencode", "url": "https://opencode.ai/", "install": "npm i -g opencode-ai" },
+        { "id": "aider", "name": "Aider", "vendor": "开源", "region": "intl", "kind": "cli", "bin": "aider", "url": "https://aider.chat/", "install": "pipx install aider-chat" },
+        { "id": "goose", "name": "Goose", "vendor": "Block", "region": "intl", "kind": "cli", "bin": "goose", "url": "https://block.github.io/goose/", "install": null },
+        { "id": "crush", "name": "Crush", "vendor": "Charmbracelet", "region": "intl", "kind": "cli", "bin": "crush", "url": "https://github.com/charmbracelet/crush", "install": null },
+        { "id": "amp", "name": "Amp", "vendor": "Sourcegraph", "region": "intl", "kind": "cli", "bin": "amp", "url": "https://ampcode.com/", "install": null },
+        { "id": "cursor-agent", "name": "Cursor Agent", "vendor": "Cursor", "region": "intl", "kind": "cli", "bin": "cursor-agent", "url": "https://cursor.com/cli", "install": null },
+        { "id": "cline", "name": "Cline", "vendor": "开源", "region": "intl", "kind": "cli", "bin": "cline", "url": "https://cline.bot/", "install": null },
+        { "id": "qwen-code", "name": "Qwen Code", "vendor": "阿里巴巴", "region": "cn", "kind": "cli", "bin": "qwen", "install": "npm i -g @qwen-code/qwen-code" },
 
-        { "id": "zcode", "name": "ZCode", "vendor": "智谱 AI", "bin": "zcode", "url": "https://zcode.z.ai/", "kind": "desktop", "install": "官网下载桌面端", "note": "GLM 系列模型的 Agent 桌面端" },
-        { "id": "trae", "name": "TRAE", "vendor": "字节跳动", "bin": "trae", "url": "https://www.trae.cn/", "kind": "ide", "install": "官网下载（国内版免费）", "note": "AI 原生 IDE，含 SOLO 自主模式" },
-        { "id": "trae-work", "name": "TraeWork", "vendor": "字节跳动", "bin": "traework", "url": "https://www.trae.cn/work", "kind": "desktop", "install": "官网下载", "note": "TRAE 的办公 Agent 形态" },
-        { "id": "kimi-code", "name": "Kimi Code", "vendor": "月之暗面", "bin": "kimi", "url": "https://www.kimi.com/code/", "kind": "cli", "install": "官网下载 / npm 安装", "note": "终端与 IDE 双形态编程 Agent" },
-        { "id": "qoder", "name": "Qoder CN", "vendor": "阿里巴巴", "bin": "qoder", "url": "https://qoder.com.cn/desktop", "kind": "ide", "install": "官网下载桌面端", "note": "原通义灵码升级；另有 QoderWork 办公形态" },
-        { "id": "lingma", "name": "通义灵码", "vendor": "阿里巴巴", "url": "https://lingma.aliyun.com/", "kind": "plugin", "install": "IDE 插件市场安装", "note": "VS Code / JetBrains 插件形态" },
-        { "id": "codebuddy", "name": "CodeBuddy", "vendor": "腾讯云", "url": "https://www.codebuddy.cn/home/", "kind": "ide", "install": "官网下载", "note": "IDE / CLI 双形态" },
-        { "id": "comate", "name": "文心快码 Comate", "vendor": "百度", "url": "https://comate.baidu.com/", "kind": "ide", "install": "官网下载", "note": "Zulu 智能体、设计稿转代码" },
-        { "id": "minimax-code", "name": "MiniMax Code", "vendor": "MiniMax", "url": "https://agent.minimaxi.com/download", "kind": "download", "install": "官网下载", "note": "主打长程开发与自主纠错" },
-        { "id": "workbuddy", "name": "WorkBuddy", "vendor": "腾讯", "url": "https://www.workbuddy.ai/", "kind": "desktop", "install": "官网下载", "note": "兼顾编程与办公的桌面 Agent" }
+        { "id": "claude-desktop", "name": "Claude 桌面版", "vendor": "Anthropic", "region": "intl", "kind": "msix", "appId": "Claude_pzs8sxrjxfjjc!Claude", "pfn": "Claude_pzs8sxrjxfjjc", "url": "https://claude.ai/download", "note": "MSIX 应用（微软商店分发）" },
+        { "id": "chatgpt-desktop", "name": "ChatGPT 桌面版", "vendor": "OpenAI", "region": "intl", "kind": "msix", "appId": "OpenAI.Codex_2p2nqsd0c76g0!App", "pfn": "OpenAI.Codex_2p2nqsd0c76g0", "url": "https://chatgpt.com/download", "note": "MSIX 应用；本机安装包标识为 OpenAI.Codex" },
+        { "id": "cursor", "name": "Cursor", "vendor": "Cursor", "region": "intl", "kind": "app", "exe": "E:\\Program Files\\cursor\\Cursor.exe", "url": "https://cursor.com/", "note": "AI 原生 IDE" },
+        { "id": "antigravity", "name": "Antigravity", "vendor": "Google", "region": "intl", "kind": "app", "exe": "%LOCALAPPDATA%\\Programs\\agy\\antigravity.exe", "url": "https://antigravity.google/", "note": "Google 的 Agent 优先 IDE" },
+
+        { "id": "zcode", "name": "ZCode", "vendor": "智谱 AI", "region": "cn", "kind": "app", "exe": "D:\\Program Files\\ZCode\\ZCode.exe", "url": "https://zcode.z.ai/", "note": "GLM 系列模型的 Agent 桌面端" },
+        { "id": "chatglm-desktop", "name": "智谱清言", "vendor": "智谱 AI", "region": "cn", "kind": "app", "exe": "D:\\Program Files\\ChatGLM\\智谱清言.exe", "url": "https://chatglm.cn/", "note": "智谱清言桌面客户端" },
+        { "id": "trae-solo", "name": "TraeWork CN", "vendor": "字节跳动", "region": "cn", "kind": "app", "exe": "D:\\Program Files\\TRAE SOLO CN\\TRAE SOLO CN.exe", "url": "https://www.trae.cn/work", "note": "本机安装目录名为 TRAE SOLO CN，即 TraeWork 国内版" },
+        { "id": "trae", "name": "TRAE CN", "vendor": "字节跳动", "region": "cn", "kind": "web", "url": "https://www.trae.cn/", "install": "官网下载（国内版免费）", "note": "AI 原生 IDE，含 SOLO 自主模式；本机配置目录 .trae-cn 存在" },
+        { "id": "kimi-desktop", "name": "Kimi", "vendor": "月之暗面", "region": "cn", "kind": "app", "exe": "D:\\Program Files\\Kimi\\Kimi.exe", "url": "https://www.kimi.com/code/", "note": "Kimi 桌面客户端，含 Kimi Code 能力" },
+        { "id": "qoder-cn", "name": "Qoder CN", "vendor": "阿里巴巴", "region": "cn", "kind": "app", "exe": "D:\\Program Files\\Qoder CN\\Qoder CN.exe", "url": "https://qoder.com.cn/desktop", "note": "原通义灵码升级版；本机正在运行" },
+        { "id": "minimax-code", "name": "MiniMax Code", "vendor": "MiniMax", "region": "cn", "kind": "app", "exe": "D:\\Program Files\\MiniMax\\MiniMax Code\\MiniMax Code.exe", "url": "https://agent.minimaxi.com/download", "note": "主打长程开发与自主纠错" },
+        { "id": "minimax-design", "name": "MiniMax Design", "vendor": "MiniMax", "region": "cn", "kind": "app", "exe": "%LOCALAPPDATA%\\com.minimax.hub\\current\\MiniMax Design.exe", "url": "https://agent.minimaxi.com/download", "note": "MiniMax 设计类 Agent 客户端" },
+        { "id": "workbuddy", "name": "WorkBuddy", "vendor": "腾讯", "region": "cn", "kind": "app", "exe": "D:\\Program Files\\WorkBuddy\\WorkBuddy.exe", "url": "https://www.workbuddy.ai/", "note": "兼顾编程与办公的桌面 Agent" },
+        { "id": "chatcut", "name": "ChatCut", "vendor": "腾讯", "region": "cn", "kind": "app", "exe": "D:\\Program Files\\ChatCut\\ChatCut.exe", "url": "https://www.chatcut.ai/", "note": "对话式视频创作 Agent 桌面端" },
+        { "id": "qclaw", "name": "QClaw", "vendor": "腾讯", "region": "cn", "kind": "app", "exeGlob": "D:\\Program Files\\QClaw\\*\\QClaw.exe", "url": "https://qclaw.qq.com/", "note": "腾讯 QClaw 桌面 Agent；安装路径含版本号，按通配解析最新版" },
+        { "id": "ima", "name": "ima", "vendor": "腾讯", "region": "cn", "kind": "app", "exe": "D:\\Program Files\\IMA COPILOT\\ima.copilot\\ima.copilot.exe", "url": "https://ima.qq.com/", "note": "腾讯 ima 知识管家桌面端" },
+        { "id": "doubao", "name": "豆包", "vendor": "字节跳动", "region": "cn", "kind": "app", "exe": "D:\\Program Files\\doubao\\app\\Doubao.exe", "url": "https://www.doubao.com/chat/", "note": "豆包桌面客户端" },
+        { "id": "yuanbao", "name": "腾讯元宝", "vendor": "腾讯", "region": "cn", "kind": "app", "exe": "D:\\Yuanbao\\yuanbao.exe", "url": "https://yuanbao.tencent.com/chat", "note": "腾讯元宝桌面客户端" },
+        { "id": "qianwen", "name": "千问", "vendor": "阿里巴巴", "region": "cn", "kind": "app", "exe": "D:\\Program Files\\Qianwen\\QianwenApp\\qianwen.exe", "url": "https://www.tongyi.com/", "note": "通义千问桌面客户端" },
+        { "id": "tuanjie-cowork", "name": "Tuanjie Cowork", "vendor": "团结引擎", "region": "cn", "kind": "app", "exe": "%LOCALAPPDATA%\\Programs\\Tuanjie Cowork\\cowork.exe", "url": "https://unity.cn/", "note": "团结引擎的协作/Agent 客户端，内置 cli 运行时" },
+
+        { "id": "lingma", "name": "通义灵码", "vendor": "阿里巴巴", "region": "cn", "kind": "web", "url": "https://lingma.aliyun.com/", "install": "IDE 插件市场安装", "note": "VS Code / JetBrains 插件形态；本机 .lingma 配置存在" },
+        { "id": "codebuddy", "name": "CodeBuddy", "vendor": "腾讯云", "region": "cn", "kind": "web", "url": "https://www.codebuddy.cn/home/", "install": "官网下载", "note": "IDE / CLI 双形态" },
+        { "id": "comate", "name": "文心快码 Comate", "vendor": "百度", "region": "cn", "kind": "web", "url": "https://comate.baidu.com/", "install": "官网下载", "note": "Zulu 智能体、设计稿转代码" }
       ]
     }
   ]

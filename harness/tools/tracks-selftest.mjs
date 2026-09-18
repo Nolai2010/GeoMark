@@ -59,10 +59,10 @@ try {
   // 点击「开始测试」并等待弹窗数据渲染
   const clickRes = await send('Runtime.evaluate', { expression: "(()=>{const b=document.getElementById('btn-tracks'); if(!b) return 'no-button'; b.click(); return 'clicked';})()", returnByValue: true });
   console.log('点击结果:', clickRes.result.value);
-  await sleep(3000);
+  await sleep(5000);
 
   const info = await send('Runtime.evaluate', {
-    expression: `(()=>{const d=document.getElementById('tracks-dialog');return JSON.stringify({open:!!(d&&d.open),cards:document.querySelectorAll('.track-card').length,urls:document.querySelectorAll('.track-url-check').length,launchBtns:document.querySelectorAll('.track-launch').length,offChips:document.querySelectorAll('.track-chip.off').length,msg:(document.getElementById('tracks-msg')||{}).textContent||'',listHTML:((document.getElementById('tracks-list')||{}).innerHTML||'').slice(0,300),hasFn:typeof openTracksDialog});})()`,
+    expression: `(()=>{const d=document.getElementById('tracks-dialog');return JSON.stringify({open:!!(d&&d.open),cards:document.querySelectorAll('.track-card').length,urls:document.querySelectorAll('.track-url-check').length,launchBtns:document.querySelectorAll('.track-launch').length,offChips:document.querySelectorAll('.track-chip.off').length,groupHeads:document.querySelectorAll('.track-group-head').length,kindBadges:document.querySelectorAll('.track-kind').length,kindBreakdown:['cli','app','msix','web'].map(k=>k+':'+document.querySelectorAll('.track-kind.k-'+k).length).join(' '),msg:(document.getElementById('tracks-msg')||{}).textContent||'',listHTML:((document.getElementById('tracks-list')||{}).innerHTML||'').slice(0,300),hasFn:typeof openTracksDialog});})()`,
     returnByValue: true,
   });
   console.log('弹窗状态:', info.result.value);
@@ -99,16 +99,16 @@ try {
   fs.writeFileSync(out, Buffer.from(shot.data, 'base64'));
   console.log('截图:', out);
 
-  // 滚到出题包 / Agent 赛道再各截一张
-  const sc = async (sel, name) => {
-    await send('Runtime.evaluate', { expression: `(()=>{const e=document.querySelector('${sel}');if(e)e.scrollIntoView({block:'center'});return 1})()`, returnByValue: true });
+  // 滚到题目包 / Agent 赛道再各截一张
+  const sc = async (sel, name, block = 'center') => {
+    await send('Runtime.evaluate', { expression: `(()=>{const e=document.querySelector('${sel}');if(e)e.scrollIntoView({block:'${block}'});return 1})()`, returnByValue: true });
     await sleep(600);
     const s2 = await send('Page.captureScreenshot', { format: 'png' });
     fs.writeFileSync(path.join(outDir, name), Buffer.from(s2.data, 'base64'));
     console.log('截图:', name);
   };
   await sc('.track-export', 'tracks-export.png');
-  await sc('.track-card:last-child', 'tracks-agent.png');
+  await sc('.track-card:last-child .track-group-head', 'tracks-agent.png', 'start');
 
   console.log('控制台错误:', consoleErrors.length ? consoleErrors.slice(0, 5) : '无');
 } catch (e) {

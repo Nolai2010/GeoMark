@@ -259,18 +259,33 @@ Evaluate models together with an Agent Harness and compare how different agent c
 
 The Harness itself can therefore become an experimental variable rather than being treated as an invisible implementation detail.
 
-*Implemented as:* the chooser lists 22 agent products and detects which are installed on this
-machine. Installed CLI agents launch in a new terminal window; desktop IDEs and anything not
-installed open their official site instead.
+*Implemented as:* the chooser lists 35 agent products and detects which are installed on this
+machine. Detection and launch differ by form — a CLI is resolved on `PATH` and launched in a new
+terminal; a **desktop client** is launched directly from its executable path; a **MSIX / Store app**
+has no executable path at all and is launched through its AppID; anything else opens its official
+site.
 
 - **CLI agents:** Claude Code, Codex CLI, Gemini CLI, Copilot CLI, Qwen Code, opencode, Aider,
   Cline, Goose, Crush, Amp, Cursor Agent
-- **Domestic (China) products:** ZCode (智谱), TRAE / TraeWork (字节跳动), Kimi Code (月之暗面),
-  Qoder CN / 通义灵码 (阿里云), CodeBuddy (腾讯云), 文心快码 Comate (百度), MiniMax Code (MiniMax),
-  WorkBuddy (腾讯)
+- **Desktop clients:** ZCode, 智谱清言, TraeWork CN, Kimi, Qoder CN, MiniMax Code, MiniMax Design,
+  WorkBuddy, ChatCut, QClaw, ima, 豆包, 腾讯元宝, 千问, Tuanjie Cowork, Cursor, Antigravity
+- **Store (MSIX) apps:** Claude Desktop, ChatGPT Desktop
+- **Domestic (China) products:** ZCode / 智谱清言 (智谱), TRAE / TraeWork / 豆包 (字节跳动),
+  Kimi (月之暗面), Qoder CN / 通义灵码 / 千问 (阿里), CodeBuddy / WorkBuddy / ChatCut / QClaw /
+  ima / 腾讯元宝 (腾讯), 文心快码 Comate (百度), MiniMax Code / MiniMax Design (MiniMax),
+  Tuanjie Cowork (团结引擎)
 
-Only binaries and URLs declared in `harness/config/tracks.json` can be launched — the endpoint is
-an allowlist, never an arbitrary command.
+Why the local inventory is written down rather than guessed: package names and install directories
+routinely disagree with product names (TraeWork installs into `TRAE SOLO CN`; Antigravity into
+`agy`; the ChatGPT desktop app carries the AppID prefix `OpenAI.Codex`). `harness/tools/scan-agents.ps1`
+collects Start-Menu shortcuts, AppIDs, the uninstall registry, running-process paths and tool config
+dirs; the last full result is documented in [`harness/docs/AGENT-INVENTORY.md`](harness/docs/AGENT-INVENTORY.md).
+
+Only ids declared in `harness/config/tracks.json` can be launched — the endpoint is an allowlist,
+never an arbitrary command. Executable paths come from the config file, never from the request body,
+and are re-checked for existence before launch. For automated verification without popping windows
+on someone's desktop, start the server with `GM_LAUNCH_DRY_RUN=1`: it then returns the command it
+*would* run instead of running it.
 
 ---
 

@@ -26,7 +26,7 @@ import { HARNESS_VERSION, NODE_VERSION, gitCommit as GIT_COMMIT } from '../../ke
 import { EventTypes } from '../../kernel/schema.mjs';
 import { makeAdapter, supportedProviders } from '../../adapters/index.mjs';
 import { verifyBundle } from '../../kernel/verify.mjs';
-import { spawn, spawnSync } from 'node:child_process';
+import { spawn } from 'node:child_process';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 const execFileAsync = promisify(execFile);
@@ -304,32 +304,94 @@ function loadTracks() {
 }
 const WHICH = process.platform === 'win32' ? 'where' : 'which';
 const _probeCache = new Map();
-// 并行探测 + 进程内缓存：12 个 bin 串行 spawnSync 会让首屏等 9 秒，不可接受
+
+// 先在 PATH 目录里直接找文件，找不到才退回 where/which。
+// 目标多起来之后（35+），每次 spawn 一个 where 会让首屏多等好几秒。
+function resolveBinOnPath(bin) {
+  if (!bin || /[\\/]/.test(bin)) return null;
+  const exts = process.platform === 'win32'
+    ? ['', ...String(process.env.PATHEXT || '.COM;.EXE;.BAT;.CMD').split(';').filter(Boolean)]
+    : [''];
+  const dirs = String(process.env.PATH || '').split(path.delimiter).filter(Boolean);
+  for (const dir of dirs) {
+    for (const ext of exts) {
+      const cand = path.join(dir, bin + ext);
+      try { if (fs.statSync(cand).isFile()) return cand; } catch { /* keep looking */ }
+    }
+  }
+  return null;
+}
+
+// 并行探测 + 进程内缓存：几十个目标串行 spawnSync 会让首屏等 9 秒，不可接受
 async function probeBinAsync(bin) {
   if (!bin) return { installed: false, path: null };
   if (_probeCache.has(bin)) return _probeCache.get(bin);
   let out = { installed: false, path: null };
-  try {
-    const { stdout } = await execFileAsync(WHICH, [bin], { windowsHide: true, timeout: 4000 });
-    const first = String(stdout || '').split(/\r?\n/).map(s => s.trim()).filter(Boolean)[0];
-    out = { installed: true, path: first || bin };
-  } catch { /* not installed */ }
+  const onPath = resolveBinOnPath(bin);
+  if (onPath) {
+    out = { installed: true, path: onPath };
+  } else {
+    try {
+      const { stdout } = await execFileAsync(WHICH, [bin], { windowsHide: true, timeout: 4000 });
+      const first = String(stdout || '').split(/\r?\n/).map(s => s.trim()).filter(Boolean)[0];
+      out = { installed: true, path: first || bin };
+    } catch { /* not installed */ }
+  }
   _probeCache.set(bin, out);
   return out;
 }
-function probeBin(bin) {
-  if (!bin) return { installed: false, path: null };
-  if (_probeCache.has(bin)) return _probeCache.get(bin);
-  try {
-    const r = spawnSync(WHICH, [bin], { encoding: 'utf8', windowsHide: true, timeout: 5000 });
-    if (r.status === 0) {
-      const first = String(r.stdout || '').split(/\r?\n/).map(s => s.trim()).filter(Boolean)[0];
-      return { installed: true, path: first || bin };
-    }
-  } catch { /* ignore */ }
-  return { installed: false, path: null };
+
+// 路径展开只作用于来自 config/tracks.json 的字符串（请求体永远无法注入路径）。
+function expandPath(input) {
+  let s = String(input);
+  s = s.replace(/%([A-Za-z_][A-Za-z0-9_]*)%/g, (m, k) => process.env[k] ?? process.env[k.toUpperCase()] ?? m);
+  if (s === '~' || s.startsWith('~/') || s.startsWith('~\\')) {
+    s = path.join(process.env.USERPROFILE || process.env.HOME || '', s.slice(1));
+  }
+  return s;
 }
-function launchAgent(bin) {
+
+// exeGlob：支持单层目录通配（如 D:\Program Files\QClaw\*\QClaw.exe）。
+// 版本号目录按字典序倒排取第一个命中的，通常即最新版。
+function resolveExeGlob(pattern) {
+  const abs = expandPath(pattern);
+  const parts = abs.split(/[\\/]/);
+  const starAt = parts.indexOf('*');
+  if (starAt < 0) return fs.existsSync(abs) ? abs : null;
+  const base = parts.slice(0, starAt).join(path.sep) || path.sep;
+  const rest = parts.slice(starAt + 1);
+  let names = [];
+  try { names = fs.readdirSync(base); } catch { return null; }
+  names.sort().reverse();
+  for (const n of names) {
+    const cand = path.join(base, n, ...rest);
+    if (fs.existsSync(cand)) return cand;
+  }
+  return null;
+}
+
+// 四种形态：cli（终端启动）/ app（本机桌面客户端）/ msix（微软商店分发的打包应用）/ web（仅官网或插件）
+async function probeTarget(t) {
+  const kind = t.kind || (t.bin ? 'cli' : 'web');
+  if (kind === 'cli') {
+    const r = await probeBinAsync(t.bin);
+    return { kind, installed: r.installed, path: r.path };
+  }
+  if (kind === 'app') {
+    const exe = t.exeGlob ? resolveExeGlob(t.exeGlob) : (t.exe ? expandPath(t.exe) : null);
+    return { kind, installed: !!(exe && fs.existsSync(exe)), path: exe || null };
+  }
+  if (kind === 'msix') {
+    // 打包应用无法用 exe 路径判断，改看用户的 Packages 目录是否存在
+    const pfn = t.pfn || String(t.appId || '').split('!')[0];
+    const dir = pfn ? path.join(process.env.LOCALAPPDATA || '', 'Packages', pfn) : null;
+    const ok = !!dir && fs.existsSync(dir);
+    return { kind, installed: ok, path: ok ? dir : null };
+  }
+  return { kind: 'web', installed: false, path: null };
+}
+
+function launchCli(bin) {
   const opts = { detached: true, stdio: 'ignore', windowsHide: false };
   if (process.platform === 'win32') {
     spawn('cmd', ['/c', 'start', '', 'cmd', '/k', bin], opts).unref();
@@ -340,6 +402,27 @@ function launchAgent(bin) {
     return;
   }
   spawn('x-terminal-emulator', ['-e', bin], opts).unref();
+}
+
+// 只启动 tracks.json 已登记、且探测确认存在的目标。exe 一律取自配置，不取请求参数。
+// GM_LAUNCH_DRY_RUN=1 时不真正拉起进程，只返回将要执行的命令——用于自动化验证，避免弹窗。
+function launchTarget(t, probe) {
+  const opts = { detached: true, stdio: 'ignore', windowsHide: false };
+  const dry = !!process.env.GM_LAUNCH_DRY_RUN;
+  if (probe.kind === 'cli' && probe.installed) {
+    if (!dry) launchCli(t.bin);
+    return { mode: 'terminal', launched: t.bin, path: probe.path, cmd: `cmd /k ${t.bin}`, dryRun: dry };
+  }
+  if (probe.kind === 'app' && probe.installed && probe.path) {
+    if (!dry) spawn(probe.path, [], { detached: true, stdio: 'ignore', cwd: path.dirname(probe.path) }).unref();
+    return { mode: 'app', launched: path.basename(probe.path), path: probe.path, cmd: probe.path, dryRun: dry };
+  }
+  if (probe.kind === 'msix' && probe.installed && t.appId) {
+    if (process.platform !== 'win32') throw new Error('msix is Windows-only');
+    if (!dry) spawn('explorer.exe', [`shell:AppsFolder\\${t.appId}`], opts).unref();
+    return { mode: 'msix', launched: t.appId, path: probe.path, cmd: `explorer shell:AppsFolder\\${t.appId}`, dryRun: dry };
+  }
+  throw new Error('not-installed');
 }
 
 const server = http.createServer(async (req, res) => {
@@ -465,8 +548,8 @@ const server = http.createServer(async (req, res) => {
         id: t.id, order: t.order, label: t.label, subtitle: t.subtitle, desc: t.desc, action: t.action,
         targets: t.action === 'launch-agents'
           ? await Promise.all((t.targets || []).map(async x => {
-              const p = x.bin ? await probeBinAsync(x.bin) : { installed: false, path: null };
-              return { ...x, ...p, launchable: p.installed || !!x.url };
+              const probe = await probeTarget(x);
+              return { ...x, ...probe, launchable: probe.installed || !!x.url };
             }))
           : (t.targets || []),
       })));
@@ -480,17 +563,17 @@ const server = http.createServer(async (req, res) => {
       const agentTrack = (cfg.tracks || []).find(t => t.id === 'agent');
       const target = (agentTrack?.targets || []).find(x => x.id === String(payload.id || ''));
       if (!target) return json(res, 400, { error: 'unknown agent id' });
-      const probe = target.bin ? probeBin(target.bin) : { installed: false, path: null };
+      const probe = await probeTarget(target);
       try {
         if (probe.installed) {
-          launchAgent(target.bin);
-          return json(res, 200, { launched: target.bin, path: probe.path, mode: 'terminal' });
+          const r = launchTarget(target, probe);
+          return json(res, 200, { installed: true, ...r });
         }
         if (target.url) {
           openUrl(target.url);
-          return json(res, 200, { launched: target.url, mode: 'url', reason: 'not-installed' });
+          return json(res, 200, { installed: false, launched: target.url, mode: 'url', reason: 'not-installed' });
         }
-        return json(res, 409, { error: 'not-installed', bin: target.bin || null, install: target.install || null });
+        return json(res, 409, { error: 'not-installed', bin: target.bin || null, exe: target.exe || null, install: target.install || null });
       } catch (e) {
         return json(res, 500, { error: String(e.message || e) });
       }
