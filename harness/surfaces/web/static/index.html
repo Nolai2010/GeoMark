@@ -6,88 +6,102 @@
 <title>格物台 · GeoMark Harness</title>
 <link rel="stylesheet" href="vendor/katex/katex.min.css">
 <link rel="stylesheet" href="style.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23c34a2f'/%3E%3Ctext x='16' y='22' font-size='14' text-anchor='middle' fill='%23f5efe0' font-family='serif'%3E格%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="vendor/brand/logo.svg">
 <script src="theme.js"></script>
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
+<input id="file-input" type="file" multiple hidden>
 
 <header class="topbar">
   <div class="brand">
-    <span class="seal" aria-hidden="true" data-i18n="seal">格物</span>
+    <img class="seal" src="vendor/brand/logo.svg" alt="" aria-hidden="true">
     <div class="brand-text">
-      <h1 data-i18n="brand">格物台</h1>
-      <p data-i18n="brand_sub">GeoMark Harness · 模型无关的实验环境</p>
+      <h1>GeoMark Harness</h1>
+      <p data-i18n="brand_sub">格物台 · 模型无关的实验环境</p>
     </div>
   </div>
   <div class="topbar-actions">
     <span id="key-dots" class="key-dots" title="API 密钥状态"></span>
     <button id="btn-bench" class="btn ghost" type="button" data-i18n="btn_bench">AI 评测</button>
-    <button id="btn-keys" class="btn ghost" type="button" data-i18n="btn_keys">API 密钥</button>
     <button id="btn-guide" class="btn ghost" type="button" data-i18n="btn_guide">新手教程</button>
-    <button id="btn-theme" class="btn ghost" type="button" data-i18n="btn_theme" title="切换亮色 / 暗色 / 跟随系统">主题</button>
+    <button id="btn-keys" class="btn ghost" type="button" data-i18n="btn_keys">API 密钥</button>
     <button id="btn-lang" class="btn ghost" type="button" title="Language">EN</button>
+    <button id="btn-theme" class="btn ghost" type="button" data-i18n="btn_theme" title="切换亮色 / 暗色 / 跟随系统">主题</button>
   </div>
 </header>
 
 <div id="app">
+  <!-- ══════════ 左栏：模型 / 文件 / 高级参数 ══════════ -->
   <aside id="sidebar" class="panel">
-    <section>
-      <label for="model"><span data-i18n="model">模型</span> <span class="fineprint"><span data-i18n-html="modelagnostic_note">（<a class="term" data-term="modelagnostic">模型无关</a>，可随时切换）</span></span></label>
+    <section class="nav-group">
+      <h3 class="group-title" data-i18n="group_model">模型</h3>
       <select id="model"></select>
+      <div id="model-info" class="fineprint"></div>
       <div class="row model-row">
-        <div id="model-info" class="fineprint"></div>
         <button id="btn-model-manage" class="btn ghost small-btn" type="button" data-i18n="manage_models">管理模型</button>
       </div>
     </section>
 
-    <section>
-      <label for="system-prompt"><a class="term" data-term="systemprompt" data-i18n="sysprompt">系统提示词</a> <span class="fineprint" data-i18n="sysprompt_note">（对所有模型完全一致）</span></label>
-      <textarea id="system-prompt" rows="4" placeholder="留空则不发送系统提示词" data-i18n-ph="sysprompt_ph"></textarea>
-    </section>
-
-    <section class="row">
-      <div class="pair">
-        <label for="temperature"><a class="term" data-term="temperature" data-i18n="temperature">温度</a>（Temperature）</label>
-        <input id="temperature" type="number" step="0.1" min="0" max="2" placeholder="默认" data-i18n-ph="unset_ph">
-      </div>
-      <div class="pair">
-        <label for="max-tokens"><a class="term" data-term="maxtokens" data-i18n="maxtokens">最大词元数</a></label>
-        <input id="max-tokens" type="number" step="1" min="1" placeholder="默认" data-i18n-ph="unset_ph">
-      </div>
-    </section>
-
-    <fieldset>
-      <legend data-i18n="legend_reasoning">推理（模型原生，直接透传）</legend>
-      <label class="inline"><input id="reasoning-enabled" type="checkbox"> <span data-i18n="reasoning_enabled">启用推理（若模型支持）</span></label>
-      <label for="reasoning-effort" data-i18n="effort_label">推理力度 Effort（OpenAI 风格）</label>
-      <select id="reasoning-effort">
-        <option value="" data-i18n="omit_opt">（不发送）</option>
-        <option>low</option><option>medium</option><option>high</option>
-      </select>
-      <label for="reasoning-budget" data-i18n="budget_label">思考词元预算 Budget（Anthropic 风格）</label>
-      <input id="reasoning-budget" type="number" min="1024" step="1024" placeholder="如 8192" data-i18n-ph="budget_ph">
-    </fieldset>
-
-    <fieldset>
-      <legend data-i18n="legend_files">文件（显式附加，仅读取所选文件）</legend>
-      <input id="file-input" type="file" multiple>
+    <section class="nav-group">
+      <h3 class="group-title" data-i18n="group_files">文件</h3>
+      <label class="attach-entry" for="file-input">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M21 12l-8.5 8.5a5.5 5.5 0 01-7.8-7.8l8.5-8.5a3.7 3.7 0 015.2 5.2L9.9 17.8a1.8 1.8 0 01-2.6-2.6l7.8-7.8" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>
+        <span data-i18n="attach_file">添加附件</span>
+      </label>
       <ul id="file-list" class="fineprint"></ul>
-    </fieldset>
+    </section>
 
-    <label class="inline mode-line">
-      <input id="experiment-mode" type="checkbox" checked>
-      保存实验（<a class="term" data-term="expbundle">实验包</a>完整存档）
-    </label>
-    <button id="btn-clear" class="btn ghost" type="button" data-i18n="clear_chat">清空对话</button>
+    <details class="nav-group advanced">
+      <summary data-i18n="advanced">高级参数</summary>
+      <section>
+        <label for="system-prompt"><a class="term" data-term="systemprompt" data-i18n="sysprompt">系统提示词</a> <span class="fineprint" data-i18n="sysprompt_note">（对所有模型完全一致）</span></label>
+        <textarea id="system-prompt" rows="4" placeholder="留空则不发送系统提示词" data-i18n-ph="sysprompt_ph"></textarea>
+      </section>
+      <section class="row">
+        <div class="pair">
+          <label for="temperature"><a class="term" data-term="temperature" data-i18n="temperature">温度</a></label>
+          <input id="temperature" type="number" step="0.1" min="0" max="2" placeholder="默认" data-i18n-ph="unset_ph">
+        </div>
+        <div class="pair">
+          <label for="max-tokens"><a class="term" data-term="maxtokens" data-i18n="maxtokens">最大词元数</a></label>
+          <input id="max-tokens" type="number" step="1" min="1" placeholder="默认" data-i18n-ph="unset_ph">
+        </div>
+      </section>
+      <fieldset>
+        <legend data-i18n="legend_reasoning">推理（模型原生，直接透传）</legend>
+        <label class="inline"><input id="reasoning-enabled" type="checkbox"> <span data-i18n="reasoning_enabled">启用推理（若模型支持）</span></label>
+        <label for="reasoning-effort" class="fineprint" data-i18n="effort_label">推理力度 Effort（OpenAI 风格）</label>
+        <select id="reasoning-effort">
+          <option value="" data-i18n="omit_opt">（不发送）</option>
+          <option>low</option><option>medium</option><option>high</option>
+        </select>
+        <label for="reasoning-budget" class="fineprint" data-i18n="budget_label">思考词元预算 Budget（Anthropic 风格）</label>
+        <input id="reasoning-budget" type="number" min="1024" step="1024" placeholder="如 8192" data-i18n-ph="budget_ph">
+      </fieldset>
+      <label class="inline mode-line">
+        <input id="experiment-mode" type="checkbox" checked>
+        <span data-i18n="save_experiment">保存实验</span>（<a class="term" data-term="expbundle" data-i18n="expbundle_word">实验包</a>）
+      </label>
+      <button id="btn-clear" class="btn ghost" type="button" data-i18n="clear_chat">清空对话</button>
+    </details>
+
+    <div class="sidebar-foot">
+      <span class="fineprint">GeoMark Harness · <span id="about-version">v0.6.2</span></span>
+    </div>
   </aside>
 
-  <main id="main">
+  <!-- ══════════ 中栏：对话 ══════════ -->
+  <main id="main" class="panel">
+    <div class="chat-head">
+      <span id="run-status" class="chip status-idle" data-state="idle" data-i18n="status_idle">就绪</span>
+      <span class="fineprint" data-i18n="chat_head_note">同一输入 · 同一配置 · 公平对比</span>
+    </div>
     <div id="chat">
       <div class="empty-state">
+        <img class="empty-logo" src="vendor/brand/logo.svg" alt="" aria-hidden="true">
         <p class="poem" aria-hidden="true" data-i18n="poem">同题共答　千帆竞渡</p>
-        <p class="empty-sub" data-i18n-html="empty_sub">同一个问题、同一份文件、同一套配置，交给不同的模型。<br>
-        实验环境只负责把条件原样送达每个模型，不做任何偏袒。</p>
+        <p class="empty-sub" data-i18n-html="empty_sub">同一个问题、同一份文件、同一套配置，交给不同的模型。<br>实验环境只负责把条件原样送达每个模型，不做任何偏袒。</p>
       </div>
     </div>
     <button id="btn-to-bottom" class="scroll-btn" type="button" aria-label="跳到最新回复" title="跳到最新回复">
@@ -95,18 +109,38 @@
     </button>
     <form id="composer">
       <div class="composer-left">
-        <span id="run-status" class="chip status-idle" data-state="idle" data-i18n="status_idle">就绪</span>
+        <span id="run-status-chip-space" hidden></span>
+        <label class="think-toggle" id="think-wrap">
+          <input type="checkbox" id="think-toggle">
+          <span class="think-pill"><span data-i18n="deep_think">深度思考</span></span>
+        </label>
       </div>
       <textarea id="prompt" rows="3" placeholder="输入提示词…（Enter 发送，Shift+Enter 换行）" data-i18n-ph="prompt_ph"></textarea>
-      <button type="submit" id="btn-send" class="btn primary" data-i18n="send">发送</button>
+      <label class="attach-icon" for="file-input" title="添加附件">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M21 12l-8.5 8.5a5.5 5.5 0 01-7.8-7.8l8.5-8.5a3.7 3.7 0 015.2 5.2L9.9 17.8a1.8 1.8 0 01-2.6-2.6l7.8-7.8" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>
+      </label>
+      <button type="submit" id="btn-send" class="btn primary" data-i18n="send" title="发送">➤</button>
     </form>
   </main>
 
+  <!-- ══════════ 右栏：实验配置 / 运行结果 ══════════ -->
   <aside id="rightbar" class="panel">
-    <h2 data-i18n="sessions">对话记录</h2>
-    <ul id="session-list" class="record-list"></ul>
-    <h2 data-i18n="experiments">实验记录</h2>
-    <ul id="exp-list"></ul>
+    <section class="card">
+      <h2><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" fill="none"/><path d="M12 8v5m0 3v.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span data-i18n="card_config">实验配置</span></h2>
+      <div id="config-summary" class="kv"></div>
+    </section>
+    <section class="card">
+      <h2><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M4 17l6-6 4 4 6-8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="card_run">运行结果</span></h2>
+      <div id="run-summary" class="kv"></div>
+    </section>
+    <section class="card grow">
+      <h2><span data-i18n="experiments">实验记录</span></h2>
+      <ul id="exp-list"></ul>
+    </section>
+    <section class="card grow">
+      <h2><span data-i18n="sessions">对话记录</span></h2>
+      <ul id="session-list" class="record-list"></ul>
+    </section>
   </aside>
 </div>
 
@@ -155,7 +189,7 @@
     </ol>
     <p class="fineprint" data-i18n="onboard_4">想系统了解？打开下方新手教程；想批量评测模型？点击顶栏「AI 评测」。</p>
     <div class="dialog-foot">
-      <a id="onboard-docs" class="btn ghost" href="/api/docs/GETTING-STARTED.zh.md" target="_blank" data-i18n="open_guide">打开新手教程</a>
+      <button id="onboard-docs" class="btn ghost" type="button" data-i18n="open_guide">打开新手教程</button>
       <button id="onboard-ok" class="btn primary" type="button" data-i18n="onboard_ok">开始使用</button>
     </div>
   </article>
@@ -272,8 +306,6 @@
   </article>
 </dialog>
 
-<script src="vendor/katex/katex.min.js"></script>
-<script src="markdown.js"></script>
 <script src="glossary.js"></script>
 <script src="app.js"></script>
 </body>

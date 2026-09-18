@@ -25,7 +25,11 @@ const I18N = {
     legend_reasoning: '推理（模型原生，直接透传）', effort_label: '推理力度 Effort（OpenAI 风格）',
     budget_label: '思考词元预算 Budget（Anthropic 风格）', budget_ph: '如 8192', legend_files: '文件（显式附加，仅读取所选文件）',
     reasoning_enabled: '启用推理（若模型支持）', save_experiment: '保存实验', clear_chat: '清空对话',
-    model: '模型',
+    group_model: '模型', group_files: '文件', advanced: '高级参数',
+    attach_file: '添加附件', chat_head_note: '同一输入 · 同一配置 · 公平对比', deep_think: '深度思考',
+    card_config: '实验配置', card_run: '运行结果', expbundle_word: '实验包',
+    run_status: '状态', run_ttft: '首词元延迟', run_total: '总耗时', run_in: '输入词元', run_out: '输出词元',
+    set: '已设置', none: '无',
     btn_bench: 'AI 评测', btn_guide: '新手教程', dlg_bench: 'AI 评测（Benchmark）',
     bench_intro: '对当前模型运行题库三模式评测：纯识图 / 可建系 / 不可建系。作答完成后由 judge 模型按评分细则逐项打分，生成对比表。过程需要一些时间与词元消耗。',
     bench_model: '评测模型', bench_modes: '评测模式', m_vision: '纯识图', needs_vision: '需视觉模型',
@@ -89,7 +93,11 @@ const I18N = {
     legend_reasoning: 'Reasoning (native, passed through)', effort_label: 'Reasoning effort (OpenAI style)',
     budget_label: 'Thinking budget (Anthropic style)', budget_ph: 'e.g. 8192', legend_files: 'Files (explicit attachments only)',
     reasoning_enabled: 'Enable reasoning (if supported)', save_experiment: 'Save experiment', clear_chat: 'Clear Chat',
-    model: 'Model',
+    group_model: 'Model', group_files: 'Files', advanced: 'Advanced',
+    attach_file: 'Attach files', chat_head_note: 'Same input · same config · fair comparison', deep_think: 'Deep think',
+    card_config: 'Configuration', card_run: 'Run results', expbundle_word: 'bundle',
+    run_status: 'Status', run_ttft: 'TTFT', run_total: 'Total time', run_in: 'Input tokens', run_out: 'Output tokens',
+    set: 'Set', none: 'None',
     btn_bench: 'Benchmark', btn_guide: 'Guide', dlg_bench: 'AI Evaluation (Benchmark)',
     bench_intro: 'Run the item bank against the current model in three modes: vision / coordinate / pure geometry. A judge model then grades each rubric line and produces a comparison table. This takes time and tokens.',
     bench_model: 'Evaluation model', bench_modes: 'Modes', m_vision: 'Vision', needs_vision: 'vision model required',
@@ -403,6 +411,8 @@ function persistSession() {
     localStorage.setItem(SESSIONS_KEY, JSON.stringify(list.slice(0, 30)));
   } catch { /* 存储异常不阻断对话 */ }
   renderSessionList();
+  updateConfigSummary();
+  renderRunCard();
 }
 
 function renderSession(messages) {
@@ -427,6 +437,8 @@ function restoreSession(sess) {
 function loadSessionOnBoot() {
   // v0.6.2：默认打开即新建对话；历史对话从右栏「对话记录」手动恢复
   renderSessionList();
+  updateConfigSummary();
+  renderRunCard();
 }
 
 function renderSessionList() {
@@ -678,7 +690,37 @@ function showModelInfo() {
   $('model-info').textContent = m
     ? `${m.apiModelId} · ${m.baseUrl}${m.supportsReasoning ? t('native_reasoning') : ''}`
     : t('no_models_hint');
+  updateConfigSummary();
 }
+function updateConfigSummary() {
+  const el = $('config-summary');
+  if (!el) return;
+  const m = currentModel();
+  const temp = $('temperature').value;
+  const reasoning = $('reasoning-enabled').checked || $('think-toggle').checked;
+  const nFiles = $('file-list').children.length;
+  const row = (k, v, c) => `<span class="k">${k}</span><span class="v ${c || ''}">${v}</span>`;
+  el.innerHTML =
+    row(t('model'), esc(m ? (m.displayName || m.id) : t('none'))) +
+    row('Provider', esc(m ? m.provider : t('none'))) +
+    row(t('temperature'), esc(temp === '' ? t('unset_ph') : temp)) +
+    row(t('legend_reasoning'), reasoning ? t('set') : t('omit_opt')) +
+    row(t('sysprompt'), $('system-prompt').value.trim() ? t('set') : t('none')) +
+    row(t('group_files'), nFiles ? String(nFiles) : t('none'));
+}
+$('think-toggle').addEventListener('change', () => {
+  $('reasoning-enabled').checked = $('think-toggle').checked;
+  updateConfigSummary();
+});
+$('reasoning-enabled').addEventListener('change', () => {
+  $('think-toggle').checked = $('reasoning-enabled').checked;
+  updateConfigSummary();
+});
+$('model').addEventListener('change', updateConfigSummary);
+$('system-prompt').addEventListener('input', updateConfigSummary);
+$('temperature').addEventListener('input', updateConfigSummary);
+$('max-tokens').addEventListener('input', updateConfigSummary);
+new MutationObserver(updateConfigSummary).observe($('file-list'), { childList: true });
 
 function openModelDialog(modelId = null) {
   state.editingModelId = modelId;
@@ -880,12 +922,30 @@ function renderMD(text) {
 }
 
 const STATUS_KEY = { '就绪': 'status_idle', '连接中…': 'status_connecting', '失败': 'status_failed', '流式输出中…': 'status_streaming', '推理中…': 'status_reasoning', '已完成': 'status_done', '已停止': 'status_aborted' };
+const runCard = { statusKey: 'status_idle', metrics: null };
+function renderRunCard() {
+  const el = $('run-summary');
+  if (!el) return;
+  const m = runCard.metrics || {};
+  const cls = runCard.statusKey === 'status_failed' ? 'err' : (runCard.statusKey === 'status_done' ? 'ok' : '');
+  const row = (k, v, c) => `<span class="k">${k}</span><span class="v ${c || ''}">${v}</span>`;
+  el.innerHTML =
+    row(t('run_status'), t(runCard.statusKey) || runCard.statusText || t('status_idle'), cls) +
+    row(t('run_ttft'), m.ttft ?? '—') +
+    row(t('run_total'), m.total ?? '—') +
+    row(t('run_in'), m.in ?? '—') +
+    row(t('run_out'), m.out ?? '—');
+}
 function setRunStatus(stateName, text) {
   const el = $('run-status');
   el.dataset.state = stateName;
   el.className = `chip status-${stateName}`;
   el.dataset.textRaw = text;
   el.textContent = t(STATUS_KEY[text] || '') || text;
+  runCard.statusKey = STATUS_KEY[text] || '';
+  runCard.statusText = text;
+  if (stateName === 'connecting') runCard.metrics = null;
+  renderRunCard();
 }
 
 function clearChat() {
@@ -897,6 +957,8 @@ function clearChat() {
   $('chat').innerHTML = '';
   setRunStatus('idle', '就绪');
   renderSessionList();
+  updateConfigSummary();
+  renderRunCard();
 }
 
 function addBubble(role) {
@@ -1022,6 +1084,12 @@ async function onSend(e) {
             meta.className = 'meta';
             meta.textContent =
               `${t('finish_reason')}=${ev.data.finishReason ?? '-'} · ${t('ttft')}=${t.ttftMs?.toFixed(0) ?? '-'}ms · ${t('total_time')}=${t.totalMs?.toFixed(0) ?? '-'}ms · ${t('tokens_in')}=${u.inputTokens ?? '-'} / ${t('tokens_out')}=${u.outputTokens ?? '-'}`;
+            runCard.metrics = {
+              ttft: (t.ttftMs?.toFixed(0) ?? '-') + 'ms',
+              total: (t.totalMs?.toFixed(0) ?? '-') + 'ms',
+              in: u.inputTokens ?? '—', out: u.outputTokens ?? '—',
+            };
+            renderRunCard();
             bubble.parentElement.appendChild(meta);
             termify(meta);
             state.messages.push({ role: 'assistant', content: acc });
@@ -1148,11 +1216,10 @@ async function openExperiment(id) {
 init();
 function init() {
   initTheme();
-  refreshModels();
-  refreshPresets();
-  refreshFiles();
-  refreshExperiments();
-  refreshKeyDots();
+  // 数据刷新各自隔离：任一 refresh 抛错都不应连累事件监听注册（否则关闭按钮等会失效）
+  for (const fn of [refreshModels, refreshPresets, refreshFiles, refreshExperiments, refreshKeyDots]) {
+    try { fn(); } catch (e) { console.error('refresh failed:', e); }
+  }
 
   $('composer').addEventListener('submit', onSend);
   $('chat').addEventListener('scroll', () => {
@@ -1186,6 +1253,12 @@ function init() {
   document.addEventListener('click', (e) => {
     const t = e.target.closest('a.term');
     if (t?.dataset.term) openTerm(t.dataset.term);
+  });
+  // 关闭按钮兜底：任何带 .close 的按钮关闭其所在 <dialog>，
+  // 即使个别专属监听器因故未注册也能正常关闭
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('button.close');
+    if (b) { const d = b.closest('dialog'); if (d) d.close(); }
   });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && e.target.classList?.contains('term')) {
