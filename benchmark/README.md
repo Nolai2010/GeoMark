@@ -10,14 +10,19 @@ benchmark/
 ├── dataset.json         数据集清单（版本 + 每题 problem/meta/solution 哈希 + 图片哈希）
 ├── docs/
 │   ├── EVALUATION-PROTOCOL.md   评测协议（模式、隔离、评分、约束合规）
-│   └── FAILURE-TAXONOMY.md      失败分类 F01–F08
-├── items/GM-XXXX/
+│   ├── FAILURE-TAXONOMY.md      失败分类 F01–F08
+│   ├── EXTERNAL-DATASETS.md     外部题库评估（ZhongkaoGeo / GeoLaux / MM-MATH）
+│   └── RESULTS.md               最近一次运行的结果快照
+├── items/GM-XXXX/       核心题库（手工核验答案与 rubric）
 │   ├── problem.md       题面（含作答要求）
 │   ├── solution.md      标准解、答案、评分要点
 │   ├── meta.json        结构化元数据（answer / rubric / visionRubric / difficulty / coordinatePolicy / source）
 │   └── assets/          配图（PNG）
-├── sources/             试卷采集与转写中间产物（gitignore）
-└── tools/               采集、转写、作答、评分、汇总
+├── datasets/            导入的外部题库（与核心题库隔离，默认不参与运行）
+│   ├── mm-math/items/MM-XXXX    MM-MATH hard 几何 507 题（MIT）
+│   └── geolaux/items/GL-XXXX    GeoLaux 2186 题（含辅助线标注）
+├── sources/             采集与转写中间产物（gitignore）
+└── tools/               采集、转写、导入、作答、评分、汇总
 ```
 
 ## 条目规范
@@ -110,3 +115,25 @@ node benchmark/tools/summarize.mjs --run benchmark/results/run1
 - 每次请求记录 `promptHash`（SHA-256 前 16 位）、`temperature`、`max_tokens`、usage、时间戳，写入 `run-manifest.json`。
 - `results/`、`sources/` 已 gitignore；科研复现 = 相同 `datasetHash` + 相同 `promptHash` + 相同 rubric + 相同 judge 配置。
 - 冒烟：`GM_ALLOW_MOCK_JUDGE=1` 允许确定性折半评分（仅流水线验证用，记录标注 mock-fallback）。
+
+## 外部题库导入
+
+评估结论与协议冲突说明见 [`docs/EXTERNAL-DATASETS.md`](docs/EXTERNAL-DATASETS.md)。
+
+```bash
+# MM-MATH（THU-KEG，MIT）：几何子集；不带 --difficulty 即为全部 4,335 题
+node benchmark/tools/import-mm-math.mjs --difficulty hard
+
+# GeoLaux（ACL 2026）：全量 2,186 题；--with-aux 附带含辅助线的图形
+node benchmark/tools/import-geolaux.mjs --with-aux
+#   可选：--type proving|calculation  --min-steps 10  --limit N
+
+# 对导入题库做评测（默认只跑核心题库，需显式指定 --items-dir）
+node benchmark/tools/run-eval.mjs --model deepseek-chat \
+  --items-dir benchmark/items,benchmark/datasets/geolaux/items \
+  --out benchmark/results/gl-test
+node benchmark/tools/score.mjs --run benchmark/results/gl-test \
+  --items-dir benchmark/items,benchmark/datasets/geolaux/items
+```
+
+导入库条目的 `meta.json.source` 保留原始出处与协议信息；GeoLaux 的协议冲突（仓库写 MIT / 论文写 CC BY-NC-SA 且禁止商用）已双记，供下游自行判断。

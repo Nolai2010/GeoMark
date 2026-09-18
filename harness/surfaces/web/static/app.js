@@ -31,6 +31,13 @@ const I18N = {
     run_status: '状态', run_ttft: '首词元延迟', run_total: '总耗时', run_in: '输入词元', run_out: '输出词元',
     set: '已设置', none: '无',
     btn_bench: 'AI 评测', btn_guide: '新手教程', dlg_bench: 'AI 评测（Benchmark）',
+    btn_tracks: '开始测试', dlg_tracks: '选择实验赛道',
+    tracks_intro: '「同一任务、同一条件、不同模型」——但「条件」本身也是一种选择。三条赛道回答三个不同的问题。',
+    tracks_open_all: '同时打开全部官网', tracks_open_hint: '浏览器可能拦截批量弹窗，请对本站点允许弹出窗口。',
+    tracks_enter_benchmark: '进入受控评测', tracks_launch: '启动',
+    tracks_installed: '已安装', tracks_not_installed: '未检测到',
+    tracks_launched: '已在新终端窗口启动', tracks_failed: '启动失败',
+    tracks_install_hint: '安装：', tracks_manual_install: '请自行安装后重试',
     bench_intro: '对当前模型运行题库三模式评测：纯识图 / 可建系 / 不可建系。作答完成后由 judge 模型按评分细则逐项打分，生成对比表。过程需要一些时间与词元消耗。',
     bench_model: '评测模型', bench_modes: '评测模式', m_vision: '纯识图', needs_vision: '需视觉模型',
     m_coord: '可建系', m_pure: '不可建系', bench_scope: '题目范围', scope_all: '全部 10 题',
@@ -99,6 +106,13 @@ const I18N = {
     run_status: 'Status', run_ttft: 'TTFT', run_total: 'Total time', run_in: 'Input tokens', run_out: 'Output tokens',
     set: 'Set', none: 'None',
     btn_bench: 'Benchmark', btn_guide: 'Guide', dlg_bench: 'AI Evaluation (Benchmark)',
+    btn_tracks: 'Start Test', dlg_tracks: 'Choose an Experimental Track',
+    tracks_intro: '"Same task. Same conditions. Different models." — but the conditions are themselves a choice. Three tracks answer three different questions.',
+    tracks_open_all: 'Open all official sites', tracks_open_hint: 'Your browser may block multiple popups — allow popups for this site.',
+    tracks_enter_benchmark: 'Open controlled benchmark', tracks_launch: 'Launch',
+    tracks_installed: 'Installed', tracks_not_installed: 'Not detected',
+    tracks_launched: 'Launched in a new terminal window', tracks_failed: 'Launch failed',
+    tracks_install_hint: 'Install: ', tracks_manual_install: 'install manually and retry',
     bench_intro: 'Run the item bank against the current model in three modes: vision / coordinate / pure geometry. A judge model then grades each rubric line and produces a comparison table. This takes time and tokens.',
     bench_model: 'Evaluation model', bench_modes: 'Modes', m_vision: 'Vision', needs_vision: 'vision model required',
     m_coord: 'Coordinate', m_pure: 'Pure geometry', bench_scope: 'Scope', scope_all: 'All 10 items',
@@ -208,6 +222,86 @@ function syncVisionHint() {
 $('bench-model').addEventListener('change', syncVisionHint);
 $('btn-bench').addEventListener('click', openBenchDialog);
 $('bench-close').addEventListener('click', () => $('bench-dialog').close());
+
+// ================= 实验赛道：Real-World / Controlled / Agent =================
+let tracksCache = null;
+const pickLoc = (v) => (v && typeof v === 'object') ? (v[state.lang === 'en' ? 'en' : 'zh'] || v.zh || '') : (v || '');
+
+async function openTracksDialog() {
+  $('tracks-msg').textContent = '';
+  $('tracks-list').innerHTML = '<p class="fineprint">…</p>';
+  $('tracks-dialog').showModal();
+  try {
+    if (!tracksCache) {
+      const r = await fetch('/api/tracks');
+      tracksCache = (await r.json()).tracks || [];
+    }
+    renderTracks(tracksCache);
+  } catch (e) {
+    $('tracks-list').innerHTML = `<p class="fineprint">${esc(String(e.message || e))}</p>`;
+  }
+}
+
+function renderTracks(tracks) {
+  $('tracks-list').innerHTML = [...tracks].sort((a, b) => (a.order || 0) - (b.order || 0)).map((tr) => {
+    let body = '';
+    if (tr.action === 'open-urls') {
+      body = `<div class="track-targets">${(tr.targets || []).map((x) =>
+        `<label class="track-chip"><input type="checkbox" class="track-url-check" value="${esc(x.url)}" checked>` +
+        `<span>${esc(x.name)}</span><em>${esc(x.vendor || '')}</em></label>`).join('')}</div>`;
+    } else if (tr.action === 'launch-agents') {
+      body = `<div class="track-targets">${(tr.targets || []).map((x) => x.installed
+        ? `<span class="track-chip"><span>${esc(x.name)}</span><em>${esc(x.vendor || '')}</em>` +
+          `<button class="btn ghost small-btn track-launch" data-agent="${esc(x.id)}" type="button">${t('tracks_launch')}</button></span>`
+        : `<span class="track-chip off"><span>${esc(x.name)}</span><em>${esc(x.vendor || '')}</em>` +
+          `<span class="fineprint">${t('tracks_not_installed')}${x.install ? ' · ' + t('tracks_install_hint') + esc(x.install) : ' · ' + t('tracks_manual_install')}</span></span>`
+      ).join('')}</div>`;
+    } else if (tr.action === 'open-benchmark') {
+      body = `<div class="track-targets"><button class="btn primary small-btn track-goto-bench" type="button">${t('tracks_enter_benchmark')}</button></div>`;
+    }
+    return `<section class="card track-card">
+      <header class="track-head"><h4>${esc(pickLoc(tr.label))}</h4><span class="fineprint">${esc(pickLoc(tr.subtitle))}</span></header>
+      <p class="fineprint">${esc(pickLoc(tr.desc))}</p>
+      ${body}
+    </section>`;
+  }).join('');
+
+  document.querySelectorAll('.track-launch').forEach((b) => b.addEventListener('click', () => launchLocalAgent(b.dataset.agent)));
+  const g = document.querySelector('.track-goto-bench');
+  if (g) g.addEventListener('click', () => { $('tracks-dialog').close(); openBenchDialog(); });
+  $('tracks-open-all').hidden = !document.querySelector('.track-url-check');
+}
+
+async function launchLocalAgent(id) {
+  $('tracks-msg').textContent = '…';
+  try {
+    const r = await fetch('/api/tracks/launch-agent', {
+      method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ id }),
+    });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) {
+      $('tracks-msg').textContent = j.error === 'not-installed'
+        ? `${t('tracks_not_installed')}：${j.bin || ''}`
+        : `${t('tracks_failed')}：${j.error || r.status}`;
+      return;
+    }
+    $('tracks-msg').textContent = `${t('tracks_launched')}：${j.launched}`;
+  } catch (e) {
+    $('tracks-msg').textContent = `${t('tracks_failed')}：${String(e.message || e)}`;
+  }
+}
+
+function openAllVendorSites() {
+  const urls = [...document.querySelectorAll('.track-url-check')].filter((c) => c.checked).map((c) => c.value);
+  if (!urls.length) { $('tracks-msg').textContent = t('none'); return; }
+  let blocked = 0;
+  urls.forEach((u) => { const w = window.open(u, '_blank', 'noopener'); if (!w) blocked++; });
+  $('tracks-msg').textContent = blocked ? t('tracks_open_hint') : '';
+}
+
+$('btn-tracks').addEventListener('click', openTracksDialog);
+$('tracks-close').addEventListener('click', () => $('tracks-dialog').close());
+$('tracks-open-all').addEventListener('click', openAllVendorSites);
 $('btn-guide').addEventListener('click', openTutorial);
 async function openTutorial() {
   $('tut-dialog').showModal();

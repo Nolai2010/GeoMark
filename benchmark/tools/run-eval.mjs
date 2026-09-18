@@ -21,7 +21,6 @@ import { fileURLToPath } from 'node:url';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const BENCH = path.resolve(HERE, '..');
-const ITEMS = path.join(BENCH, 'items');
 const REPO = path.resolve(BENCH, '..', 'harness');
 
 // ---------- args ----------
@@ -37,6 +36,18 @@ const maxTokens = opt['max-tokens'] !== undefined ? Number(opt['max-tokens']) : 
 const CONCURRENCY = Math.max(1, opt.concurrency !== undefined ? Number(opt.concurrency) : 6);
 const DRY = !!opt['dry-run'];
 const RESUME = !!opt.resume;
+// 题库根目录：默认核心题库 benchmark/items；用 --items-dir a,b 可追加导入题库（如 MM-MATH）
+const ITEMS_DIRS = String(opt['items-dir'] || path.join(BENCH, 'items')).split(',').map(s => path.resolve(s.trim()));
+const ITEMS = ITEMS_DIRS[0];
+function itemDir(gid) {
+  for (const d of ITEMS_DIRS) { const p = path.join(d, gid); if (fs.existsSync(path.join(p, 'meta.json'))) return p; }
+  return path.join(ITEMS, gid);
+}
+function listItems() {
+  const out = new Set();
+  for (const d of ITEMS_DIRS) { try { for (const x of fs.readdirSync(d)) if (fs.existsSync(path.join(d, x, 'meta.json'))) out.add(x); } catch {} }
+  return [...out].sort();
+}
 
 // ---------- model config ----------
 const CONFIG_DIR = process.env.HARNESS_CONFIG_DIR || path.join(REPO, 'config');
@@ -80,7 +91,7 @@ const MODE_INSTRUCTION = {
 };
 
 function loadItem(gid) {
-  const dir = path.join(ITEMS, gid);
+  const dir = itemDir(gid);
   // 注意：这里刻意不读取 solution.md —— 作答阶段与评分细则完全隔离
   const problem = fs.readFileSync(path.join(dir, 'problem.md'), 'utf8');
   const meta = JSON.parse(fs.readFileSync(path.join(dir, 'meta.json'), 'utf8'));
@@ -154,7 +165,7 @@ const runid = opt.out ? path.basename(String(opt.out)) : new Date().toISOString(
 const OUT = opt.out ? path.resolve(String(opt.out)) : path.join(BENCH, 'results', runid);
 fs.mkdirSync(OUT, { recursive: true });
 
-const gids = onlyItems || fs.readdirSync(ITEMS).filter(d => d.startsWith('GM-')).sort();
+const gids = onlyItems || listItems();
 const manifest = {
   runid, model: MODEL.id || MODEL.api_model_id, provider: MODEL.provider,
   base_url: MODEL.base_url || null, api_model_id: MODEL.api_model_id || null,

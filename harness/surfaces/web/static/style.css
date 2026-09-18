@@ -364,3 +364,25 @@ dialog h3 { margin: 0; font-size: 17px; font-family: var(--serif); font-weight: 
   #sidebar, #rightbar { display: none; }
   .poem { font-size: 22px; letter-spacing: 8px; }
 }
+
+/* ===== 实验赛道（Real-World / Controlled / Agent） ===== */
+.tracks-list { display: flex; flex-direction: column; gap: 12px; margin: 14px 0; max-height: 56vh; overflow-y: auto; }
+.track-card { padding: 14px 16px; }
+.track-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+.track-head h4 { margin: 0; font-size: 15px; letter-spacing: .3px; font-family: var(--serif); }
+.track-head h4::before { content: "◆"; color: var(--cinnabar); margin-right: 8px; font-size: 11px; }
+.track-targets { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.track-chip {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 6px 11px; border: 1px solid var(--border); border-radius: 999px;
+  background: var(--panel-2); font-size: 13px; color: var(--ink);
+  transition: border-color .15s ease;
+}
+.track-chip:hover { border-color: var(--gold); }
+.track-chip span { white-space: nowrap; }
+.track-chip em { font-style: normal; color: var(--muted); font-size: 11px; }
+.track-chip input[type="checkbox"] { accent-color: var(--cinnabar); margin: 0; }
+.track-chip.off { opacity: .62; }
+.track-chip .small-btn { padding: 2px 9px; font-size: 12px; }
+.track-chip .fineprint { white-space: normal; max-width: 320px; }
+@media (prefers-reduced-motion: reduce) { .track-chip { transition: none; } }

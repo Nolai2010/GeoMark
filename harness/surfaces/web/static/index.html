@@ -23,6 +23,7 @@
   </div>
   <div class="topbar-actions">
     <span id="key-dots" class="key-dots" title="API 密钥状态"></span>
+    <button id="btn-tracks" class="btn ghost" type="button" data-i18n="btn_tracks">开始测试</button>
     <button id="btn-bench" class="btn ghost" type="button" data-i18n="btn_bench">AI 评测</button>
     <button id="btn-guide" class="btn ghost" type="button" data-i18n="btn_guide">新手教程</button>
     <button id="btn-keys" class="btn ghost" type="button" data-i18n="btn_keys">API 密钥</button>
@@ -301,6 +302,21 @@
       <span class="dialog-foot-right">
         <button id="exp-rename" class="btn ghost" type="button" data-i18n="rename">重命名</button>
         <button id="exp-delete" class="btn ghost" type="button" data-i18n="delete_exp">删除实验</button>
+      </span>
+    </div>
+  </article>
+</dialog>
+
+<!-- 实验赛道：Real-World / Controlled / Agent -->
+<dialog id="tracks-dialog" class="term-dialog wide">
+  <article>
+    <header><h3 data-i18n="dlg_tracks">选择实验赛道</h3><button id="tracks-close" class="btn ghost close" type="button" data-i18n="close">关闭</button></header>
+    <p class="fineprint" data-i18n="tracks_intro">「同一任务、同一条件、不同模型」——但「条件」本身也是一种选择。三条赛道回答三个不同的问题。</p>
+    <div id="tracks-list" class="tracks-list"></div>
+    <div class="dialog-foot">
+      <span id="tracks-msg" class="fineprint"></span>
+      <span class="dialog-foot-right">
+        <button id="tracks-open-all" class="btn primary" type="button" data-i18n="tracks_open_all">同时打开全部官网</button>
       </span>
     </div>
   </article>

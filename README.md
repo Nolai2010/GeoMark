@@ -214,7 +214,8 @@ This allows individual runs to be inspected instead of reducing an experiment to
 
 # Experimental Tracks
 
-GeoMark is intended to support multiple evaluation tracks.
+Three evaluation tracks. All three are implemented in the web interface — click **Start Test**
+to open the track chooser.
 
 ### Real-World Track
 
@@ -222,17 +223,31 @@ Compare models through their normal user-facing interfaces.
 
 This track reflects the experience an ordinary user receives from each model.
 
+*Implemented as:* one click opens every vendor's official chat page simultaneously, so the same
+question can be pasted into each. Conditions are opaque and not reproducible — that is the point:
+this track measures what a user actually gets, not what a model can do under ideal conditions.
+Targets are declared in `harness/config/tracks.json` and can be edited freely.
+
 ### Controlled Track
 
 Run models through GeoMark Harness with explicitly standardized experimental conditions.
 
 This track is intended to reduce environmental variables when studying model capability.
 
+*Implemented as:* the existing benchmark runner — same items, same prompts, same parameters, every
+variable recorded. Cross-model comparison should rely on this track.
+
 ### Agent Track
 
 Evaluate models together with an Agent Harness and compare how different agent configurations affect task performance.
 
 The Harness itself can therefore become an experimental variable rather than being treated as an invisible implementation detail.
+
+*Implemented as:* the chooser lists local agent CLIs (Claude Code, Codex CLI, Gemini CLI, Copilot
+CLI, Qwen Code, opencode, Aider, Goose, Crush, Amp, Cursor Agent, Cline), detects which are
+installed on this machine, and launches the selected one in a new terminal window. Only binaries
+declared in `harness/config/tracks.json` can be launched — the endpoint is an allowlist, never an
+arbitrary command.
 
 ---
 

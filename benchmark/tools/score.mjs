@@ -16,7 +16,6 @@ import { fileURLToPath } from 'node:url';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const BENCH = path.resolve(HERE, '..');
-const ITEMS = path.join(BENCH, 'items');
 const REPO = path.resolve(BENCH, '..', 'harness');
 
 const argv = process.argv.slice(2);
@@ -25,6 +24,13 @@ for (let i = 0; i < argv.length; i++) if (argv[i].startsWith('--')) opt[argv[i].
 const RUN = path.resolve(String(opt.run || ''));
 if (!fs.existsSync(RUN)) { console.error('run 目录不存在: ' + RUN); process.exit(1); }
 const CONCURRENCY = Math.max(1, opt.concurrency !== undefined ? Number(opt.concurrency) : 4);
+// 题库根目录：默认核心题库 benchmark/items；用 --items-dir a,b 可追加导入题库
+const ITEMS_DIRS = String(opt['items-dir'] || path.join(BENCH, 'items')).split(',').map(s => path.resolve(s.trim()));
+const ITEMS = ITEMS_DIRS[0];
+function itemDir(gid) {
+  for (const d of ITEMS_DIRS) { const p = path.join(d, gid); if (fs.existsSync(path.join(p, 'meta.json'))) return p; }
+  return path.join(ITEMS, gid);
+}
 
 // judge 模型：默认与被评模型同 provider（可 --judge-model 指定其它）
 const CONFIG_DIR = process.env.HARNESS_CONFIG_DIR || path.join(REPO, 'config');
@@ -138,8 +144,9 @@ async function worker() {
     if (!job) break;
     const { gid, mode, file } = job;
     try {
-      const meta = JSON.parse(fs.readFileSync(path.join(ITEMS, gid, 'meta.json'), 'utf8'));
-      const solution = fs.readFileSync(path.join(ITEMS, gid, 'solution.md'), 'utf8');
+      const dir = itemDir(gid);
+      const meta = JSON.parse(fs.readFileSync(path.join(dir, 'meta.json'), 'utf8'));
+      const solution = fs.readFileSync(path.join(dir, 'solution.md'), 'utf8');
       // 识图考核必须有 visionRubric（图形复述要点）；缺失则跳过打分，避免误用解题 rubric
       if (mode === 'vision' && !(Array.isArray(meta.visionRubric) && meta.visionRubric.length)) {
         const rec = { item: gid, mode, skipped: true, reason: 'no-vision-rubric', max: 0, total: null, judgedAt: Date.now() };

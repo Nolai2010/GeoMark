@@ -150,3 +150,8 @@ benchmark/sources/
 benchmark/docs/.logo-*.svg
 benchmark/docs/.logo-preview.*
 benchmark/docs/redesign-*.png
+
+# 导入的外部题库条目（体量大，且协议各不相同：GeoLaux 论文侧声明 CC BY-NC-SA 禁止商用，
+# 混入本 MIT 仓库会造成协议混装）。用 benchmark/tools/import-*.mjs 本地重新生成；
+# import-manifest.json 仍在库内，用于记录来源与数量。
+benchmark/datasets/*/items/

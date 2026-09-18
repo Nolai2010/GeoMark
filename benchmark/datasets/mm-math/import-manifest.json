@@ -1,0 +1,4577 @@
+{
+  "importedAt": "2026-09-18T16:51:35.737Z",
+  "source": "MM-MATH (THU-KEG/MM_Math, MIT)",
+  "filter": {
+    "difficulty": "hard",
+    "grade": null,
+    "limit": null,
+    "category": "geometry (Properties/Transformations of Shapes)"
+  },
+  "total": 507,
+  "missingFigure": 0,
+  "items": [
+    {
+      "id": "MM-0001",
+      "mmIndex": 6,
+      "file": "52914191.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0002",
+      "mmIndex": 14,
+      "file": "52905597.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0003",
+      "mmIndex": 26,
+      "file": "52551635.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0004",
+      "mmIndex": 34,
+      "file": "53105794.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0005",
+      "mmIndex": 60,
+      "file": "51419793.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0006",
+      "mmIndex": 89,
+      "file": "52991672.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0007",
+      "mmIndex": 139,
+      "file": "51807221.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0008",
+      "mmIndex": 144,
+      "file": "53151323.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0009",
+      "mmIndex": 157,
+      "file": "51445130.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0010",
+      "mmIndex": 185,
+      "file": "53080813.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0011",
+      "mmIndex": 196,
+      "file": "53110836.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0012",
+      "mmIndex": 248,
+      "file": "52395428.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0013",
+      "mmIndex": 301,
+      "file": "53010081.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0014",
+      "mmIndex": 348,
+      "file": "51029388.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0015",
+      "mmIndex": 353,
+      "file": "51131123.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0016",
+      "mmIndex": 421,
+      "file": "51155310.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0017",
+      "mmIndex": 425,
+      "file": "51284459.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0018",
+      "mmIndex": 438,
+      "file": "53359994.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0019",
+      "mmIndex": 508,
+      "file": "51403017.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0020",
+      "mmIndex": 519,
+      "file": "51614470.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0021",
+      "mmIndex": 524,
+      "file": "51510388.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0022",
+      "mmIndex": 568,
+      "file": "52623034.png",
+      "level2": "Circle",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0023",
+      "mmIndex": 609,
+      "file": "52019443.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0024",
+      "mmIndex": 677,
+      "file": "52866966.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0025",
+      "mmIndex": 688,
+      "file": "52793251.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0026",
+      "mmIndex": 731,
+      "file": "55498626.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0027",
+      "mmIndex": 758,
+      "file": "51825215.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0028",
+      "mmIndex": 788,
+      "file": "51722492.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0029",
+      "mmIndex": 836,
+      "file": "52304101.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0030",
+      "mmIndex": 839,
+      "file": "52303920.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0031",
+      "mmIndex": 891,
+      "file": "50496295.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0032",
+      "mmIndex": 899,
+      "file": "50475268.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0033",
+      "mmIndex": 902,
+      "file": "50475082.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0034",
+      "mmIndex": 961,
+      "file": "52935302.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0035",
+      "mmIndex": 1021,
+      "file": "52874671.png",
+      "level2": "Circle",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0036",
+      "mmIndex": 1042,
+      "file": "52720610.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0037",
+      "mmIndex": 1126,
+      "file": "51212656.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0038",
+      "mmIndex": 1136,
+      "file": "51322798.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0039",
+      "mmIndex": 1213,
+      "file": "51322733.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0040",
+      "mmIndex": 1216,
+      "file": "51322970.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0041",
+      "mmIndex": 1228,
+      "file": "52694089.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0042",
+      "mmIndex": 1230,
+      "file": "52661216.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0043",
+      "mmIndex": 1232,
+      "file": "52537043.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0044",
+      "mmIndex": 1250,
+      "file": "51433787.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0045",
+      "mmIndex": 1299,
+      "file": "52807129.png",
+      "level2": "Circle",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0046",
+      "mmIndex": 1357,
+      "file": "51942332.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0047",
+      "mmIndex": 1411,
+      "file": "53206622.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0048",
+      "mmIndex": 1441,
+      "file": "52539248.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0049",
+      "mmIndex": 1444,
+      "file": "52634686.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0050",
+      "mmIndex": 1481,
+      "file": "51546410.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0051",
+      "mmIndex": 1502,
+      "file": "51379554.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0052",
+      "mmIndex": 1517,
+      "file": "51130768.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0053",
+      "mmIndex": 1524,
+      "file": "52931044.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0054",
+      "mmIndex": 1525,
+      "file": "50933575.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0055",
+      "mmIndex": 1526,
+      "file": "54967313.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0056",
+      "mmIndex": 1552,
+      "file": "51445529.png",
+      "level2": "Circle",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0057",
+      "mmIndex": 1635,
+      "file": "51825223.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0058",
+      "mmIndex": 1660,
+      "file": "51722347.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0059",
+      "mmIndex": 1692,
+      "file": "55192440.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0060",
+      "mmIndex": 1705,
+      "file": "51458140.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0061",
+      "mmIndex": 1727,
+      "file": "51322497.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0062",
+      "mmIndex": 1736,
+      "file": "51384545.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0063",
+      "mmIndex": 1738,
+      "file": "51265327.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0064",
+      "mmIndex": 1750,
+      "file": "53009650.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0065",
+      "mmIndex": 1752,
+      "file": "55487875.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0066",
+      "mmIndex": 1768,
+      "file": "55533862.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0067",
+      "mmIndex": 1813,
+      "file": "52991516.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0068",
+      "mmIndex": 1817,
+      "file": "52991441.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0069",
+      "mmIndex": 1822,
+      "file": "52991371.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0070",
+      "mmIndex": 1836,
+      "file": "52963745.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0071",
+      "mmIndex": 1852,
+      "file": "53728981.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0072",
+      "mmIndex": 1856,
+      "file": "52284136.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0073",
+      "mmIndex": 1864,
+      "file": "52250424.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0074",
+      "mmIndex": 1908,
+      "file": "52304107.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0075",
+      "mmIndex": 1921,
+      "file": "52302537.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0076",
+      "mmIndex": 1924,
+      "file": "52212059.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0077",
+      "mmIndex": 1939,
+      "file": "52188838.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0078",
+      "mmIndex": 1945,
+      "file": "52189128.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0079",
+      "mmIndex": 1953,
+      "file": "52160124.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0080",
+      "mmIndex": 1955,
+      "file": "52159971.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0081",
+      "mmIndex": 1959,
+      "file": "50497051.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0082",
+      "mmIndex": 1963,
+      "file": "50496915.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0083",
+      "mmIndex": 1972,
+      "file": "50496469.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0084",
+      "mmIndex": 1975,
+      "file": "50496337.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0085",
+      "mmIndex": 1988,
+      "file": "50475276.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0086",
+      "mmIndex": 1994,
+      "file": "50474806.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0087",
+      "mmIndex": 2006,
+      "file": "52827132.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0088",
+      "mmIndex": 2051,
+      "file": "52861191.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0089",
+      "mmIndex": 2055,
+      "file": "52808104.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0090",
+      "mmIndex": 2078,
+      "file": "55452505.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0091",
+      "mmIndex": 2082,
+      "file": "51368292.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0092",
+      "mmIndex": 2087,
+      "file": "51367426.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0093",
+      "mmIndex": 2094,
+      "file": "51322836.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0094",
+      "mmIndex": 2096,
+      "file": "51322658.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0095",
+      "mmIndex": 2137,
+      "file": "52603721.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0096",
+      "mmIndex": 2160,
+      "file": "52603854.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0097",
+      "mmIndex": 2175,
+      "file": "52836358.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0098",
+      "mmIndex": 2191,
+      "file": "52828917.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0099",
+      "mmIndex": 2196,
+      "file": "52774844.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0100",
+      "mmIndex": 2211,
+      "file": "51284430.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0101",
+      "mmIndex": 2213,
+      "file": "51458355.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0102",
+      "mmIndex": 2242,
+      "file": "52387296.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0103",
+      "mmIndex": 2260,
+      "file": "52836896.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0104",
+      "mmIndex": 2288,
+      "file": "52856093.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0105",
+      "mmIndex": 2298,
+      "file": "52050077.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0106",
+      "mmIndex": 2303,
+      "file": "51968677.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0107",
+      "mmIndex": 2310,
+      "file": "51920362.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0108",
+      "mmIndex": 2316,
+      "file": "51770458.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0109",
+      "mmIndex": 2361,
+      "file": "51403069.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0110",
+      "mmIndex": 2371,
+      "file": "51545296.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0111",
+      "mmIndex": 2374,
+      "file": "51099866.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0112",
+      "mmIndex": 2383,
+      "file": "51051524.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0113",
+      "mmIndex": 2392,
+      "file": "52483220.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0114",
+      "mmIndex": 2393,
+      "file": "52483257.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0115",
+      "mmIndex": 2394,
+      "file": "51005089.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0116",
+      "mmIndex": 2419,
+      "file": "52699778.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0117",
+      "mmIndex": 2425,
+      "file": "52699726.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0118",
+      "mmIndex": 2436,
+      "file": "51213422.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0119",
+      "mmIndex": 2439,
+      "file": "51213352.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0120",
+      "mmIndex": 2456,
+      "file": "51368376.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0121",
+      "mmIndex": 2459,
+      "file": "51368293.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0122",
+      "mmIndex": 2479,
+      "file": "52082370.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0123",
+      "mmIndex": 2482,
+      "file": "52076995.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0124",
+      "mmIndex": 2529,
+      "file": "52688312.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0125",
+      "mmIndex": 2536,
+      "file": "52586157.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0126",
+      "mmIndex": 2541,
+      "file": "52514055.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0127",
+      "mmIndex": 2547,
+      "file": "52513834.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0128",
+      "mmIndex": 2548,
+      "file": "52457428.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0129",
+      "mmIndex": 2549,
+      "file": "51369939.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0130",
+      "mmIndex": 2557,
+      "file": "51433235.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0131",
+      "mmIndex": 2560,
+      "file": "52872379.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0132",
+      "mmIndex": 2565,
+      "file": "55138396.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0133",
+      "mmIndex": 2567,
+      "file": "52874743.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0134",
+      "mmIndex": 2570,
+      "file": "52874641.png",
+      "level2": "Circle",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0135",
+      "mmIndex": 2592,
+      "file": "52755081.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0136",
+      "mmIndex": 2616,
+      "file": "53498213.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0137",
+      "mmIndex": 2619,
+      "file": "53498558.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0138",
+      "mmIndex": 2621,
+      "file": "53490733.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0139",
+      "mmIndex": 2627,
+      "file": "53360049.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0140",
+      "mmIndex": 2640,
+      "file": "52344793.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0141",
+      "mmIndex": 2678,
+      "file": "52634631.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0142",
+      "mmIndex": 2683,
+      "file": "52872415.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0143",
+      "mmIndex": 2688,
+      "file": "51407044.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0144",
+      "mmIndex": 2691,
+      "file": "51406974.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0145",
+      "mmIndex": 2695,
+      "file": "51402157.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0146",
+      "mmIndex": 2705,
+      "file": "53519734.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0147",
+      "mmIndex": 2706,
+      "file": "53151242.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0148",
+      "mmIndex": 2744,
+      "file": "51510282.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0149",
+      "mmIndex": 2779,
+      "file": "52950185.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0150",
+      "mmIndex": 2782,
+      "file": "51458354.png",
+      "level2": "Circle",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0151",
+      "mmIndex": 2791,
+      "file": "51318916.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0152",
+      "mmIndex": 2814,
+      "file": "53147473.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0153",
+      "mmIndex": 2831,
+      "file": "53308020.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0154",
+      "mmIndex": 2835,
+      "file": "51684446.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0155",
+      "mmIndex": 2838,
+      "file": "51807104.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0156",
+      "mmIndex": 2839,
+      "file": "51806751.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0157",
+      "mmIndex": 2840,
+      "file": "53232972.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0158",
+      "mmIndex": 2842,
+      "file": "51635786.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0159",
+      "mmIndex": 2851,
+      "file": "51497073.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0160",
+      "mmIndex": 2858,
+      "file": "51578585.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0161",
+      "mmIndex": 2874,
+      "file": "55497792.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0162",
+      "mmIndex": 2882,
+      "file": "53080819.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0163",
+      "mmIndex": 2885,
+      "file": "53080531.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0164",
+      "mmIndex": 2904,
+      "file": "53110839.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0165",
+      "mmIndex": 3191,
+      "file": "53102205_71.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0166",
+      "mmIndex": 3192,
+      "file": "53102165_74.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0167",
+      "mmIndex": 3193,
+      "file": "53102165_75.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0168",
+      "mmIndex": 3205,
+      "file": "52991580_99.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0169",
+      "mmIndex": 3206,
+      "file": "52991580_101.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0170",
+      "mmIndex": 3207,
+      "file": "52991580_102.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0171",
+      "mmIndex": 3210,
+      "file": "52991468_108.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0172",
+      "mmIndex": 3211,
+      "file": "52991464_111.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0173",
+      "mmIndex": 3212,
+      "file": "52991464_113.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0174",
+      "mmIndex": 3214,
+      "file": "52991542_119.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0175",
+      "mmIndex": 3215,
+      "file": "52991542_120.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0176",
+      "mmIndex": 3221,
+      "file": "52977987_134.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0177",
+      "mmIndex": 3222,
+      "file": "52977987_135.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0178",
+      "mmIndex": 3223,
+      "file": "52977987_136.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0179",
+      "mmIndex": 3228,
+      "file": "52977916_147.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0180",
+      "mmIndex": 3229,
+      "file": "52977916_149.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0181",
+      "mmIndex": 3231,
+      "file": "52942187_155.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0182",
+      "mmIndex": 3232,
+      "file": "52942187_156.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0183",
+      "mmIndex": 3243,
+      "file": "52933588_182.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0184",
+      "mmIndex": 3244,
+      "file": "52933588_183.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0185",
+      "mmIndex": 3450,
+      "file": "51433735_109.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0186",
+      "mmIndex": 3468,
+      "file": "52720239_162.png",
+      "level2": "Circle",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0187",
+      "mmIndex": 3478,
+      "file": "53359333_48.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0188",
+      "mmIndex": 3479,
+      "file": "53359333_49.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0189",
+      "mmIndex": 3481,
+      "file": "53498546_72.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0190",
+      "mmIndex": 3482,
+      "file": "53498546_73.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0191",
+      "mmIndex": 3483,
+      "file": "53498546_74.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0192",
+      "mmIndex": 3485,
+      "file": "53498608_79.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0193",
+      "mmIndex": 3486,
+      "file": "53498608_80.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0194",
+      "mmIndex": 3487,
+      "file": "53498608_81.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0195",
+      "mmIndex": 3489,
+      "file": "53490651_86.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0196",
+      "mmIndex": 3490,
+      "file": "53490651_87.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0197",
+      "mmIndex": 3491,
+      "file": "53490651_88.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0198",
+      "mmIndex": 3492,
+      "file": "53490616_90.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0199",
+      "mmIndex": 3493,
+      "file": "53490616_91.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0200",
+      "mmIndex": 3510,
+      "file": "53359725_137.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0201",
+      "mmIndex": 3511,
+      "file": "53359725_138.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0202",
+      "mmIndex": 3512,
+      "file": "53359725_139.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0203",
+      "mmIndex": 3522,
+      "file": "53182827_160.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0204",
+      "mmIndex": 3523,
+      "file": "53182827_161.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0205",
+      "mmIndex": 3524,
+      "file": "52344940_165.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0206",
+      "mmIndex": 3525,
+      "file": "52344940_166.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0207",
+      "mmIndex": 3533,
+      "file": "53151061_71.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0208",
+      "mmIndex": 3534,
+      "file": "53151061_72.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0209",
+      "mmIndex": 3545,
+      "file": "51918275_105.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0210",
+      "mmIndex": 3546,
+      "file": "51918275_107.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0211",
+      "mmIndex": 3551,
+      "file": "51737359_116.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0212",
+      "mmIndex": 3552,
+      "file": "51737317_120.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0213",
+      "mmIndex": 3553,
+      "file": "51722675_124.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0214",
+      "mmIndex": 3554,
+      "file": "51722675_125.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0215",
+      "mmIndex": 3555,
+      "file": "51722675_126.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0216",
+      "mmIndex": 3560,
+      "file": "51496741_135.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0217",
+      "mmIndex": 3622,
+      "file": "52422726_85.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0218",
+      "mmIndex": 3627,
+      "file": "52416356_98.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0219",
+      "mmIndex": 3628,
+      "file": "52416356_99.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0220",
+      "mmIndex": 3638,
+      "file": "52386348_127.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0221",
+      "mmIndex": 3639,
+      "file": "52386348_128.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0222",
+      "mmIndex": 3653,
+      "file": "53365775_78.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0223",
+      "mmIndex": 3654,
+      "file": "53365775_79.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0224",
+      "mmIndex": 3692,
+      "file": "51494981_148.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0225",
+      "mmIndex": 3693,
+      "file": "51494981_149.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0226",
+      "mmIndex": 3694,
+      "file": "51324353_154.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0227",
+      "mmIndex": 3695,
+      "file": "51324353_155.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0228",
+      "mmIndex": 3696,
+      "file": "51324353_156.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0229",
+      "mmIndex": 3697,
+      "file": "51323829_158.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0230",
+      "mmIndex": 3703,
+      "file": "51438377_168.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0231",
+      "mmIndex": 3704,
+      "file": "51438377_169.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0232",
+      "mmIndex": 3705,
+      "file": "51438377_170.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0233",
+      "mmIndex": 3727,
+      "file": "52906015_79.png",
+      "level2": "Circle",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0234",
+      "mmIndex": 3728,
+      "file": "52906015_80.png",
+      "level2": "Circle",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0235",
+      "mmIndex": 3731,
+      "file": "52874761_88.png",
+      "level2": "Circle",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0236",
+      "mmIndex": 3740,
+      "file": "52871917_107.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0237",
+      "mmIndex": 3741,
+      "file": "52871917_108.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0238",
+      "mmIndex": 3742,
+      "file": "52871917_109.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0239",
+      "mmIndex": 3758,
+      "file": "52807144_146.png",
+      "level2": "Circle",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0240",
+      "mmIndex": 3907,
+      "file": "51319009_112.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0241",
+      "mmIndex": 3908,
+      "file": "51319009_113.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0242",
+      "mmIndex": 3909,
+      "file": "51319009_114.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0243",
+      "mmIndex": 3915,
+      "file": "51319037_127.png",
+      "level2": "Circle",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0244",
+      "mmIndex": 3916,
+      "file": "51319037_128.png",
+      "level2": "Circle",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0245",
+      "mmIndex": 3927,
+      "file": "52861546_101.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0246",
+      "mmIndex": 3928,
+      "file": "52861546_103.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0247",
+      "mmIndex": 4138,
+      "file": "52917616_86.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0248",
+      "mmIndex": 4139,
+      "file": "52917616_87.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0249",
+      "mmIndex": 4140,
+      "file": "52917616_88.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0250",
+      "mmIndex": 4146,
+      "file": "52871756_106.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0251",
+      "mmIndex": 4149,
+      "file": "52866596_115.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0252",
+      "mmIndex": 4154,
+      "file": "52861918_131.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0253",
+      "mmIndex": 4155,
+      "file": "52861918_132.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0254",
+      "mmIndex": 4162,
+      "file": "52793804_148.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0255",
+      "mmIndex": 4163,
+      "file": "52793804_149.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0256",
+      "mmIndex": 4164,
+      "file": "52793804_150.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0257",
+      "mmIndex": 4165,
+      "file": "52793389_152.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0258",
+      "mmIndex": 4166,
+      "file": "52793389_153.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0259",
+      "mmIndex": 4167,
+      "file": "52793389_154.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0260",
+      "mmIndex": 4168,
+      "file": "52793389_155.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0261",
+      "mmIndex": 4177,
+      "file": "53033486_102.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0262",
+      "mmIndex": 4178,
+      "file": "53033486_103.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0263",
+      "mmIndex": 4218,
+      "file": "51445446_39.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0264",
+      "mmIndex": 4219,
+      "file": "51445446_40.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0265",
+      "mmIndex": 4220,
+      "file": "51545297_61.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0266",
+      "mmIndex": 4221,
+      "file": "51545297_62.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0267",
+      "mmIndex": 4224,
+      "file": "51446440_75.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0268",
+      "mmIndex": 4225,
+      "file": "51446440_77.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0269",
+      "mmIndex": 4254,
+      "file": "51402171_143.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0270",
+      "mmIndex": 4258,
+      "file": "51402165_149.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0271",
+      "mmIndex": 4259,
+      "file": "51402165_150.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0272",
+      "mmIndex": 4260,
+      "file": "51402867_153.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0273",
+      "mmIndex": 4262,
+      "file": "51403292_158.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0274",
+      "mmIndex": 4263,
+      "file": "51403292_159.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0275",
+      "mmIndex": 4264,
+      "file": "51403292_160.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0276",
+      "mmIndex": 4265,
+      "file": "51403181_162.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0277",
+      "mmIndex": 4266,
+      "file": "51403181_163.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0278",
+      "mmIndex": 4273,
+      "file": "52601788_184.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0279",
+      "mmIndex": 4274,
+      "file": "52601788_185.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0280",
+      "mmIndex": 4275,
+      "file": "52602086_187.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0281",
+      "mmIndex": 4276,
+      "file": "52602086_188.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0282",
+      "mmIndex": 4277,
+      "file": "52602086_189.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0283",
+      "mmIndex": 4278,
+      "file": "52211582_74.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0284",
+      "mmIndex": 4279,
+      "file": "52211582_75.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0285",
+      "mmIndex": 4284,
+      "file": "52211373_84.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0286",
+      "mmIndex": 4285,
+      "file": "52211373_85.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0287",
+      "mmIndex": 4286,
+      "file": "52211373_87.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0288",
+      "mmIndex": 4297,
+      "file": "52188291_113.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0289",
+      "mmIndex": 4302,
+      "file": "52188888_129.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0290",
+      "mmIndex": 4303,
+      "file": "52188888_130.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0291",
+      "mmIndex": 4346,
+      "file": "51369960_130.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0292",
+      "mmIndex": 4347,
+      "file": "51369960_131.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0293",
+      "mmIndex": 4354,
+      "file": "51433177_152.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0294",
+      "mmIndex": 4355,
+      "file": "51433177_153.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0295",
+      "mmIndex": 4360,
+      "file": "51445941_162.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0296",
+      "mmIndex": 4361,
+      "file": "51445941_163.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0297",
+      "mmIndex": 4362,
+      "file": "51445941_164.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0298",
+      "mmIndex": 4393,
+      "file": "54661145_68.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0299",
+      "mmIndex": 4394,
+      "file": "54661145_69.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0300",
+      "mmIndex": 4407,
+      "file": "51438092_89.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0301",
+      "mmIndex": 4408,
+      "file": "51438092_90.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0302",
+      "mmIndex": 4440,
+      "file": "50056753_141.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0303",
+      "mmIndex": 4441,
+      "file": "50056753_142.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0304",
+      "mmIndex": 4450,
+      "file": "47162039_157.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0305",
+      "mmIndex": 4451,
+      "file": "47162039_158.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0306",
+      "mmIndex": 4458,
+      "file": "51237402_169.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0307",
+      "mmIndex": 4459,
+      "file": "51237402_170.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0308",
+      "mmIndex": 4467,
+      "file": "47110741_184.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0309",
+      "mmIndex": 4468,
+      "file": "47110741_185.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0310",
+      "mmIndex": 4475,
+      "file": "50810294_199.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0311",
+      "mmIndex": 4476,
+      "file": "50810294_200.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0312",
+      "mmIndex": 4493,
+      "file": "52354937_88.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0313",
+      "mmIndex": 4494,
+      "file": "52354937_89.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0314",
+      "mmIndex": 4498,
+      "file": "52354771_100.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0315",
+      "mmIndex": 4506,
+      "file": "52345544_115.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0316",
+      "mmIndex": 4507,
+      "file": "52345544_116.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0317",
+      "mmIndex": 4508,
+      "file": "52345544_117.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0318",
+      "mmIndex": 4519,
+      "file": "52302554_143.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0319",
+      "mmIndex": 4524,
+      "file": "55497848_71.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0320",
+      "mmIndex": 4529,
+      "file": "53081503_92.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0321",
+      "mmIndex": 4533,
+      "file": "53080186_104.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0322",
+      "mmIndex": 4534,
+      "file": "53080186_105.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0323",
+      "mmIndex": 4535,
+      "file": "53080186_106.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0324",
+      "mmIndex": 4541,
+      "file": "53078900_115.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0325",
+      "mmIndex": 4542,
+      "file": "53078900_116.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0326",
+      "mmIndex": 4547,
+      "file": "53147522_132.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0327",
+      "mmIndex": 4548,
+      "file": "53147522_133.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0328",
+      "mmIndex": 4559,
+      "file": "53058741_159.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0329",
+      "mmIndex": 4560,
+      "file": "53058741_160.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0330",
+      "mmIndex": 4562,
+      "file": "53110772_169.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0331",
+      "mmIndex": 4563,
+      "file": "53110772_170.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0332",
+      "mmIndex": 4572,
+      "file": "52754813_80.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0333",
+      "mmIndex": 4588,
+      "file": "52872091_112.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0334",
+      "mmIndex": 4589,
+      "file": "52872091_114.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0335",
+      "mmIndex": 4618,
+      "file": "51212645_94.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0336",
+      "mmIndex": 4619,
+      "file": "51212645_95.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0337",
+      "mmIndex": 4626,
+      "file": "51368165_109.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0338",
+      "mmIndex": 4627,
+      "file": "51368165_110.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0339",
+      "mmIndex": 4641,
+      "file": "55403719_77.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0340",
+      "mmIndex": 4642,
+      "file": "55403719_78.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0341",
+      "mmIndex": 4697,
+      "file": "55503444_55.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0342",
+      "mmIndex": 4698,
+      "file": "55503444_56.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0343",
+      "mmIndex": 4699,
+      "file": "55574660_59.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0344",
+      "mmIndex": 4700,
+      "file": "55431962_66.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0345",
+      "mmIndex": 4701,
+      "file": "55431962_67.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0346",
+      "mmIndex": 4712,
+      "file": "55253062_92.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0347",
+      "mmIndex": 4715,
+      "file": "55192442_107.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0348",
+      "mmIndex": 4716,
+      "file": "55192442_108.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0349",
+      "mmIndex": 4746,
+      "file": "53364701_167.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0350",
+      "mmIndex": 4747,
+      "file": "53364701_168.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0351",
+      "mmIndex": 4750,
+      "file": "51321729_56.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0352",
+      "mmIndex": 4751,
+      "file": "51321729_57.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0353",
+      "mmIndex": 4752,
+      "file": "51321729_58.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0354",
+      "mmIndex": 4788,
+      "file": "52795749_120.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0355",
+      "mmIndex": 4789,
+      "file": "52795749_121.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0356",
+      "mmIndex": 4822,
+      "file": "51481976_180.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0357",
+      "mmIndex": 4823,
+      "file": "51481976_181.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0358",
+      "mmIndex": 4849,
+      "file": "53313106_104.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0359",
+      "mmIndex": 4851,
+      "file": "53313476_110.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0360",
+      "mmIndex": 4852,
+      "file": "53313476_111.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0361",
+      "mmIndex": 4853,
+      "file": "53313476_112.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0362",
+      "mmIndex": 4856,
+      "file": "53436646_123.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0363",
+      "mmIndex": 4858,
+      "file": "53313110_132.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0364",
+      "mmIndex": 4873,
+      "file": "51722482_163.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0365",
+      "mmIndex": 4874,
+      "file": "51722482_164.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0366",
+      "mmIndex": 4875,
+      "file": "51722482_165.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0367",
+      "mmIndex": 4876,
+      "file": "51684393_167.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0368",
+      "mmIndex": 4877,
+      "file": "51684393_168.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0369",
+      "mmIndex": 4878,
+      "file": "51684393_169.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0370",
+      "mmIndex": 4879,
+      "file": "52284026_76.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0371",
+      "mmIndex": 4881,
+      "file": "50496942_82.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0372",
+      "mmIndex": 4882,
+      "file": "50496942_83.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0373",
+      "mmIndex": 4885,
+      "file": "50496809_92.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0374",
+      "mmIndex": 4892,
+      "file": "50496360_112.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0375",
+      "mmIndex": 4902,
+      "file": "50481469_137.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0376",
+      "mmIndex": 4903,
+      "file": "50481469_139.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0377",
+      "mmIndex": 4905,
+      "file": "50475228_145.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0378",
+      "mmIndex": 5038,
+      "file": "53110820_112.png",
+      "level2": "Circle",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0379",
+      "mmIndex": 5063,
+      "file": "51458337_83.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0380",
+      "mmIndex": 5071,
+      "file": "51318739_99.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0381",
+      "mmIndex": 5072,
+      "file": "51318739_100.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0382",
+      "mmIndex": 5073,
+      "file": "51318739_101.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0383",
+      "mmIndex": 5074,
+      "file": "51318739_102.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0384",
+      "mmIndex": 5080,
+      "file": "53148615_112.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0385",
+      "mmIndex": 5081,
+      "file": "53148615_113.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0386",
+      "mmIndex": 5082,
+      "file": "53149410_116.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0387",
+      "mmIndex": 5092,
+      "file": "51317370_134.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0388",
+      "mmIndex": 5093,
+      "file": "51317370_135.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0389",
+      "mmIndex": 5094,
+      "file": "51317370_136.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0390",
+      "mmIndex": 5096,
+      "file": "51265419_141.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0391",
+      "mmIndex": 5097,
+      "file": "51265419_143.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0392",
+      "mmIndex": 5101,
+      "file": "53102171_23.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0393",
+      "mmIndex": 5102,
+      "file": "53102171_24.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0394",
+      "mmIndex": 5114,
+      "file": "55502222_58.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0395",
+      "mmIndex": 5115,
+      "file": "55502222_59.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0396",
+      "mmIndex": 5117,
+      "file": "53065875_82.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0397",
+      "mmIndex": 5436,
+      "file": "52746343_93.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0398",
+      "mmIndex": 5437,
+      "file": "52746343_94.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0399",
+      "mmIndex": 5452,
+      "file": "51152250_119.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0400",
+      "mmIndex": 5453,
+      "file": "51152250_120.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0401",
+      "mmIndex": 5454,
+      "file": "51152250_121.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0402",
+      "mmIndex": 5466,
+      "file": "52077012_87.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0403",
+      "mmIndex": 5467,
+      "file": "52077012_88.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0404",
+      "mmIndex": 5469,
+      "file": "52076067_94.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0405",
+      "mmIndex": 5473,
+      "file": "52050232_102.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0406",
+      "mmIndex": 5478,
+      "file": "52050144_113.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0407",
+      "mmIndex": 5481,
+      "file": "51968629_124.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0408",
+      "mmIndex": 5484,
+      "file": "51920381_133.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0409",
+      "mmIndex": 5485,
+      "file": "51920381_134.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0410",
+      "mmIndex": 5631,
+      "file": "51614498_107.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0411",
+      "mmIndex": 5637,
+      "file": "51614441_119.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0412",
+      "mmIndex": 5642,
+      "file": "51510416_127.png",
+      "level2": "Circle",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0413",
+      "mmIndex": 5644,
+      "file": "51510300_134.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0414",
+      "mmIndex": 5645,
+      "file": "51510300_135.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0415",
+      "mmIndex": 5649,
+      "file": "51435842_144.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0416",
+      "mmIndex": 5650,
+      "file": "51212662_28.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0417",
+      "mmIndex": 5651,
+      "file": "51212662_29.png",
+      "level2": "Symmetry of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0418",
+      "mmIndex": 5652,
+      "file": "55452515_65.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0419",
+      "mmIndex": 5653,
+      "file": "55452515_66.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0420",
+      "mmIndex": 5657,
+      "file": "51212675_79.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0421",
+      "mmIndex": 5658,
+      "file": "51212675_81.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0422",
+      "mmIndex": 5661,
+      "file": "51209242_90.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0423",
+      "mmIndex": 5662,
+      "file": "51209242_91.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0424",
+      "mmIndex": 5663,
+      "file": "51368402_93.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0425",
+      "mmIndex": 5664,
+      "file": "51368402_95.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0426",
+      "mmIndex": 5668,
+      "file": "51368311_104.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0427",
+      "mmIndex": 5673,
+      "file": "51367439_117.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0428",
+      "mmIndex": 5674,
+      "file": "51367439_118.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0429",
+      "mmIndex": 5679,
+      "file": "51322751_127.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0430",
+      "mmIndex": 5680,
+      "file": "51322751_128.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0431",
+      "mmIndex": 5681,
+      "file": "51322751_129.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0432",
+      "mmIndex": 5682,
+      "file": "51322957_132.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0433",
+      "mmIndex": 5683,
+      "file": "51322957_133.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0434",
+      "mmIndex": 5704,
+      "file": "51299739_169.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0435",
+      "mmIndex": 5705,
+      "file": "51299739_170.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0436",
+      "mmIndex": 5706,
+      "file": "51299739_171.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0437",
+      "mmIndex": 5726,
+      "file": "51379461_93.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0438",
+      "mmIndex": 5727,
+      "file": "51379461_94.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0439",
+      "mmIndex": 5728,
+      "file": "51379461_95.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0440",
+      "mmIndex": 5733,
+      "file": "51379498_103.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0441",
+      "mmIndex": 5734,
+      "file": "51379498_104.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0442",
+      "mmIndex": 5735,
+      "file": "51379498_105.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0443",
+      "mmIndex": 5741,
+      "file": "52622502_114.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0444",
+      "mmIndex": 5742,
+      "file": "52622502_115.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0445",
+      "mmIndex": 5743,
+      "file": "52622502_116.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0446",
+      "mmIndex": 5753,
+      "file": "51458371_140.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0447",
+      "mmIndex": 5754,
+      "file": "51458341_142.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0448",
+      "mmIndex": 5764,
+      "file": "51351656_169.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0449",
+      "mmIndex": 5765,
+      "file": "51351656_170.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0450",
+      "mmIndex": 5766,
+      "file": "51351656_171.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "nine",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0451",
+      "mmIndex": 5774,
+      "file": "53728774_87.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0452",
+      "mmIndex": 5775,
+      "file": "53728774_89.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0453",
+      "mmIndex": 5783,
+      "file": "53728960_104.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0454",
+      "mmIndex": 5798,
+      "file": "52225570_135.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0455",
+      "mmIndex": 5799,
+      "file": "52225539_138.png",
+      "level2": "Similarity of Shapes",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0456",
+      "mmIndex": 5800,
+      "file": "52211035_141.png",
+      "level2": "Quadrilateral",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0457",
+      "mmIndex": 5801,
+      "file": "55426249_4.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0458",
+      "mmIndex": 5802,
+      "file": "55426249_5.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0459",
+      "mmIndex": 5808,
+      "file": "9153886_49.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0460",
+      "mmIndex": 5809,
+      "file": "53403787_53.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0461",
+      "mmIndex": 5810,
+      "file": "53403787_54.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0462",
+      "mmIndex": 5817,
+      "file": "8928654_71.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0463",
+      "mmIndex": 5818,
+      "file": "8928654_72.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0464",
+      "mmIndex": 5819,
+      "file": "8928654_73.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0465",
+      "mmIndex": 5820,
+      "file": "8928654_74.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0466",
+      "mmIndex": 5821,
+      "file": "51385668_79.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0467",
+      "mmIndex": 5822,
+      "file": "52441579_83.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0468",
+      "mmIndex": 5823,
+      "file": "53520190_87.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0469",
+      "mmIndex": 5824,
+      "file": "53520190_88.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0470",
+      "mmIndex": 5825,
+      "file": "53520190_89.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0471",
+      "mmIndex": 5826,
+      "file": "54661756_91.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0472",
+      "mmIndex": 5827,
+      "file": "54661756_92.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0473",
+      "mmIndex": 5828,
+      "file": "53833477_95.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0474",
+      "mmIndex": 5831,
+      "file": "54654114_104.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "eight",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0475",
+      "mmIndex": 5833,
+      "file": "54883358_109.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0476",
+      "mmIndex": 5834,
+      "file": "54883358_110.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0477",
+      "mmIndex": 5839,
+      "file": "53119812_120.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0478",
+      "mmIndex": 5840,
+      "file": "53119812_121.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0479",
+      "mmIndex": 5841,
+      "file": "53119273_125.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0480",
+      "mmIndex": 5842,
+      "file": "53195491_128.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0481",
+      "mmIndex": 5843,
+      "file": "53195491_129.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0482",
+      "mmIndex": 5844,
+      "file": "53195491_130.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0483",
+      "mmIndex": 5849,
+      "file": "53206857_138.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0484",
+      "mmIndex": 5850,
+      "file": "53206857_139.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0485",
+      "mmIndex": 5851,
+      "file": "51385746_142.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0486",
+      "mmIndex": 5852,
+      "file": "51385746_143.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0487",
+      "mmIndex": 5853,
+      "file": "52794314_145.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0488",
+      "mmIndex": 5854,
+      "file": "52794314_147.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0489",
+      "mmIndex": 5855,
+      "file": "52916141_149.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0490",
+      "mmIndex": 5856,
+      "file": "52916141_150.png",
+      "level2": "Intersecting and Parallel Lines",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0491",
+      "mmIndex": 5866,
+      "file": "51284834_166.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0492",
+      "mmIndex": 5867,
+      "file": "51284834_167.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0493",
+      "mmIndex": 5873,
+      "file": "51482328_178.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0494",
+      "mmIndex": 5878,
+      "file": "52169848_188.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0495",
+      "mmIndex": 5879,
+      "file": "52169848_190.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0496",
+      "mmIndex": 5880,
+      "file": "52169374_192.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0497",
+      "mmIndex": 5881,
+      "file": "52169374_193.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0498",
+      "mmIndex": 5882,
+      "file": "52169374_194.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0499",
+      "mmIndex": 5883,
+      "file": "51407218_196.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0500",
+      "mmIndex": 5884,
+      "file": "51407218_197.png",
+      "level2": "Acute Angle Trigonometric Functions",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0501",
+      "mmIndex": 5885,
+      "file": "47111555_199.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0502",
+      "mmIndex": 5886,
+      "file": "47111555_200.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0503",
+      "mmIndex": 5887,
+      "file": "47364521_202.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0504",
+      "mmIndex": 5888,
+      "file": "47364521_203.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0505",
+      "mmIndex": 5889,
+      "file": "47364521_204.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0506",
+      "mmIndex": 5893,
+      "file": "50518431_212.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    },
+    {
+      "id": "MM-0507",
+      "mmIndex": 5894,
+      "file": "50518431_213.png",
+      "level2": "Triangle",
+      "difficulty": "hard",
+      "grade": "seven",
+      "hasFigure": true
+    }
+  ]
+}

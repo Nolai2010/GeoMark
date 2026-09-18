@@ -26,7 +26,10 @@ import { HARNESS_VERSION, NODE_VERSION, gitCommit as GIT_COMMIT } from '../../ke
 import { EventTypes } from '../../kernel/schema.mjs';
 import { makeAdapter, supportedProviders } from '../../adapters/index.mjs';
 import { verifyBundle } from '../../kernel/verify.mjs';
-import { spawn } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
+const execFileAsync = promisify(execFile);
 import { parseMultipart } from './multipart.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -223,6 +226,52 @@ async function handleChat(req, res) {
   res.end();
 }
 
+// ---------- 实验赛道（Experimental Tracks） ----------
+// 定义在 config/tracks.json。服务端只启动该文件登记过的 bin（白名单），不接受任意命令。
+const TRACKS_FILE = path.join(CONFIG_DIR, 'tracks.json');
+function loadTracks() {
+  try { return JSON.parse(fs.readFileSync(TRACKS_FILE, 'utf8')); } catch { return { tracks: [] }; }
+}
+const WHICH = process.platform === 'win32' ? 'where' : 'which';
+const _probeCache = new Map();
+// 并行探测 + 进程内缓存：12 个 bin 串行 spawnSync 会让首屏等 9 秒，不可接受
+async function probeBinAsync(bin) {
+  if (!bin) return { installed: false, path: null };
+  if (_probeCache.has(bin)) return _probeCache.get(bin);
+  let out = { installed: false, path: null };
+  try {
+    const { stdout } = await execFileAsync(WHICH, [bin], { windowsHide: true, timeout: 4000 });
+    const first = String(stdout || '').split(/\r?\n/).map(s => s.trim()).filter(Boolean)[0];
+    out = { installed: true, path: first || bin };
+  } catch { /* not installed */ }
+  _probeCache.set(bin, out);
+  return out;
+}
+function probeBin(bin) {
+  if (!bin) return { installed: false, path: null };
+  if (_probeCache.has(bin)) return _probeCache.get(bin);
+  try {
+    const r = spawnSync(WHICH, [bin], { encoding: 'utf8', windowsHide: true, timeout: 5000 });
+    if (r.status === 0) {
+      const first = String(r.stdout || '').split(/\r?\n/).map(s => s.trim()).filter(Boolean)[0];
+      return { installed: true, path: first || bin };
+    }
+  } catch { /* ignore */ }
+  return { installed: false, path: null };
+}
+function launchAgent(bin) {
+  const opts = { detached: true, stdio: 'ignore', windowsHide: false };
+  if (process.platform === 'win32') {
+    spawn('cmd', ['/c', 'start', '', 'cmd', '/k', bin], opts).unref();
+    return;
+  }
+  if (process.platform === 'darwin') {
+    spawn('osascript', ['-e', 'tell application "Terminal" to activate', '-e', `tell application "Terminal" to do script "${bin}"`], opts).unref();
+    return;
+  }
+  spawn('x-terminal-emulator', ['-e', bin], opts).unref();
+}
+
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, 'http://localhost');
   const p = url.pathname;
@@ -339,6 +388,35 @@ const server = http.createServer(async (req, res) => {
 
 
     // ---------- AI 评测（benchmark）----------
+    // ---------- 实验赛道 ----------
+    if (p === '/api/tracks' && req.method === 'GET') {
+      const cfg = loadTracks();
+      const tracks = await Promise.all((cfg.tracks || []).map(async t => ({
+        id: t.id, order: t.order, label: t.label, subtitle: t.subtitle, desc: t.desc, action: t.action,
+        targets: t.action === 'launch-agents'
+          ? await Promise.all((t.targets || []).map(async x => ({ ...x, ...(await probeBinAsync(x.bin)) })))
+          : (t.targets || []),
+      })));
+      return json(res, 200, { tracks });
+    }
+    if (p === '/api/tracks/launch-agent' && req.method === 'POST') {
+      const body = await readBody(req);
+      let payload = {};
+      try { payload = JSON.parse(String(body || '{}')); } catch { /* ignore */ }
+      const cfg = loadTracks();
+      const agentTrack = (cfg.tracks || []).find(t => t.id === 'agent');
+      const target = (agentTrack?.targets || []).find(x => x.id === String(payload.id || ''));
+      if (!target) return json(res, 400, { error: 'unknown agent id' });
+      const probe = probeBin(target.bin);
+      if (!probe.installed) return json(res, 409, { error: 'not-installed', bin: target.bin, install: target.install || null });
+      try {
+        launchAgent(target.bin);
+        return json(res, 200, { launched: target.bin, path: probe.path });
+      } catch (e) {
+        return json(res, 500, { error: String(e.message || e) });
+      }
+    }
+
     if (p === '/api/benchmark/start' && req.method === 'POST') {
       let payload;
       try { payload = JSON.parse((await readBody(req)).toString('utf8')); } catch { return json(res, 400, { error: 'bad json' }); }

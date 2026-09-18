@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "note": "三条实验赛道的声明式定义。Real-World 的官网地址与 Agent 的检测命令均可在此增删；服务端只允许启动本文件中登记的 bin。",
+  "tracks": [
+    {
+      "id": "real-world",
+      "order": 1,
+      "label": { "zh": "Real-World Track", "en": "Real-World Track" },
+      "subtitle": { "zh": "真实世界赛道", "en": "Real-world" },
+      "desc": {
+        "zh": "走模型正常的用户界面，反映普通用户真实体验。点击后同时打开各家官方对话页面。这条赛道的条件不透明、不可复现——这正是它的意义：它测量的是「用户实际能得到什么」，而不是「理想条件下模型能做什么」。",
+        "en": "Through each vendor's normal user-facing interface — what an ordinary user actually gets. Opens all official chat pages at once. Conditions are opaque and not reproducible; that is the point."
+      },
+      "action": "open-urls",
+      "targets": [
+        { "id": "chatgpt", "name": "ChatGPT", "vendor": "OpenAI", "url": "https://chatgpt.com/" },
+        { "id": "claude", "name": "Claude", "vendor": "Anthropic", "url": "https://claude.ai/new" },
+        { "id": "gemini", "name": "Gemini", "vendor": "Google", "url": "https://gemini.google.com/app" },
+        { "id": "deepseek", "name": "DeepSeek", "vendor": "深度求索", "url": "https://chat.deepseek.com/" },
+        { "id": "kimi", "name": "Kimi", "vendor": "月之暗面", "url": "https://www.kimi.com/" },
+        { "id": "tongyi", "name": "通义", "vendor": "阿里巴巴", "url": "https://www.tongyi.com/" },
+        { "id": "doubao", "name": "豆包", "vendor": "字节跳动", "url": "https://www.doubao.com/chat/" },
+        { "id": "yuanbao", "name": "腾讯元宝", "vendor": "腾讯", "url": "https://yuanbao.tencent.com/chat" },
+        { "id": "ernie", "name": "文心一言", "vendor": "百度", "url": "https://yiyan.baidu.com/" },
+        { "id": "chatglm", "name": "智谱清言", "vendor": "智谱 AI", "url": "https://chatglm.cn/" },
+        { "id": "hailuo", "name": "海螺 AI", "vendor": "MiniMax", "url": "https://hailuoai.com/" },
+        { "id": "grok", "name": "Grok", "vendor": "xAI", "url": "https://grok.com/" },
+        { "id": "lechat", "name": "Le Chat", "vendor": "Mistral AI", "url": "https://chat.mistral.ai/chat" },
+        { "id": "copilot", "name": "Copilot", "vendor": "Microsoft", "url": "https://copilot.microsoft.com/" }
+      ]
+    },
+    {
+      "id": "controlled",
+      "order": 2,
+      "label": { "zh": "Controlled Track", "en": "Controlled Track" },
+      "subtitle": { "zh": "受控赛道", "en": "Controlled" },
+      "desc": {
+        "zh": "通过 Harness 以显式、标准化的实验条件运行：同一题库、同一提示词、同一参数、同一时间限制。所有变量都被记录，任何一次运行都可以复现。跨模型比较应当以这条赛道为准。",
+        "en": "Run through the Harness under explicitly standardized conditions: same items, same prompts, same parameters. Every variable recorded; every run reproducible. Cross-model comparison should rely on this track."
+      },
+      "action": "open-benchmark"
+    },
+    {
+      "id": "agent",
+      "order": 3,
+      "label": { "zh": "Agent Track", "en": "Agent Track" },
+      "subtitle": { "zh": "Agent 赛道", "en": "Agent" },
+      "desc": {
+        "zh": "连同 Agent Harness 一起评测——Agent 本身成为实验变量，而不是被隐藏的实现细节。点击后在本机启动对应的 Agent 应用（会在新终端窗口中打开）。",
+        "en": "Evaluate models together with an agent harness — the agent itself becomes an experimental variable. Launches the local agent application in a new terminal window."
+      },
+      "action": "launch-agents",
+      "targets": [
+        { "id": "claude-code", "name": "Claude Code", "vendor": "Anthropic", "bin": "claude", "install": "npm i -g @anthropic-ai/claude-code" },
+        { "id": "codex", "name": "Codex CLI", "vendor": "OpenAI", "bin": "codex", "install": "npm i -g @openai/codex" },
+        { "id": "gemini-cli", "name": "Gemini CLI", "vendor": "Google", "bin": "gemini", "install": "npm i -g @google/gemini-cli" },
+        { "id": "copilot-cli", "name": "Copilot CLI", "vendor": "GitHub", "bin": "copilot", "install": "npm i -g @github/copilot" },
+        { "id": "qwen-code", "name": "Qwen Code", "vendor": "阿里巴巴", "bin": "qwen", "install": "npm i -g @qwen-code/qwen-code" },
+        { "id": "opencode", "name": "opencode", "vendor": "开源", "bin": "opencode", "install": "npm i -g opencode-ai" },
+        { "id": "aider", "name": "Aider", "vendor": "开源", "bin": "aider", "install": "pipx install aider-chat" },
+        { "id": "goose", "name": "Goose", "vendor": "Block", "bin": "goose", "install": null },
+        { "id": "crush", "name": "Crush", "vendor": "Charmbracelet", "bin": "crush", "install": null },
+        { "id": "amp", "name": "Amp", "vendor": "Sourcegraph", "bin": "amp", "install": null },
+        { "id": "cursor-agent", "name": "Cursor Agent", "vendor": "Cursor", "bin": "cursor-agent", "install": null },
+        { "id": "cline", "name": "Cline", "vendor": "开源", "bin": "cline", "install": null }
+      ]
+    }
+  ]
+}
