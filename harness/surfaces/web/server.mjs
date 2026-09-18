@@ -75,6 +75,76 @@ function json(res, code, obj) {
   res.end(body);
 }
 
+function raw(res, code, contentType, buf, filename) {
+  const headers = { 'content-type': contentType, 'content-length': buf.length, ...SEC_HEADERS };
+  if (filename) headers['content-disposition'] = `attachment; filename="${filename.replace(/[^\w.\-]/g, '_')}"`;
+  res.writeHead(code, headers);
+  res.end(buf);
+}
+
+// ---------- 出题包导出（给 Real-World 赛道在各家网页上跑我们的题） ----------
+const BENCH_ITEMS_DIR = path.join(REPO_ROOT, 'benchmark', 'items');
+const SAFE_ID = /^[A-Za-z0-9_-]{1,64}$/;
+function readItem(id) {
+  if (!SAFE_ID.test(String(id || ''))) return null; // 防路径穿越
+  const dir = path.join(BENCH_ITEMS_DIR, id);
+  const metaPath = path.join(dir, 'meta.json');
+  if (!fs.existsSync(metaPath)) return null;
+  const meta = JSON.parse(fs.readFileSync(metaPath, 'utf8'));
+  const problem = fs.readFileSync(path.join(dir, 'problem.md'), 'utf8');
+  const figures = [].concat(meta.figure || []).map(f => ({ rel: f, abs: path.join(dir, f) })).filter(f => fs.existsSync(f.abs));
+  return { id, dir, meta, problem, figures };
+}
+// 最小 ZIP 写入器（store，不压缩；避免引入任何依赖）
+const CRC_TABLE = (() => {
+  const t = new Int32Array(256);
+  for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1); t[n] = c; }
+  return t;
+})();
+function crc32(buf) { let c = -1; for (let i = 0; i < buf.length; i++) c = CRC_TABLE[(c ^ buf[i]) & 0xFF] ^ (c >>> 8); return (c ^ -1) >>> 0; }
+function makeZip(files) {
+  const parts = [], central = [];
+  let offset = 0;
+  for (const f of files) {
+    const nameBuf = Buffer.from(f.name, 'utf8');
+    const crc = crc32(f.data);
+    const lh = Buffer.alloc(30);
+    lh.writeUInt32LE(0x04034b50, 0); lh.writeUInt16LE(20, 4); lh.writeUInt16LE(0x0800, 6);
+    lh.writeUInt16LE(0, 8); lh.writeUInt16LE(0, 10); lh.writeUInt16LE(0, 12);
+    lh.writeUInt32LE(crc, 14); lh.writeUInt32LE(f.data.length, 18); lh.writeUInt32LE(f.data.length, 22);
+    lh.writeUInt16LE(nameBuf.length, 26); lh.writeUInt16LE(0, 28);
+    parts.push(lh, nameBuf, f.data);
+    const ch = Buffer.alloc(46);
+    ch.writeUInt32LE(0x02014b50, 0); ch.writeUInt16LE(20, 4); ch.writeUInt16LE(20, 6); ch.writeUInt16LE(0x0800, 8);
+    ch.writeUInt16LE(0, 10); ch.writeUInt16LE(0, 12); ch.writeUInt16LE(0, 14); ch.writeUInt32LE(crc, 16);
+    ch.writeUInt32LE(f.data.length, 20); ch.writeUInt32LE(f.data.length, 24);
+    ch.writeUInt16LE(nameBuf.length, 28); ch.writeUInt16LE(0, 30); ch.writeUInt16LE(0, 32);
+    ch.writeUInt16LE(0, 34); ch.writeUInt16LE(0, 36); ch.writeUInt32LE(0, 38); ch.writeUInt32LE(offset, 42);
+    central.push(ch, nameBuf);
+    offset += lh.length + nameBuf.length + f.data.length;
+  }
+  const cd = Buffer.concat(central);
+  const eocd = Buffer.alloc(22);
+  eocd.writeUInt32LE(0x06054b50, 0); eocd.writeUInt16LE(0, 4); eocd.writeUInt16LE(0, 6);
+  eocd.writeUInt16LE(files.length, 8); eocd.writeUInt16LE(files.length, 10);
+  eocd.writeUInt32LE(cd.length, 12); eocd.writeUInt32LE(offset, 16); eocd.writeUInt16LE(0, 20);
+  return Buffer.concat([...parts, cd, eocd]);
+}
+function buildItemZip(item) {
+  const files = [{ name: `${item.id}/problem.md`, data: Buffer.from(item.problem, 'utf8') }];
+  files.push({ name: `${item.id}/作答要求.txt`, data: Buffer.from(
+    'GeoMark 评测作答要求：\n1. 只依据题面与配图作答，不要联网检索、不要询问澄清。\n2. 给出完整、严谨的推理过程，每一步注明依据。\n' +
+    '3. 数值答案给出精确值（可含根号、分数）。\n4. 本包内含 problem.md（题面）与 assets/（配图）。若平台无法读压缩包，请改用「题卡 PNG」。\n', 'utf8') });
+  for (const f of item.figures) files.push({ name: `${item.id}/${f.rel}`, data: fs.readFileSync(f.abs) });
+  return makeZip(files);
+}
+function openUrl(url) {
+  const opts = { detached: true, stdio: 'ignore' };
+  if (process.platform === 'win32') spawn('cmd', ['/c', 'start', '', url], opts).unref();
+  else if (process.platform === 'darwin') spawn('open', [url], opts).unref();
+  else spawn('xdg-open', [url], opts).unref();
+}
+
 function readBody(req, limit = 20 * 1024 * 1024) {
   return new Promise((resolve, reject) => {
     const chunks = [];
@@ -394,7 +464,10 @@ const server = http.createServer(async (req, res) => {
       const tracks = await Promise.all((cfg.tracks || []).map(async t => ({
         id: t.id, order: t.order, label: t.label, subtitle: t.subtitle, desc: t.desc, action: t.action,
         targets: t.action === 'launch-agents'
-          ? await Promise.all((t.targets || []).map(async x => ({ ...x, ...(await probeBinAsync(x.bin)) })))
+          ? await Promise.all((t.targets || []).map(async x => {
+              const p = x.bin ? await probeBinAsync(x.bin) : { installed: false, path: null };
+              return { ...x, ...p, launchable: p.installed || !!x.url };
+            }))
           : (t.targets || []),
       })));
       return json(res, 200, { tracks });
@@ -407,14 +480,55 @@ const server = http.createServer(async (req, res) => {
       const agentTrack = (cfg.tracks || []).find(t => t.id === 'agent');
       const target = (agentTrack?.targets || []).find(x => x.id === String(payload.id || ''));
       if (!target) return json(res, 400, { error: 'unknown agent id' });
-      const probe = probeBin(target.bin);
-      if (!probe.installed) return json(res, 409, { error: 'not-installed', bin: target.bin, install: target.install || null });
+      const probe = target.bin ? probeBin(target.bin) : { installed: false, path: null };
       try {
-        launchAgent(target.bin);
-        return json(res, 200, { launched: target.bin, path: probe.path });
+        if (probe.installed) {
+          launchAgent(target.bin);
+          return json(res, 200, { launched: target.bin, path: probe.path, mode: 'terminal' });
+        }
+        if (target.url) {
+          openUrl(target.url);
+          return json(res, 200, { launched: target.url, mode: 'url', reason: 'not-installed' });
+        }
+        return json(res, 409, { error: 'not-installed', bin: target.bin || null, install: target.install || null });
       } catch (e) {
         return json(res, 500, { error: String(e.message || e) });
       }
+    }
+
+    // ---------- 出题包导出（Real-World 赛道用） ----------
+    if (p === '/api/export/items' && req.method === 'GET') {
+      const ids = fs.existsSync(BENCH_ITEMS_DIR) ? fs.readdirSync(BENCH_ITEMS_DIR).filter(d => SAFE_ID.test(d) && fs.existsSync(path.join(BENCH_ITEMS_DIR, d, 'meta.json'))).sort() : [];
+      const items = ids.map(id => {
+        try {
+          const it = readItem(id);
+          const m = it.meta;
+          return { id, title: m.title || id, difficulty: m.difficulty || null, questionType: m.questionType || null, hasFigure: it.figures.length > 0 };
+        } catch { return null; }
+      }).filter(Boolean);
+      return json(res, 200, { items });
+    }
+    const expMd = /^\/api\/export\/item\/([^/]+)\/problem\.md$/.exec(p);
+    if (expMd && req.method === 'GET') {
+      const it = readItem(expMd[1]);
+      if (!it) return json(res, 404, { error: 'item not found' });
+      return raw(res, 200, 'text/markdown; charset=utf-8', Buffer.from(it.problem, 'utf8'), `${it.id}-problem.md`);
+    }
+    const expAsset = /^\/api\/export\/item\/([^/]+)\/asset\/(.+)$/.exec(p);
+    if (expAsset && req.method === 'GET') {
+      const it = readItem(expAsset[1]);
+      if (!it) return json(res, 404, { error: 'item not found' });
+      const hit = it.figures.find(f => path.basename(f.rel) === path.basename(decodeURIComponent(expAsset[2])));
+      if (!hit) return json(res, 404, { error: 'asset not found' });
+      const ext = path.extname(hit.abs).toLowerCase();
+      const ct = ext === '.png' ? 'image/png' : (ext === '.jpg' || ext === '.jpeg') ? 'image/jpeg' : 'application/octet-stream';
+      return raw(res, 200, ct, fs.readFileSync(hit.abs));
+    }
+    const expZip = /^\/api\/export\/item\/([^/]+)\.zip$/.exec(p);
+    if (expZip && req.method === 'GET') {
+      const it = readItem(expZip[1]);
+      if (!it) return json(res, 404, { error: 'item not found' });
+      return raw(res, 200, 'application/zip', buildItemZip(it), `${it.id}.zip`);
     }
 
     if (p === '/api/benchmark/start' && req.method === 'POST') {

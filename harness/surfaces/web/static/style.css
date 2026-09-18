@@ -386,3 +386,27 @@ dialog h3 { margin: 0; font-size: 17px; font-family: var(--serif); font-weight: 
 .track-chip .small-btn { padding: 2px 9px; font-size: 12px; }
 .track-chip .fineprint { white-space: normal; max-width: 320px; }
 @media (prefers-reduced-motion: reduce) { .track-chip { transition: none; } }
+
+/* 平台能力徽标 */
+.cap {
+  font-style: normal; font-size: 10px; line-height: 1; padding: 3px 6px; border-radius: 4px;
+  border: 1px solid var(--border); color: var(--muted); background: var(--panel);
+}
+.cap-arc { color: var(--ok); border-color: color-mix(in srgb, var(--ok) 40%, transparent); }
+.cap-img { color: var(--gold); border-color: var(--gold-dim); }
+.cap-doc { color: var(--muted); }
+.cap-txt { color: var(--muted); }
+
+/* 题目包导出 */
+.track-export {
+  margin-top: 12px; padding: 12px 14px; border: 1px dashed var(--border);
+  border-radius: 10px; background: var(--panel-2);
+}
+.exp-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.exp-label { font-size: 13px; color: var(--ink); font-weight: 600; }
+.exp-select {
+  flex: 1 1 260px; min-width: 200px; padding: 6px 9px; font-size: 13px;
+  border: 1px solid var(--border); border-radius: 8px;
+  background: var(--panel); color: var(--ink);
+}
+.track-export .fineprint { margin: 8px 0 0; line-height: 1.6; }

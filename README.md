@@ -228,6 +228,20 @@ question can be pasted into each. Conditions are opaque and not reproducible —
 this track measures what a user actually gets, not what a model can do under ideal conditions.
 Targets are declared in `harness/config/tracks.json` and can be edited freely.
 
+**Running a GeoMark item on a vendor site.** Each target carries a best-effort capability tag
+(`Zip` / `Doc` / `Image`) and the chooser shows a recommended method per platform:
+
+| Platform capability | Recommended method |
+|---|---|
+| Reads archives (ChatGPT) | download the item **ZIP** and upload it directly |
+| Accepts images | use the **item card PNG** — statement and figure composed into a single image |
+| Text-oriented | **copy the statement**, upload the figure separately |
+
+The card PNG exists because most domestic platforms cannot accept a document and an image in the
+same message; composing both into one image sidesteps that limit entirely. All three actions are
+available in the chooser (`Copy statement` / `Download card PNG` / `Download ZIP`), served by
+`/api/export/*`. The ZIP is written by a dependency-free store-only ZIP writer in `server.mjs`.
+
 ### Controlled Track
 
 Run models through GeoMark Harness with explicitly standardized experimental conditions.
@@ -236,6 +250,8 @@ This track is intended to reduce environmental variables when studying model cap
 
 *Implemented as:* the existing benchmark runner — same items, same prompts, same parameters, every
 variable recorded. Cross-model comparison should rely on this track.
+The chooser's **Open controlled benchmark** button leads here; the header exposes a single
+`Start Test` entry so the two are not duplicated.
 
 ### Agent Track
 
@@ -243,11 +259,18 @@ Evaluate models together with an Agent Harness and compare how different agent c
 
 The Harness itself can therefore become an experimental variable rather than being treated as an invisible implementation detail.
 
-*Implemented as:* the chooser lists local agent CLIs (Claude Code, Codex CLI, Gemini CLI, Copilot
-CLI, Qwen Code, opencode, Aider, Goose, Crush, Amp, Cursor Agent, Cline), detects which are
-installed on this machine, and launches the selected one in a new terminal window. Only binaries
-declared in `harness/config/tracks.json` can be launched — the endpoint is an allowlist, never an
-arbitrary command.
+*Implemented as:* the chooser lists 22 agent products and detects which are installed on this
+machine. Installed CLI agents launch in a new terminal window; desktop IDEs and anything not
+installed open their official site instead.
+
+- **CLI agents:** Claude Code, Codex CLI, Gemini CLI, Copilot CLI, Qwen Code, opencode, Aider,
+  Cline, Goose, Crush, Amp, Cursor Agent
+- **Domestic (China) products:** ZCode (智谱), TRAE / TraeWork (字节跳动), Kimi Code (月之暗面),
+  Qoder CN / 通义灵码 (阿里云), CodeBuddy (腾讯云), 文心快码 Comate (百度), MiniMax Code (MiniMax),
+  WorkBuddy (腾讯)
+
+Only binaries and URLs declared in `harness/config/tracks.json` can be launched — the endpoint is
+an allowlist, never an arbitrary command.
 
 ---
 

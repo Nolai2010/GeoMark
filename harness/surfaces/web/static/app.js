@@ -38,6 +38,16 @@ const I18N = {
     tracks_installed: '已安装', tracks_not_installed: '未检测到',
     tracks_launched: '已在新终端窗口启动', tracks_failed: '启动失败',
     tracks_install_hint: '安装：', tracks_manual_install: '请自行安装后重试',
+    tracks_open_site: '打开官网',
+    guide_archive: '该平台可读压缩包：下载 ZIP 题包直接上传。',
+    guide_image: '该平台可传图：用「题卡 PNG」（题面+配图合成一张图），可绕开「不能同时传文档和图片」的限制。',
+    guide_text: '该平台按文字处理：用「复制题面」粘贴，配图需另传。',
+    cap_archive: '压缩包', cap_document: '文档', cap_image: '图片', cap_text: '仅文字',
+    exp_title: '题目包', exp_copy: '复制题面', exp_card: '下载题卡 PNG', exp_zip: '下载 ZIP 包',
+    exp_hint: '在官网跑我们的题：能读压缩包的平台直接传 ZIP；国内平台普遍无法同时上传「文档+图片」，推荐题卡 PNG（题面与配图合成一张图）。',
+    exp_footer: '作答要求：只依据题面与配图作答；给出完整推理过程并注明依据；数值答案给精确值。',
+    exp_copied: '题面已复制到剪贴板', exp_copy_fail: '复制失败，请手动选择文本',
+    exp_card_done: '题卡已生成并开始下载',
     bench_intro: '对当前模型运行题库三模式评测：纯识图 / 可建系 / 不可建系。作答完成后由 judge 模型按评分细则逐项打分，生成对比表。过程需要一些时间与词元消耗。',
     bench_model: '评测模型', bench_modes: '评测模式', m_vision: '纯识图', needs_vision: '需视觉模型',
     m_coord: '可建系', m_pure: '不可建系', bench_scope: '题目范围', scope_all: '全部 10 题',
@@ -113,6 +123,16 @@ const I18N = {
     tracks_installed: 'Installed', tracks_not_installed: 'Not detected',
     tracks_launched: 'Launched in a new terminal window', tracks_failed: 'Launch failed',
     tracks_install_hint: 'Install: ', tracks_manual_install: 'install manually and retry',
+    tracks_open_site: 'Open site',
+    guide_archive: 'This platform reads archives: download the item ZIP and upload it directly.',
+    guide_image: 'This platform accepts images: use the item card PNG (statement + figure in one image), which sidesteps the "documents and images cannot be mixed" limit.',
+    guide_text: 'This platform is text-oriented: copy the statement, and upload the figure separately.',
+    cap_archive: 'Zip', cap_document: 'Doc', cap_image: 'Image', cap_text: 'Text only',
+    exp_title: 'Item pack', exp_copy: 'Copy statement', exp_card: 'Download card PNG', exp_zip: 'Download ZIP',
+    exp_hint: 'To run our items on a vendor site: platforms that read archives take the ZIP directly; domestic platforms generally cannot accept a document and an image at once, so the card PNG (statement + figure in one image) is recommended.',
+    exp_footer: 'Answer using only the statement and figure; give a complete reasoning chain with justification; exact values for numeric answers.',
+    exp_copied: 'Statement copied to clipboard', exp_copy_fail: 'Copy failed — select the text manually',
+    exp_card_done: 'Card generated, download started',
     bench_intro: 'Run the item bank against the current model in three modes: vision / coordinate / pure geometry. A judge model then grades each rubric line and produces a comparison table. This takes time and tokens.',
     bench_model: 'Evaluation model', bench_modes: 'Modes', m_vision: 'Vision', needs_vision: 'vision model required',
     m_coord: 'Coordinate', m_pure: 'Pure geometry', bench_scope: 'Scope', scope_all: 'All 10 items',
@@ -220,8 +240,10 @@ function syncVisionHint() {
   $('bench-m-vision').disabled = !m?.supportsVision;
 }
 $('bench-model').addEventListener('change', syncVisionHint);
-$('btn-bench').addEventListener('click', openBenchDialog);
 $('bench-close').addEventListener('click', () => $('bench-dialog').close());
+// 「开始测试」已与「AI 评测」合并：评测入口统一走赛道弹窗 → Controlled Track。
+// 保留旧按钮的容错绑定（元素已移除，这里不再报错）。
+if ($('btn-bench')) $('btn-bench').addEventListener('click', openBenchDialog);
 
 // ================= 实验赛道：Real-World / Controlled / Agent =================
 let tracksCache = null;
@@ -242,20 +264,51 @@ async function openTracksDialog() {
   }
 }
 
+// 各平台推荐做法：能读压缩包 → 题卡 PNG（绕开「不能混传文档+图片」）→ 文字+单图
+function trackGuide(x) {
+  const a = Array.isArray(x.accepts) ? x.accepts : [];
+  if (a.includes('archive')) return t('guide_archive');
+  if (a.includes('image')) return t('guide_image');
+  return t('guide_text');
+}
+function trackCapBadges(x) {
+  const a = Array.isArray(x.accepts) ? x.accepts : [];
+  const tags = [];
+  if (a.includes('archive')) tags.push(['arc', t('cap_archive')]);
+  if (a.includes('document')) tags.push(['doc', t('cap_document')]);
+  if (a.includes('image')) tags.push(['img', t('cap_image')]);
+  if (!tags.length) tags.push(['txt', t('cap_text')]);
+  return tags.map(([k, v]) => `<i class="cap cap-${k}">${esc(v)}</i>`).join('');
+}
+function trackExportPanel() {
+  return `<div class="track-export">
+    <div class="exp-row">
+      <span class="exp-label">${t('exp_title')}</span>
+      <select id="exp-item" class="exp-select"></select>
+      <button id="exp-copy" class="btn ghost small-btn" type="button">${t('exp_copy')}</button>
+      <button id="exp-card" class="btn primary small-btn" type="button">${t('exp_card')}</button>
+      <button id="exp-zip" class="btn ghost small-btn" type="button">${t('exp_zip')}</button>
+    </div>
+    <p class="fineprint">${t('exp_hint')}</p>
+  </div>`;
+}
+
 function renderTracks(tracks) {
   $('tracks-list').innerHTML = [...tracks].sort((a, b) => (a.order || 0) - (b.order || 0)).map((tr) => {
     let body = '';
     if (tr.action === 'open-urls') {
       body = `<div class="track-targets">${(tr.targets || []).map((x) =>
-        `<label class="track-chip"><input type="checkbox" class="track-url-check" value="${esc(x.url)}" checked>` +
-        `<span>${esc(x.name)}</span><em>${esc(x.vendor || '')}</em></label>`).join('')}</div>`;
+        `<label class="track-chip" title="${esc(trackGuide(x))}"><input type="checkbox" class="track-url-check" value="${esc(x.url)}" checked>` +
+        `<span>${esc(x.name)}</span><em>${esc(x.vendor || '')}</em>${trackCapBadges(x)}</label>`).join('')}</div>` + trackExportPanel();
     } else if (tr.action === 'launch-agents') {
-      body = `<div class="track-targets">${(tr.targets || []).map((x) => x.installed
-        ? `<span class="track-chip"><span>${esc(x.name)}</span><em>${esc(x.vendor || '')}</em>` +
-          `<button class="btn ghost small-btn track-launch" data-agent="${esc(x.id)}" type="button">${t('tracks_launch')}</button></span>`
-        : `<span class="track-chip off"><span>${esc(x.name)}</span><em>${esc(x.vendor || '')}</em>` +
-          `<span class="fineprint">${t('tracks_not_installed')}${x.install ? ' · ' + t('tracks_install_hint') + esc(x.install) : ' · ' + t('tracks_manual_install')}</span></span>`
-      ).join('')}</div>`;
+      body = `<div class="track-targets">${(tr.targets || []).map((x) => {
+        if (x.installed) return `<span class="track-chip"><span>${esc(x.name)}</span><em>${esc(x.vendor || '')}</em>` +
+          `<button class="btn ghost small-btn track-launch" data-agent="${esc(x.id)}" type="button">${t('tracks_launch')}</button></span>`;
+        if (x.url) return `<span class="track-chip"><span>${esc(x.name)}</span><em>${esc(x.vendor || '')}</em>` +
+          `<button class="btn ghost small-btn track-launch" data-agent="${esc(x.id)}" type="button" title="${esc(x.note || '')}">${t('tracks_open_site')}</button></span>`;
+        return `<span class="track-chip off"><span>${esc(x.name)}</span><em>${esc(x.vendor || '')}</em>` +
+          `<span class="fineprint">${t('tracks_not_installed')}${x.install ? ' · ' + t('tracks_install_hint') + esc(x.install) : ''}</span></span>`;
+      }).join('')}</div>`;
     } else if (tr.action === 'open-benchmark') {
       body = `<div class="track-targets"><button class="btn primary small-btn track-goto-bench" type="button">${t('tracks_enter_benchmark')}</button></div>`;
     }
@@ -270,6 +323,7 @@ function renderTracks(tracks) {
   const g = document.querySelector('.track-goto-bench');
   if (g) g.addEventListener('click', () => { $('tracks-dialog').close(); openBenchDialog(); });
   $('tracks-open-all').hidden = !document.querySelector('.track-url-check');
+  bindExportPanel();
 }
 
 async function launchLocalAgent(id) {
@@ -285,7 +339,9 @@ async function launchLocalAgent(id) {
         : `${t('tracks_failed')}：${j.error || r.status}`;
       return;
     }
-    $('tracks-msg').textContent = `${t('tracks_launched')}：${j.launched}`;
+    $('tracks-msg').textContent = j.mode === 'url'
+      ? `${t('tracks_open_site')}：${j.launched}`
+      : `${t('tracks_launched')}：${j.launched}`;
   } catch (e) {
     $('tracks-msg').textContent = `${t('tracks_failed')}：${String(e.message || e)}`;
   }
@@ -297,6 +353,139 @@ function openAllVendorSites() {
   let blocked = 0;
   urls.forEach((u) => { const w = window.open(u, '_blank', 'noopener'); if (!w) blocked++; });
   $('tracks-msg').textContent = blocked ? t('tracks_open_hint') : '';
+}
+
+// ---------- 题目包导出：让用户能在各家网页上跑我们的题 ----------
+let exportItems = null;
+async function bindExportPanel() {
+  const sel = $('exp-item');
+  if (!sel) return;
+  if (!exportItems) {
+    try { exportItems = (await (await fetch('/api/export/items')).json()).items || []; } catch { exportItems = []; }
+  }
+  sel.innerHTML = exportItems.map((x) => `<option value="${esc(x.id)}">${esc(x.id)} · ${esc(x.title || '')}${x.hasFigure ? ' 🖼' : ''}</option>`).join('');
+  $('exp-copy').addEventListener('click', () => copyItemText(sel.value));
+  $('exp-card').addEventListener('click', () => exportCardPng(sel.value));
+  $('exp-zip').addEventListener('click', () => {
+    const a = document.createElement('a');
+    a.href = `/api/export/item/${encodeURIComponent(sel.value)}.zip`;
+    a.download = `${sel.value}.zip`;
+    a.click();
+  });
+}
+async function itemProblemMd(id) {
+  const r = await fetch(`/api/export/item/${encodeURIComponent(id)}/problem.md`);
+  return r.ok ? await r.text() : '';
+}
+// LaTeX → 可读纯文本（题卡是图片，不渲染公式，做符号替换）
+// 顺序要紧：sqrt 必须先于 frac，否则 \dfrac{\sqrt{5}}{3} 里的花括号会让 frac 匹配失败
+const TEX_MAP = [
+  [/\\sqrt\{([^{}]*)\}/g, '√($1)'],
+  [/\\d?frac\{([^{}]*)\}\{([^{}]*)\}/g, '($1)/($2)'],
+  [/\\angle/g, '∠'], [/\\triangle/g, '△'], [/\\odot/g, '⊙'],
+  [/\\parallel/g, '∥'], [/\\perp/g, '⊥'], [/\\circ/g, '°'],
+  [/\\pi/g, 'π'], [/\\alpha/g, 'α'], [/\\beta/g, 'β'], [/\\gamma/g, 'γ'], [/\\theta/g, 'θ'],
+  [/\\cos/g, 'cos'], [/\\sin/g, 'sin'], [/\\tan/g, 'tan'], [/\\cot/g, 'cot'],
+  [/\\text\{([^{}]*)\}/g, '$1'], [/\\mathrm\{([^{}]*)\}/g, '$1'],
+  [/\\left|\\right/g, ''], [/\\[a-zA-Z]+/g, ''], [/[${}]/g, ''],
+];
+function texToPlain(s) { let x = String(s); for (const [re, to] of TEX_MAP) x = x.replace(re, to); return x.replace(/[ \t]+/g, ' ').replace(/\((\d+)\)\//g, '($1)/'); }
+function mdToCardText(md) {
+  const raw = String(md).split('\n')
+    .filter((l) => !/^\s*!\[/.test(l))
+    .map((l) => l.replace(/^#{1,6}\s*/, '').replace(/^>\s*/, '').replace(/^\s*[-*]\s+/, '· ')
+      .replace(/\*\*/g, '').replace(/^\s*---+\s*$/, '').trimEnd())
+    .join('\n').replace(/\n{3,}/g, '\n\n').trim().split('\n');
+  // 去掉首行的题号标题（页眉已有）与末尾重复的作答要求（页脚已有）
+  while (raw.length && /^(GM|GL|MM)-\d+$/.test(raw[0].trim())) raw.shift();
+  const out = [];
+  let cut = false;
+  for (const l of raw) {
+    if (/^作答要求/.test(l.trim())) cut = true;
+    if (!cut) out.push(l);
+  }
+  return out.join('\n').replace(/\n{3,}/g, '\n\n').trim();
+}
+async function exportCardPng(id) {
+  $('tracks-msg').textContent = '…';
+  try {
+    const c = await buildCardCanvas(id);
+    const a = document.createElement('a');
+    a.href = c.toDataURL('image/png');
+    a.download = `${id}-题卡.png`;
+    a.click();
+    $('tracks-msg').textContent = t('exp_card_done');
+  } catch (e) {
+    $('tracks-msg').textContent = `${t('tracks_failed')}：${String(e.message || e)}`;
+  }
+}
+// 合成「题卡」：题面文字 + 配图 画进一张画布（拆出来便于自测，不触发下载）
+async function buildCardCanvas(id) {
+  {
+    const md = await itemProblemMd(id);
+    if (!md) throw new Error('item not found');
+    const figMatch = /!\[[^\]]*\]\(([^)]+)\)/.exec(md);
+    const text = texToPlain(mdToCardText(md));
+    let img = null;
+    if (figMatch) {
+      const name = figMatch[1].split('/').pop();
+      img = await new Promise((res) => {
+        const im = new Image();
+        im.onload = () => res(im); im.onerror = () => res(null);
+        im.src = `/api/export/item/${encodeURIComponent(id)}/asset/${encodeURIComponent(name)}`;
+      });
+    }
+    const W = 1000, PAD = 48, FS = 20, LH = 32;
+    const mc = document.createElement('canvas').getContext('2d');
+    const FONT = '400 ' + FS + 'px "PingFang SC","Microsoft YaHei","Source Han Sans SC",sans-serif';
+    mc.font = FONT;
+    const maxW = W - PAD * 2;
+    const wrap = (s) => {
+      const out = [];
+      for (const para of String(s).split('\n')) {
+        if (!para) { out.push(''); continue; }
+        let line = '';
+        for (const ch of para) {
+          if (mc.measureText(line + ch).width > maxW) { out.push(line); line = ch; } else line += ch;
+        }
+        if (line) out.push(line);
+      }
+      return out;
+    };
+    const lines = wrap(text);
+    const scale = img ? Math.min(1, (W - PAD * 2) / img.width) : 1;
+    const figW = img ? Math.round(img.width * scale) : 0;
+    const figH = img ? Math.min(470, Math.round(img.height * scale)) : 0;
+    const headerH = 96, footerH = 78;
+    const H = PAD + headerH + lines.length * LH + (figH ? figH + 30 : 0) + footerH + PAD;
+
+    const c = document.createElement('canvas');
+    c.width = W; c.height = H;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = '#2c2620';
+    ctx.font = '700 26px "PingFang SC","Microsoft YaHei",sans-serif';
+    ctx.fillText(`GeoMark · ${id}`, PAD, PAD + 30);
+    const sub = (exportItems || []).find((x) => x.id === id)?.title || '';
+    if (sub) { ctx.font = '400 15px "PingFang SC","Microsoft YaHei",sans-serif'; ctx.fillStyle = '#8b8172'; ctx.fillText(sub, PAD, PAD + 56); }
+    ctx.strokeStyle = '#e3d9c6'; ctx.beginPath(); ctx.moveTo(PAD, PAD + 74); ctx.lineTo(W - PAD, PAD + 74); ctx.stroke();
+    ctx.font = FONT; ctx.fillStyle = '#2c2620';
+    let y = PAD + headerH + 6;
+    for (const ln of lines) { ctx.fillText(ln, PAD, y); y += LH; }
+    if (img) { y += 16; ctx.drawImage(img, PAD + ((W - PAD * 2) - figW) / 2, y, figW, figH); y += figH; }
+    ctx.strokeStyle = '#e3d9c6'; ctx.beginPath(); ctx.moveTo(PAD, H - PAD - 44); ctx.lineTo(W - PAD, H - PAD - 44); ctx.stroke();
+    ctx.fillStyle = '#8b8172'; ctx.font = '400 14px "PingFang SC","Microsoft YaHei",sans-serif';
+    ctx.fillText(t('exp_footer'), PAD, H - PAD - 18);
+    return c;
+  }
+}
+async function copyItemText(id) {
+  const md = await itemProblemMd(id);
+  if (!md) return;
+  try {
+    await navigator.clipboard.writeText(texToPlain(mdToCardText(md)));
+    $('tracks-msg').textContent = t('exp_copied');
+  } catch { $('tracks-msg').textContent = t('exp_copy_fail'); }
 }
 
 $('btn-tracks').addEventListener('click', openTracksDialog);

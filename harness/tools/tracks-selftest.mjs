@@ -73,12 +73,42 @@ try {
   });
   console.log('页面内 fetch /api/tracks:', api.result.value);
 
-  const shot = await send('Page.captureScreenshot', { format: 'png' });
+  // 题目包面板
+  const exp = await send('Runtime.evaluate', {
+    expression: `(()=>JSON.stringify({select:!!document.getElementById('exp-item'),options:(document.getElementById('exp-item')||{}).length||0,btns:['exp-copy','exp-card','exp-zip'].filter(i=>!!document.getElementById(i)).length,caps:document.querySelectorAll('.cap').length}))()`,
+    returnByValue: true,
+  });
+  console.log('题目包面板:', exp.result.value);
+
   const outDir = path.join(HARNESS, 'docs', 'screenshots');
   fs.mkdirSync(outDir, { recursive: true });
+
+  // 合成题卡（不触发下载），把 PNG 存盘供人工查验
+  const card = await send('Runtime.evaluate', {
+    expression: `buildCardCanvas('GM-0102').then(c=>JSON.stringify({w:c.width,h:c.height,data:c.toDataURL('image/png')})).catch(e=>'err:'+e.message)`,
+    awaitPromise: true, returnByValue: true, timeout: 60000,
+  });
+  try {
+    const cv = JSON.parse(card.result.value);
+    fs.writeFileSync(path.join(outDir, 'item-card-sample.png'), Buffer.from(cv.data.split(',')[1], 'base64'));
+    console.log(`题卡合成: ${cv.w}x${cv.h} → item-card-sample.png`);
+  } catch (e) { console.log('题卡合成失败:', String(card.result.value).slice(0, 200)); }
+
+  const shot = await send('Page.captureScreenshot', { format: 'png' });
   const out = path.join(outDir, 'tracks-dialog.png');
   fs.writeFileSync(out, Buffer.from(shot.data, 'base64'));
   console.log('截图:', out);
+
+  // 滚到出题包 / Agent 赛道再各截一张
+  const sc = async (sel, name) => {
+    await send('Runtime.evaluate', { expression: `(()=>{const e=document.querySelector('${sel}');if(e)e.scrollIntoView({block:'center'});return 1})()`, returnByValue: true });
+    await sleep(600);
+    const s2 = await send('Page.captureScreenshot', { format: 'png' });
+    fs.writeFileSync(path.join(outDir, name), Buffer.from(s2.data, 'base64'));
+    console.log('截图:', name);
+  };
+  await sc('.track-export', 'tracks-export.png');
+  await sc('.track-card:last-child', 'tracks-agent.png');
 
   console.log('控制台错误:', consoleErrors.length ? consoleErrors.slice(0, 5) : '无');
 } catch (e) {
