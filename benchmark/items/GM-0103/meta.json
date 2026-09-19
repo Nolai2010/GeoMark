@@ -20,7 +20,7 @@
     "作线段 $AD$ 的垂直平分线交 $AB$ 于 $O$，则 $OA=OD$，$D$ 在 $\\odot O$ 上",
     "$AC=4$、$\\tan\\angle BAC=\\dfrac{1}{2}$ 得 $BC=2$，$AB=2\\sqrt{5}$，$CD=\\dfrac{BC^2}{AC}=1$，故 $AD=3$",
     "设半径 $r$，由 $AD=2r\\cos\\angle BAC$ 得 $r=\\dfrac{AD}{2\\cos\\angle BAC}=\\dfrac{3\\sqrt{5}}{4}$",
-    "可用坐标复核：$A(4,0),B(0,2),C(0,0),D(1,0),O(2.5,0.75)$，$OD\\perp BD$ 成立"
+    "结论 $OD\\perp BD$（即 $\\angle ODB=90^\\circ$）成立"
   ],
   "difficulty": "hard",
   "figure": [

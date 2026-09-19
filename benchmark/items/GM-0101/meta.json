@@ -20,7 +20,7 @@
     "$BC\\parallel OP$ 且 $O$ 为 $AB$ 中点 $\\Rightarrow OP$ 垂直平分 $AC$，故 $PA=PC$",
     "$\\triangle OAP\\cong\\triangle OCP\\Rightarrow \\angle OCP=\\angle OAP=90^\\circ$，得 $PC$ 是切线",
     "由 $\\triangle OAP$ 求 $OP=2\\sqrt{5}$，用 $\\triangle OAP\\sim\\triangle$ 关系得 $BC=4\\sqrt{5}/5$",
-    "建系（$O$ 为原点，半径 $2$，$P(-2,4)$）求 $E=DP\\cap OC$，得 $\\tan\\angle PEC=24/7$"
+    "取 $E=DP\\cap OC$，在 $\\triangle PEC$ 中求出 $\\tan\\angle PEC=\\dfrac{24}{7}$"
   ],
   "difficulty": "hard",
   "figure": [

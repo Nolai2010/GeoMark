@@ -99,3 +99,25 @@ test('赛道配置：允许启动的目标都经过白名单登记', () => {
   assert.equal(agentTargets.filter((x) => x.kind === 'web' && x.bin).length, 0,
     'web 形态不应带 bin（会让人误以为能终端启动）');
 });
+
+test('赛道配置：bin 与 url 不含 shell 元字符', () => {
+  // cli 目标会被拼进 `cmd /c start '' cmd /k <bin>`，url 会被交给 `cmd /c start`。
+  // cmd.exe 会重新解析整条命令行，所以这里限定字符集：配置可编辑 != 允许元字符进命令行。
+  const SAFE_BIN = /^[A-Za-z0-9][A-Za-z0-9._-]*$/;
+  const SAFE_URL = /^https?:\/\/[^\s"'`&|^<>()%]+$/i;
+  for (const x of agentTargets) {
+    if (x.bin !== undefined && x.bin !== null) {
+      assert.match(x.bin, SAFE_BIN, `${x.id} 的 bin 含不安全字符：${x.bin}`);
+    }
+    for (const key of ['exe', 'exeGlob']) {
+      if (!x[key]) continue;
+      assert.ok(!/["'`&|^<>]/.test(x[key]), `${x.id} 的 ${key} 含 shell 元字符：${x[key]}`);
+    }
+  }
+  // real-world 的 url 同样会被 openUrl 交给 cmd start
+  const rw = tracks.find((t) => t.id === 'real-world');
+  for (const x of [...(rw?.targets || []), ...agentTargets]) {
+    if (!x.url) continue;
+    assert.match(x.url, SAFE_URL, `${x.id} 的 url 含不安全字符：${x.url}`);
+  }
+});

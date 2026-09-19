@@ -1,7 +1,7 @@
 {
   "name": "GeoMark Benchmark",
   "version": "0.1",
-  "generatedAt": "2026-09-18T14:29:14.761Z",
+  "generatedAt": "2026-09-19T01:54:58.204Z",
   "itemCount": 18,
   "withFigure": 16,
   "modes": [
@@ -14,7 +14,7 @@
     "vision": "visionRubric（图形复述要点）",
     "constraint": "坐标法违规归零（cheat）"
   },
-  "datasetHash": "f73bdf36559c6e29",
+  "datasetHash": "ef96d46a73656802",
   "items": [
     {
       "id": "GM-0001",
@@ -361,8 +361,8 @@
         }
       },
       "problemHash": "867a8b2c7369fdb7",
-      "solutionHash": "b8c9d0fd04ec0802",
-      "metaHash": "b6174b97e11f165e"
+      "solutionHash": "dc65867c35b8f115",
+      "metaHash": "335aae3152bec3a0"
     },
     {
       "id": "GM-0102",
@@ -435,8 +435,8 @@
         }
       },
       "problemHash": "0d779967df421025",
-      "solutionHash": "5ed0a28b7accbdec",
-      "metaHash": "eadbdc5781f70478"
+      "solutionHash": "f36b0a4e3025bc3a",
+      "metaHash": "3edddf0e8f80a41c"
     },
     {
       "id": "GM-0104",
@@ -551,8 +551,8 @@
         }
       },
       "problemHash": "b021de7ccf622abc",
-      "solutionHash": "3c2b914d77958a90",
-      "metaHash": "e01f8d2b6d95acde"
+      "solutionHash": "7e289a2d46973c5b",
+      "metaHash": "715bb8ebd84448c7"
     },
     {
       "id": "GM-0107",
@@ -588,8 +588,8 @@
         }
       },
       "problemHash": "8b8823e0c3db52c6",
-      "solutionHash": "eaf6ddbd6f8649ff",
-      "metaHash": "4f8e160e407d0f73"
+      "solutionHash": "ac111d47c583fc63",
+      "metaHash": "fa40740d42eb57e5"
     },
     {
       "id": "GM-0108",
@@ -625,8 +625,8 @@
         }
       },
       "problemHash": "d4c0b2c4f17e156e",
-      "solutionHash": "59edddf186448229",
-      "metaHash": "ee070626d653ee57"
+      "solutionHash": "d8867e4926115189",
+      "metaHash": "a8ffb630f6a6ddbc"
     }
   ]
 }

@@ -138,11 +138,16 @@ function buildItemZip(item) {
   for (const f of item.figures) files.push({ name: `${item.id}/${f.rel}`, data: fs.readFileSync(f.abs) });
   return makeZip(files);
 }
+// url 会被交给 `cmd /c start`：即便作为独立 argv 传入，cmd.exe 仍会重新解析整条命令行，
+// 所以这里做协议白名单并拒绝空白/引号/shell 元字符，避免配置里的 url 影响命令结构。
+const SAFE_URL = /^https?:\/\/[^\s"'`&|^<>()%]+$/i;
 function openUrl(url) {
+  const u = String(url ?? '');
+  if (!SAFE_URL.test(u)) throw new Error(`refusing to open unsafe url: ${u.slice(0, 80)}`);
   const opts = { detached: true, stdio: 'ignore' };
-  if (process.platform === 'win32') spawn('cmd', ['/c', 'start', '', url], opts).unref();
-  else if (process.platform === 'darwin') spawn('open', [url], opts).unref();
-  else spawn('xdg-open', [url], opts).unref();
+  if (process.platform === 'win32') spawn('cmd', ['/c', 'start', '', u], opts).unref();
+  else if (process.platform === 'darwin') spawn('open', [u], opts).unref();
+  else spawn('xdg-open', [u], opts).unref();
 }
 
 function readBody(req, limit = 20 * 1024 * 1024) {
@@ -391,7 +396,11 @@ async function probeTarget(t) {
   return { kind: 'web', installed: false, path: null };
 }
 
+// bin 会被拼进 `cmd /c start '' cmd /k <bin>` —— 那是 cmd.exe 的命令行拼接面，不是 execve 语义。
+// 配置可编辑，但「可编辑」不等于允许 shell 元字符流进命令行，所以这里限定安全字符集。
+const SAFE_BIN = /^[A-Za-z0-9][A-Za-z0-9._-]*$/;
 function launchCli(bin) {
+  if (!SAFE_BIN.test(String(bin ?? ''))) throw new Error(`unsafe bin name rejected: ${String(bin).slice(0, 40)}`);
   const opts = { detached: true, stdio: 'ignore', windowsHide: false };
   if (process.platform === 'win32') {
     spawn('cmd', ['/c', 'start', '', 'cmd', '/k', bin], opts).unref();
@@ -434,9 +443,16 @@ const server = http.createServer(async (req, res) => {
   if (!/^(127\.0\.0\.1|localhost)(:\d+)?$/.test(host)) {
     return json(res, 403, { error: 'invalid host header' });
   }
+  const allowedOrigins = new Set([`http://127.0.0.1:${PORT}`, `http://localhost:${PORT}`]);
   const origin = req.headers.origin;
-  if (origin && origin !== `http://127.0.0.1:${PORT}` && origin !== `http://localhost:${PORT}`) {
+  if (origin && !allowedOrigins.has(origin)) {
     return json(res, 403, { error: 'cross-origin request rejected' });
+  }
+  // 只校验 Origin 挡不住「简单请求」：浏览器对跨站表单 POST / 无自定义头的 GET **不发 Origin**，
+  // 这类请求会整条绕过上面的检查。Sec-Fetch-Site 是现代浏览器必发的，用它补上这个缺口。
+  // 该头缺失 = 非浏览器客户端（curl / 本地脚本），按本地自身调用处理。
+  if (String(req.headers['sec-fetch-site'] || '').toLowerCase() === 'cross-site') {
+    return json(res, 403, { error: 'cross-site request rejected' });
   }
 
   try {
@@ -556,6 +572,11 @@ const server = http.createServer(async (req, res) => {
       return json(res, 200, { tracks });
     }
     if (p === '/api/tracks/launch-agent' && req.method === 'POST') {
+      // 只接受 JSON 正文：跨站表单提交（application/x-www-form-urlencoded / text/plain）属「简单请求」，
+      // 不触发预检，因此拒绝它们等于给这个端点关掉一整类 CSRF 面。
+      if (!/^application\/json\b/i.test(String(req.headers['content-type'] || ''))) {
+        return json(res, 415, { error: 'content-type must be application/json' });
+      }
       const body = await readBody(req);
       let payload = {};
       try { payload = JSON.parse(String(body || '{}')); } catch { /* ignore */ }

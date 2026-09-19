@@ -7,13 +7,13 @@
 
 ## 0. 准备
 
-- Node.js ≥ 18（推荐 22）
+- Node.js ≥ 22（harness/package.json 的 engines 强制 ≥22，用 18 会报 EBADENGINE）
 - 任一模型的 API 密钥（DeepSeek / OpenAI / Anthropic / Qwen / Kimi 均可）
 
 ```bash
 git clone https://github.com/Nolai2010/GeoMark.git
 cd GeoMark/harness
-npm test        # 应显示 103/103 通过（项目零依赖，无需 npm install）
+npm test        # 应显示 114/114 通过（项目零依赖，无需 npm install）
 ```
 
 ---
@@ -109,7 +109,7 @@ export HARNESS_ANTHROPIC_API_KEY=sk-ant-…  # Anthropic 协议
 
 ## 4. AI 几何能力评测流水线（Benchmark）
 
-`benchmark/` 内置 10 道几何题（平面 5 + 立体 5），每题三件套：`problem.md`（题面）、`assets/`（SVG+PNG 配图）、`solution.md`（含分步评分细则）。评测分三种模式：
+`benchmark/` 内置 18 道几何题（Benchmark v0.1），每题三件套：`problem.md`（题面）、`assets/`（PNG 配图）、`solution.md`（含分步评分细则）。其中 8 道标注为 `plane_geometry`，其余 10 道归入通用 `geometry` 类（含 5 道立体几何）；16 道有配图，8 道有 `visionRubric`（其余在识图模式下跳过而非计分）。评测分三种模式：
 
 | 模式 | 说明 |
 |---|---|

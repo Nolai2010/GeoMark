@@ -308,22 +308,30 @@ GeoMark 当前处于早期研究与开发阶段。
 
 ### 下一阶段
 
-* [ ] GeoMark Benchmark 0.1
-* [ ] 初始几何数据集
-* [ ] 标准化评测协议
-* [ ] 自动化结果统计
-* [ ] 多次重复实验
-* [ ] 失败分类体系
-* [ ] Benchmark 结果可视化
-* [ ] 可复现实验包
+图例：`[x]` 已交付且有证据 · `[~]` 部分交付（附原因）· `[ ]` 未开始。
+
+* [x] GeoMark Benchmark 0.1 —— 版本化数据集清单 `benchmark/dataset.json`（含逐产物哈希）
+* [~] 初始几何数据集 —— 18 题，但仅 16 题有配图、8 题有来源标注（其余 10 道为自编，source 为 null）、
+  8 题有 `visionRubric`
+* [x] 标准化评测协议 —— `benchmark/docs/EVALUATION-PROTOCOL.md`
+* [x] 自动化结果统计 —— `benchmark/tools/summarize.mjs`（对比表 / CSV / JSON）
+* [~] 多次重复实验 —— `summarize.mjs --runs A,B` 已实现，但**从未真正跑过第二轮**，因此不存在任何稳定性表
+* [~] 失败分类体系 —— 定义了 F01–F08，其中仅 5 个有自动检测器（见 Failure Analysis 一节）
+* [~] Benchmark 结果可视化 —— `benchmark/viz/` 是 Remotion 视频工程：需要 `npm install` 且无 lockfile，
+  并不是开箱即用的看板
+* [~] 可复现实验包 —— `datasetHash` + `promptHash` + judge 配置均有记录，但 judge 与被测模型相同、
+  `deepseek-chat` 是可变别名，且没有任何运行产物入库（见 Results）
 
 ### 长期计划
 
-* [ ] 多模态推理评测
+* [~] 多模态推理评测 —— `vision` 模式已实现并按 `visionRubric` 判分，但 18 题中仅 8 题有该细则，
+  其余按跳过处理而非计分
 * [ ] 更大规模 Benchmark
-* [ ] Agent 能力评测
+* [ ] Agent 能力评测 —— 当前 Agent 赛道只负责「把 Agent 拉起来」，不做评测
 * [ ] 代码与工具调用评测
 * [ ] 更多推理领域
+* [ ] 跨模型对比 —— 尚未发布任何多模型运行结果
+* [ ] 持续集成 —— 目前没有 `.github/workflows`，「测试通过」只能由作者本人验证
 * [ ] 学术研究与论文
 
 ---

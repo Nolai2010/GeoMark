@@ -11,7 +11,14 @@
   - `meta.json` 结构化元数据：`answer / rubric / visionRubric / difficulty / coordinatePolicy / source`
   - `assets/` 配图（PNG）
 - 编号一经发布不复用；修订须升编号。
-- 题目均来自公开免费真题（来源与年份写入 `meta.json.source`），答案与评分要点经独立复核（含数值验证）。
+- 来源：8 道真题来自公开试卷站（来源、年份与卷次写入 `meta.json.source`，该站自述「免费资源」——
+  这是转载站自述，**不构成著作权判定**，见 `benchmark/docs/EXTERNAL-DATASETS.md` 的权利声明一节）；
+  另 10 道为自编题，`meta.json.source` 为 `null`。**不要把「均来自公开免费真题」当作普遍成立的前提。**
+- 复核方式：答案与评分要点由**作者本人**复核（含数值验证），没有独立的第三方复核环节；引用结果时
+  应如实描述为「作者复核」。
+- **方法中立性（2026-09-19 起）**：`coordinatePolicy: restricted` 的评分细则必须用「几何量 + 判定
+  依据」表述，不得以坐标法路线作为给分依据；判分提示词（`score.mjs` 的 `JUDGE_SYSTEM`）带有对应的
+  硬性规则，不得因作答未使用坐标系而扣分。修订前的细则曾违反这一条，见 `RESULTS.md` 的警示。
 
 ## 2. 三种作答模式
 
@@ -40,6 +47,12 @@
 ### 5.1 解题模式（`coord` / `pure`）
 
 LLM-as-judge 按 `meta.rubric` 逐项判分：覆盖给满分、部分覆盖给部分分、未覆盖或错误给 0；不得给出细则之外的分数。judge 的输入包含**思考过程 + 最终作答**。
+
+**裁判身份必须披露。** 当前实现里 judge 与被测模型可以是同一个模型（v0.1 的唯一一轮运行就是
+`deepseek-chat` 评 `deepseek-chat`），这有已知的 self-preference bias 且未测量。对外引用结果时
+必须写明 judge 与被测模型的关系；正式对比应使用不同模型担任 judge，或加第二裁判并报告一致性。
+另外 `deepseek-chat` 这类名称是**可变别名**（厂商可原地更换后端），严格复现需要记录 API 返回的
+模型标识与运行日期。
 
 ### 5.2 识图模式（`vision`）
 

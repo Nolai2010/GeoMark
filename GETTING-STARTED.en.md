@@ -7,13 +7,13 @@
 
 ## 0. Prerequisites
 
-- Node.js ≥ 18 (22 recommended)
+- Node.js ≥ 22 (enforced by harness/package.json engines; 18 fails with EBADENGINE)
 - An API key for any supported provider (DeepSeek / OpenAI / Anthropic / Qwen / Kimi …)
 
 ```bash
 git clone https://github.com/Nolai2010/GeoMark.git
 cd GeoMark/harness
-npm test        # expect 103/103 passed (zero dependencies, no npm install needed)
+npm test        # expect 114/114 passed (zero dependencies, no npm install needed)
 ```
 
 ---
@@ -109,7 +109,7 @@ Precedence: environment variable > model-scoped (models) > provider-scoped (prov
 
 ## 4. AI Geometry Benchmark Pipeline
 
-`benchmark/` ships 10 geometry items (5 plane + 5 solid). Each item has `problem.md`, `assets/` (SVG + PNG figures) and `solution.md` with a **step-by-step scoring rubric**. Three evaluation modes:
+`benchmark/` ships 18 geometry items (Benchmark v0.1). Each item has `problem.md`, `assets/` (PNG figures) and `solution.md` with a **step-by-step scoring rubric**. Eight are tagged `plane_geometry`; the other ten fall under a generic `geometry` category and include five solid-geometry items. Sixteen have a figure; eight have a `visionRubric` (the rest are skipped in vision mode rather than scored). Three evaluation modes:
 
 | Mode | Description |
 |---|---|

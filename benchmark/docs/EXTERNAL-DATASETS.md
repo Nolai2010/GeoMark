@@ -9,8 +9,8 @@
 | 数据集 | 真实存在 | 规模（与描述是否吻合） | 数据可获取 | 协议 | 与 GeoMark 的契合度 | 处置 |
 |---|---|---|---|---|---|---|
 | **ZhongkaoGeo** | ✅ 论文真实 | ✅ 89 + 83 + 105 = **277**，完全吻合 | ❌ **未找到任何公开下载** | ❓ 未声明（因未发布） | ★★★★★ 中考平面几何，L3 用中考官方评分细则算分 | **不能拿**：无数据 |
-| **GeoLaux** | ✅ 论文真实 | ✅ **2186**，平均 6.51 步、34 个省级区域，吻合 | ✅ GitHub `Candice-yu/GeoLaux` | ⚠️ **自相矛盾**：仓库 LICENSE 与 README 写 MIT，论文写 MIT + **CC BY-NC-SA 4.0，禁止商用** | ★★★★★ 中考平面几何 + 辅助线标注 + 过程分 | **已拿**（按你的裁定），但协议冲突已如实标注 |
-| **MM-MATH** | ✅ 论文真实 | ✅ 论文 5,929；发布版 jsonl **5,901** 行（少 28） | ✅ HF `THU-KEG/MM_Math` + GitHub | ✅ **MIT**（GitHub API 与 HF cardData 双重确认） | ★★★☆☆ 仅计算题（不含证明/作图），含代数 | **已拿**：导入 hard 几何 507 题 |
+| **GeoLaux** | ✅ 论文真实 | ✅ **2186**，平均 6.51 步、34 个省级区域，吻合 | ✅ GitHub `Candice-yu/GeoLaux` | ⚠️ **自相矛盾**：仓库 LICENSE 与 README 写 MIT，论文写 MIT + **CC BY-NC-SA 4.0，禁止商用** | ★★★★★ 中考平面几何 + 辅助线标注 + 过程分 | 已本地导入（条目不入库：协议冲突 + 体量，用 `import-geolaux.mjs` 重建），协议冲突已如实标注 |
+| **MM-MATH** | ✅ 论文真实 | ✅ 论文 5,929；发布版 jsonl **5,901** 行（少 28） | ✅ HF `THU-KEG/MM_Math` + GitHub | ✅ **MIT**（GitHub API 与 HF cardData 双重确认） | ★★★☆☆ 仅计算题（不含证明/作图），含代数 | 已本地导入 hard 几何 507 题（条目不入库，MIT 允许分发但体量大，用 `import-mm-math.mjs` 重建） |
 
 ---
 
@@ -33,7 +33,7 @@
 
 **可行路径**：联系作者索取；或由我们按同样方法自建 L1/L2/L3（我们已有中考真题采集流水线，可复刻这个分层设计）。
 
-## 2. GeoLaux（已拿，但协议必须留痕）
+## 2. GeoLaux（已本地导入，但协议必须留痕）
 
 **出处**：*GeoLaux: A Benchmark for Evaluating MLLMs' Geometry Performance on Long-Step Problems Requiring Auxiliary Lines*（arXiv `2508.06226`，**ACL 2026 main**）。
 
@@ -57,7 +57,7 @@
 
 **处置**：按你的裁定采用（GeoMark 本身开源非商用）。但为不误导下游使用者，导入条目的 `meta.json.source` 中**同时记录两种声明**，并注明数据部分按论文口径为 CC BY-NC-SA 4.0。若日后要商用，需先向作者澄清。
 
-## 3. MM-MATH（已拿，MIT）
+## 3. MM-MATH（已本地导入，MIT）
 
 **出处**：*MM-MATH: Advancing Multimodal Math Evaluation with Process Evaluation and Fine-grained Classification*（**EMNLP 2024 Findings**，清华 THU-KEG）。
 
