@@ -163,6 +163,16 @@ async function worker() {
         console.log(`  ${gid}/${mode} 跳过（该题无 visionRubric）`);
         continue;
       }
+      // pure 只对声明了 restricted 的题有意义：细则按坐标法给分的题（如空间向量法）在 pure 下
+      // 正确路线必然 0 分，混进均值只会制造「方法不许、细则又只认这个方法」的假阴性。
+      // 未声明 restricted 的题不参与 pure 统计，而不是硬跑。
+      if (mode === 'pure' && meta.coordinatePolicy !== 'restricted') {
+        const rec = { item: gid, mode, skipped: true, reason: 'not-restricted', max: 0, total: null, judgedAt: Date.now() };
+        fs.writeFileSync(path.join(outDir, `${gid}__${mode}.score.json`), JSON.stringify(rec, null, 2));
+        all.push(rec);
+        console.log(`  ${gid}/${mode} 跳过（coordinatePolicy 非 restricted，pure 不适用）`);
+        continue;
+      }
       // 识图模式考核「图形复述完整度」，用 visionRubric；解题模式用解题 rubric
       const rubric = (mode === 'vision' && Array.isArray(meta.visionRubric) && meta.visionRubric.length)
         ? meta.visionRubric

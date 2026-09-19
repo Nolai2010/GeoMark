@@ -28,6 +28,11 @@
 | `coord` | 题面 + 配图 | **允许**建立坐标系 | 通用解题能力 |
 | `pure` | 题面 + 配图 | **禁止**建立任何坐标系，必须纯几何综合法 | 约束遵循 + 几何综合推理 |
 
+**`pure` 的适用范围由 `meta.coordinatePolicy` 决定（2026-09-19 起）：**
+只有 `coordinatePolicy === "restricted"` 的题会跑 `pure`；其余题（`allowed` 或未声明）在 `pure`
+下记 `skipped: not-restricted`，不送模型、不进统计。原因：细则按坐标法给分的题（如空间向量法）
+在 `pure` 下正确路线必然 0 分，混进均值只会制造假阴性——2026-09-18 的首轮运行就吃了这个亏。
+
 模式指令固定在 `benchmark/tools/run-eval.mjs` 的 `MODE_INSTRUCTION` 中，一经发布不得随模型调整。
 
 ## 3. 隔离保证（结构性，非流程承诺）

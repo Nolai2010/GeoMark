@@ -1,0 +1,459 @@
+{
+  "manifest": {
+    "runid": "run-deepseek-chat-2026-09-18",
+    "model": "deepseek-chat",
+    "provider": "openai-compatible",
+    "base_url": "https://api.deepseek.com",
+    "api_model_id": "deepseek-chat",
+    "temperature": 0,
+    "maxTokens": 8192,
+    "concurrency": 6,
+    "modes": [
+      "vision",
+      "coord",
+      "pure"
+    ],
+    "visionOk": true,
+    "items": [
+      "GM-0001",
+      "GM-0002",
+      "GM-0003",
+      "GM-0004",
+      "GM-0005",
+      "GM-0006",
+      "GM-0007",
+      "GM-0008",
+      "GM-0009",
+      "GM-0010",
+      "GM-0101",
+      "GM-0102",
+      "GM-0103",
+      "GM-0104",
+      "GM-0105",
+      "GM-0106",
+      "GM-0107",
+      "GM-0108"
+    ],
+    "startedAt": 1789742215808,
+    "requests": 24,
+    "skipped": 30,
+    "failed": 0,
+    "finishedAt": 1789742246745
+  },
+  "modeAvg": [
+    36,
+    69,
+    55
+  ],
+  "cheatItems": [
+    "GM-0106"
+  ],
+  "failureCounts": {
+    "F04": 9,
+    "PASS": 9,
+    "F05": 12,
+    "F07": 9,
+    "F01": 4,
+    "F06": 1
+  },
+  "table": {
+    "GM-0001": {
+      "vision": null,
+      "coord": {
+        "total": 12,
+        "max": 12,
+        "pct": 100,
+        "cheat": false,
+        "rawTotal": 12,
+        "failure": "PASS"
+      },
+      "pure": {
+        "total": 12,
+        "max": 12,
+        "pct": 100,
+        "cheat": false,
+        "rawTotal": 12,
+        "failure": "PASS"
+      }
+    },
+    "GM-0002": {
+      "vision": null,
+      "coord": {
+        "total": 11,
+        "max": 12,
+        "pct": 92,
+        "cheat": false,
+        "rawTotal": 11,
+        "failure": "F04"
+      },
+      "pure": {
+        "total": 10,
+        "max": 12,
+        "pct": 83,
+        "cheat": false,
+        "rawTotal": 10,
+        "failure": "F04"
+      }
+    },
+    "GM-0003": {
+      "vision": null,
+      "coord": {
+        "total": 11,
+        "max": 12,
+        "pct": 92,
+        "cheat": false,
+        "rawTotal": 11,
+        "failure": "F04"
+      },
+      "pure": {
+        "total": 12,
+        "max": 12,
+        "pct": 100,
+        "cheat": false,
+        "rawTotal": 12,
+        "failure": "PASS"
+      }
+    },
+    "GM-0004": {
+      "vision": null,
+      "coord": {
+        "total": 5,
+        "max": 12,
+        "pct": 42,
+        "cheat": false,
+        "rawTotal": 5,
+        "failure": "F05"
+      },
+      "pure": {
+        "total": 6,
+        "max": 12,
+        "pct": 50,
+        "cheat": false,
+        "rawTotal": 6,
+        "failure": "F05"
+      }
+    },
+    "GM-0005": {
+      "vision": null,
+      "coord": {
+        "total": 4,
+        "max": 12,
+        "pct": 33,
+        "cheat": false,
+        "rawTotal": 4,
+        "failure": "F07"
+      },
+      "pure": {
+        "total": 2,
+        "max": 12,
+        "pct": 17,
+        "cheat": false,
+        "rawTotal": 2,
+        "failure": "F07"
+      }
+    },
+    "GM-0006": {
+      "vision": null,
+      "coord": {
+        "total": 12,
+        "max": 12,
+        "pct": 100,
+        "cheat": false,
+        "rawTotal": 15,
+        "failure": "PASS"
+      },
+      "pure": {
+        "total": 10,
+        "max": 12,
+        "pct": 83,
+        "cheat": false,
+        "rawTotal": 10,
+        "failure": "F04"
+      }
+    },
+    "GM-0007": {
+      "vision": null,
+      "coord": {
+        "total": 12,
+        "max": 12,
+        "pct": 100,
+        "cheat": false,
+        "rawTotal": 12,
+        "failure": "PASS"
+      },
+      "pure": {
+        "total": 12,
+        "max": 12,
+        "pct": 100,
+        "cheat": false,
+        "rawTotal": 12,
+        "failure": "PASS"
+      }
+    },
+    "GM-0008": {
+      "vision": null,
+      "coord": {
+        "total": 5,
+        "max": 12,
+        "pct": 42,
+        "cheat": false,
+        "rawTotal": 5,
+        "failure": "F05"
+      },
+      "pure": {
+        "total": 10,
+        "max": 12,
+        "pct": 83,
+        "cheat": false,
+        "rawTotal": 10,
+        "failure": "F04"
+      }
+    },
+    "GM-0009": {
+      "vision": null,
+      "coord": {
+        "total": 12,
+        "max": 12,
+        "pct": 100,
+        "cheat": false,
+        "rawTotal": 12,
+        "failure": "PASS"
+      },
+      "pure": {
+        "total": 12,
+        "max": 12,
+        "pct": 100,
+        "cheat": false,
+        "rawTotal": 12,
+        "failure": "PASS"
+      }
+    },
+    "GM-0010": {
+      "vision": null,
+      "coord": {
+        "total": 4,
+        "max": 12,
+        "pct": 33,
+        "cheat": false,
+        "rawTotal": 4,
+        "failure": "F07"
+      },
+      "pure": {
+        "total": 0,
+        "max": 12,
+        "pct": 0,
+        "cheat": false,
+        "rawTotal": 0,
+        "failure": "F07"
+      }
+    },
+    "GM-0101": {
+      "vision": {
+        "total": 6,
+        "max": 10,
+        "pct": 60,
+        "cheat": false,
+        "rawTotal": 6,
+        "failure": "F05"
+      },
+      "coord": {
+        "total": 11,
+        "max": 16,
+        "pct": 69,
+        "cheat": false,
+        "rawTotal": 11,
+        "failure": "F05"
+      },
+      "pure": {
+        "total": 11,
+        "max": 16,
+        "pct": 69,
+        "cheat": false,
+        "rawTotal": 11,
+        "failure": "F05"
+      }
+    },
+    "GM-0102": {
+      "vision": {
+        "total": 6.5,
+        "max": 10,
+        "pct": 65,
+        "cheat": false,
+        "rawTotal": 6.5,
+        "failure": "F05"
+      },
+      "coord": {
+        "total": 14,
+        "max": 14,
+        "pct": 100,
+        "cheat": false,
+        "rawTotal": 14,
+        "failure": "PASS"
+      },
+      "pure": {
+        "total": 10,
+        "max": 14,
+        "pct": 71,
+        "cheat": false,
+        "rawTotal": 10,
+        "failure": "F04"
+      }
+    },
+    "GM-0103": {
+      "vision": {
+        "total": 3,
+        "max": 10,
+        "pct": 30,
+        "cheat": false,
+        "rawTotal": 3,
+        "failure": "F01"
+      },
+      "coord": {
+        "total": 4,
+        "max": 14,
+        "pct": 29,
+        "cheat": false,
+        "rawTotal": 4,
+        "failure": "F07"
+      },
+      "pure": {
+        "total": 7,
+        "max": 14,
+        "pct": 50,
+        "cheat": false,
+        "rawTotal": 7,
+        "failure": "F05"
+      }
+    },
+    "GM-0104": {
+      "vision": {
+        "total": 1,
+        "max": 10,
+        "pct": 10,
+        "cheat": false,
+        "rawTotal": 1,
+        "failure": "F01"
+      },
+      "coord": {
+        "total": 10,
+        "max": 14,
+        "pct": 71,
+        "cheat": false,
+        "rawTotal": 10,
+        "failure": "F04"
+      },
+      "pure": {
+        "total": 0,
+        "max": 14,
+        "pct": 0,
+        "cheat": false,
+        "rawTotal": 0,
+        "failure": "F07"
+      }
+    },
+    "GM-0105": {
+      "vision": {
+        "total": 3,
+        "max": 10,
+        "pct": 30,
+        "cheat": false,
+        "rawTotal": 3,
+        "failure": "F01"
+      },
+      "coord": {
+        "total": 2,
+        "max": 14,
+        "pct": 14,
+        "cheat": false,
+        "rawTotal": 2,
+        "failure": "F07"
+      },
+      "pure": {
+        "total": 2,
+        "max": 14,
+        "pct": 14,
+        "cheat": false,
+        "rawTotal": 2,
+        "failure": "F07"
+      }
+    },
+    "GM-0106": {
+      "vision": {
+        "total": 5,
+        "max": 10,
+        "pct": 50,
+        "cheat": false,
+        "rawTotal": 5,
+        "failure": "F05"
+      },
+      "coord": {
+        "total": 13,
+        "max": 15,
+        "pct": 87,
+        "cheat": false,
+        "rawTotal": 13,
+        "failure": "F04"
+      },
+      "pure": {
+        "total": 0,
+        "max": 15,
+        "pct": 0,
+        "cheat": true,
+        "rawTotal": 7,
+        "failure": "F06"
+      }
+    },
+    "GM-0107": {
+      "vision": {
+        "total": 4,
+        "max": 10,
+        "pct": 40,
+        "cheat": false,
+        "rawTotal": 4,
+        "failure": "F05"
+      },
+      "coord": {
+        "total": 7,
+        "max": 14,
+        "pct": 50,
+        "cheat": false,
+        "rawTotal": 7,
+        "failure": "F05"
+      },
+      "pure": {
+        "total": 2,
+        "max": 14,
+        "pct": 14,
+        "cheat": false,
+        "rawTotal": 2,
+        "failure": "F07"
+      }
+    },
+    "GM-0108": {
+      "vision": {
+        "total": 0,
+        "max": 10,
+        "pct": 0,
+        "cheat": false,
+        "rawTotal": 0,
+        "failure": "F01"
+      },
+      "coord": {
+        "total": 13,
+        "max": 15,
+        "pct": 87,
+        "cheat": false,
+        "rawTotal": 13,
+        "failure": "F04"
+      },
+      "pure": {
+        "total": 7,
+        "max": 15,
+        "pct": 47,
+        "cheat": false,
+        "rawTotal": 7,
+        "failure": "F05"
+      }
+    }
+  }
+}

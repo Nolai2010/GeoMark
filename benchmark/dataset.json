@@ -1,7 +1,7 @@
 {
   "name": "GeoMark Benchmark",
   "version": "0.1",
-  "generatedAt": "2026-09-19T01:54:58.204Z",
+  "generatedAt": "2026-09-19T02:21:12.662Z",
   "itemCount": 18,
   "withFigure": 16,
   "modes": [
@@ -14,7 +14,7 @@
     "vision": "visionRubric（图形复述要点）",
     "constraint": "坐标法违规归零（cheat）"
   },
-  "datasetHash": "ef96d46a73656802",
+  "datasetHash": "9750f94d6146dd40",
   "items": [
     {
       "id": "GM-0001",
@@ -210,7 +210,7 @@
       "id": "GM-0007",
       "title": "四棱锥中的线面垂直与线面角",
       "category": "geometry",
-      "coordinatePolicy": null,
+      "coordinatePolicy": "allowed",
       "difficulty": "medium",
       "questionType": "comprehensive",
       "topics": [
@@ -234,7 +234,7 @@
       },
       "problemHash": "4beac0066c5bb8d7",
       "solutionHash": "38a7977eaf637f74",
-      "metaHash": "3aebdc1c64476b3f"
+      "metaHash": "edcda864723e5681"
     },
     {
       "id": "GM-0008",
@@ -271,7 +271,7 @@
       "id": "GM-0009",
       "title": "锥体外接球的表面积",
       "category": "geometry",
-      "coordinatePolicy": null,
+      "coordinatePolicy": "allowed",
       "difficulty": "medium",
       "questionType": "comprehensive",
       "topics": [
@@ -295,13 +295,13 @@
       },
       "problemHash": "3807106f654853bb",
       "solutionHash": "6e001e19e7c8fdca",
-      "metaHash": "43791e64b372c4a0"
+      "metaHash": "37e4b581cf4a9da4"
     },
     {
       "id": "GM-0010",
       "title": "空间向量法求线面角",
       "category": "geometry",
-      "coordinatePolicy": null,
+      "coordinatePolicy": "allowed",
       "difficulty": "medium",
       "questionType": "comprehensive",
       "topics": [
@@ -325,7 +325,7 @@
       },
       "problemHash": "542d617ec7e516e0",
       "solutionHash": "85d8c975547af8cb",
-      "metaHash": "5c2b2cdcb6f3362e"
+      "metaHash": "6dbefe9436ca0395"
     },
     {
       "id": "GM-0101",
@@ -589,7 +589,7 @@
       },
       "problemHash": "8b8823e0c3db52c6",
       "solutionHash": "ac111d47c583fc63",
-      "metaHash": "fa40740d42eb57e5"
+      "metaHash": "dce67ac35ecb1fbb"
     },
     {
       "id": "GM-0108",

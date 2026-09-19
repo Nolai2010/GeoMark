@@ -111,12 +111,14 @@ The initial benchmark focuses on geometry reasoning and is designed to investiga
 |---|---|---|
 | `vision` | the figure only | describe the figure in words — no solving |
 | `coord` | statement + figure | solve it, coordinate methods allowed |
-| `pure` | statement + figure | solve it, coordinate methods **forbidden** |
+| `pure` | statement + figure | solve it, coordinate methods **forbidden** — restricted items only |
 
 Metadata that actually exists on the items (not every item has every field):
 
-- `coordinatePolicy` — `restricted` on 8 items, `null` on the other 10. **No item is marked
-  `allowed`**; `coord` mode is permissive by construction, not by a metadata flag.
+- `coordinatePolicy` — `restricted` on 8 items, `allowed` on 3 (GM-0007/0009/0010, whose rubrics score
+  the coordinate route itself, e.g. 空间向量法), and **absent on the other 7**. A missing value means
+  "not declared": `coord` is permissive for everything, and `pure` is only attempted on `restricted`
+  items.
 - `category` — `plane_geometry` (8) or `geometry` (10). The latter is a catch-all and currently also
   holds five solid-geometry items, so the plane/solid split is **not yet a reliable field**.
 - `visionRubric` — present on 8 items (`hasVisionRubric` in `dataset.json`). Items without it are
@@ -156,7 +158,7 @@ One full run exists so far — **one model, one repetition**:
 |---|---|---|
 | `vision` (describe the figure) | 36% | 8 |
 | `coord` (coordinates allowed) | 69% | 18 |
-| `pure` (coordinates forbidden) | 55% | 18 |
+| `pure` (coordinates forbidden) | 55% | 18 ⚠ see caveat 2 |
 
 Run: `deepseek-chat`, temperature 0, max_tokens 8192, 2026-09-18, 54 independent requests, no shared
 context. Full snapshot with the per-item table, failure counts and the one caught constraint
@@ -166,10 +168,13 @@ Three caveats matter more than the numbers:
 
 1. **n = 1 model, 1 repetition.** Cross-model comparison — the headline claim of this project — has
    **no delivered data yet**. Everything above is a hypothesis, not a measurement.
-2. The `coord` vs `pure` gap (14 pp) is **not yet a clean measurement of method-following**: for six
-   of the eight `coordinatePolicy: restricted` items the reference rubric was itself phrased in
-   coordinate terms, which biased compliant answers downward. Those rubrics were rewritten to be
-   method-neutral on 2026-09-19 — a rerun is required before the gap can be quoted as a number.
+2. The `coord` vs `pure` gap (14 pp) is **not yet a clean measurement of method-following**, for two
+   independent reasons found in the 2026-09-19 audit: (a) for six of the eight `restricted` items the
+   reference rubric was itself phrased in coordinate terms, biasing compliant answers downward;
+   (b) `pure` ran on all 18 items even though three of them (GM-0007/0009/0010, now marked `allowed`)
+   score the coordinate route itself, so those `pure` scores were structurally zero-able. Both are
+   fixed — rubrics are method-neutral now, and `pure` only applies to `restricted` items. A rerun is
+   required before the gap can be quoted as a number; under the new scope `pure` covers 8 items, not 18.
 3. The judge and the model under test are **the same model**. Self-preference bias is unmeasured, and
    `deepseek-chat` is a moving alias, so this run is not reproducible in the strict sense.
 
@@ -276,7 +281,7 @@ System Prompt
 User Prompt
 Reasoning Configuration
 Attached Files
-TTFT
+First-Content Latency (ttftMs)
 Total Latency
 Input Tokens
 Output Tokens
@@ -567,7 +572,7 @@ GeoMark/
 │   ├── tools/            pipeline: fetch → transcribe → build → run → score → summarize
 │   ├── docs/             protocol, failure taxonomy, results snapshot, external-dataset review
 │   ├── viz/              Remotion video project (needs npm install)
-│   ├── results/          run output — gitignored; only summaries are committed
+│   ├── results/          run output — gitignored; summaries are republished under /results
 │   ├── sources/          raw paper downloads and transcripts — gitignored
 │   └── dataset.json      versioned item manifest with per-artifact hashes
 ├── harness/

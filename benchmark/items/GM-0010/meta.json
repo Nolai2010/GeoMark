@@ -43,5 +43,6 @@
     "空间向量",
     "线面角",
     "正方体"
-  ]
+  ],
+  "coordinatePolicy": "allowed"
 }

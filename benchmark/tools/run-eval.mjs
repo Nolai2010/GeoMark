@@ -193,6 +193,15 @@ for (const gid of gids) {
       manifest.skipped++;
       continue;
     }
+    // pure 只对声明了 restricted 的题有意义。细则按坐标法给分的题（如空间向量法求线面角）
+    // 在 pure 下正确路线必然 0 分——混进均值只会制造「方法不许、细则又只认这个方法」的假阴性。
+    // 未声明 restricted 的题不送 pure，而不是硬跑。
+    if (mode === 'pure' && item.meta.coordinatePolicy !== 'restricted') {
+      fs.writeFileSync(path.join(OUT, `${gid}__${mode}.answer.md`), '[skipped: coordinatePolicy is not "restricted" — 该题未声明禁止坐标，pure 模式不适用]');
+      fs.writeFileSync(path.join(OUT, `${gid}__${mode}.meta.json`), JSON.stringify({ item: gid, mode, skipped: true, reason: 'not-restricted' }, null, 2));
+      manifest.skipped++;
+      continue;
+    }
     const outAns = path.join(OUT, `${gid}__${mode}.answer.md`);
     if (RESUME && fs.existsSync(outAns) && fs.statSync(outAns).size > 0) { manifest.skipped++; continue; }
     const imgs = visionOk ? item.images : [];

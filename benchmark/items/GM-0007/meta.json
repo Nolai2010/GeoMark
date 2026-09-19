@@ -47,5 +47,6 @@
     "线面角",
     "等体积法",
     "空间向量"
-  ]
+  ],
+  "coordinatePolicy": "allowed"
 }

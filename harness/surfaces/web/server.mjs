@@ -140,6 +140,8 @@ function buildItemZip(item) {
 }
 // url 会被交给 `cmd /c start`：即便作为独立 argv 传入，cmd.exe 仍会重新解析整条命令行，
 // 所以这里做协议白名单并拒绝空白/引号/shell 元字符，避免配置里的 url 影响命令结构。
+// 注意：& 被刻意排除——url 带 query string 时会在运行时抛错（返回 500）而非注入。
+// 这是有意取舍：tracks.json 里的 url 都是纯站点首页；未来若确需带参 url，应改用 argv 化启动而非放宽此正则。
 const SAFE_URL = /^https?:\/\/[^\s"'`&|^<>()%]+$/i;
 function openUrl(url) {
   const u = String(url ?? '');

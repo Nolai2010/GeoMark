@@ -124,3 +124,47 @@
 - `secrets.json` **从未进入过 git 历史**（`git log --all -- harness/config/secrets.json` 为空），
   索引里只有 `secrets.example.json` —— 但密钥在本机明文存在过，仍应轮换
 - 反作弊双路检测（正则否定语境保护 + LLM 审计 + ≥2 命中强制翻转）实现与文案逐字相符
+
+---
+
+## 第二轮复审（2026-09-19，针对 2f664a1）
+
+复审方逐条核到 file:line，确认 12 项修复为真修；并发现一个同级别的**新 P0**。
+
+### 新 P0：`pure` 模式作用域与 `coordinatePolicy` 完全脱钩 ✅ 已修复
+
+`run-eval.mjs` 对 `coordinatePolicy` 零引用，`pure` 跑在全部 18 题上；而 3 道
+`coordinatePolicy` 缺失的题细则按坐标法给分：
+
+- GM-0007 `rubric[2]`（3 分）「建系写全坐标或等体积法框架」
+- GM-0009 `rubric[1]`（3 分）「球心在过 M 的垂线上并设参/建系」
+- GM-0010 `rubric[0]`（3 分）「建系并写全关键点坐标」（该题即「空间向量法求线面角」）
+
+这些题在 `pure` 下正确路线必然 0 分——上轮修的是 8 道 restricted 里的 6 处，本轮暴露的是
+镜像的另一半。**复审原报 4 道，实测 3 道（GM-0008 的 `rubric[2]` 给了「三垂线」综合路线，不强制坐标）。**
+
+修复：
+- `run-eval.mjs` + `score.mjs`：`pure` 只对 `coordinatePolicy === 'restricted'` 生效；其余记
+  `skipped: not-restricted`，不送模型、不进统计（dry-run 验证：请求数 54 → 42）
+- GM-0007/0009/0010 显式标 `coordinatePolicy: "allowed"`，`allowed` 从此成为真实使用的字段
+- `datasetHash` 重算：`ef96d46a73656802` → `9750f94d6146dd40`
+- README / RESULTS / EVALUATION-PROTOCOL 同步口径：新口径下 `pure` 覆盖 8 题
+
+### 次级残留 ✅ 已修复
+
+- GM-0107 `answerKey[2]` 仍是「取 B 为原点、BC 沿 x 轴…」→ 已中立化
+  （「设 F 在射线 BD 上、BF=s，把 EF 与 CF 表示成 s 的函数」）
+- GM-0107 `visionRubric[3]` `$angle DBC` LaTeX 破损（缺反斜杠）→ 已修复
+- README:279 实验记录字段清单仍写 TTFT，与 :234 口径矛盾 → 已统一为 First-Content Latency
+- README 声称 results「只提交摘要」但仓库无任何 summary → **已把唯一真实运行的
+  summary.md/.csv/.json + run-manifest.json 提交进 `results/run-deepseek-chat-2026-09-18/`**，
+  附 README 说明两次修订使其不可比
+- `SAFE_URL` 排除 `&` 属刻意取舍 → 已在注释写明（带 query 的 url 会 500 而非注入；
+  未来需带参 url 应改 argv 化启动，而非放宽正则）
+
+### 未采纳的复审建议（说明理由）
+
+「把 solution.md 里的坐标表达式从送判文本剥离 / 单出 solution-neutral.md」——暂不做：
+solution.md 头部已有方法中立性说明（在 judge 收到的 4000 字符内），且 JUDGE_SYSTEM 已有
+「参考解析含坐标法、不是评分标准」的硬规则。若复审后仍发现 judge 偏向坐标路线，再上
+solution-neutral 方案，避免为未观测到的偏差预先增加一层维护面。

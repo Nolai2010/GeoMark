@@ -43,5 +43,6 @@
     "外接球",
     "表面积",
     "补形法"
-  ]
+  ],
+  "coordinatePolicy": "allowed"
 }
