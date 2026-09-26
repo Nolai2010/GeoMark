@@ -75,5 +75,6 @@
       "point": "指出 $DE$ 是 $AD$ 延长线上的一段（矩形外）",
       "score": 2
     }
-  ]
+  ],
+  "geometryDimension": "planar"
 }

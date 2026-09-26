@@ -64,5 +64,6 @@
       "point": "(2)② 弦最大为直径 4√2 => BC_max = 2√2；边界 G=E（切线位置）需单独验证，此时 E=(4,4) 直接成立",
       "score": 4
     }
-  ]
+  ],
+  "geometryDimension": "planar"
 }

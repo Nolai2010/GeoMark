@@ -13,7 +13,7 @@
 ```bash
 git clone https://github.com/Nolai2010/GeoMark.git
 cd GeoMark/harness
-npm test        # 应显示 114/114 通过（项目零依赖，无需 npm install）
+npm test        # 应全部通过（129 项，零依赖，无需 npm install 与外部网络）
 ```
 
 ---

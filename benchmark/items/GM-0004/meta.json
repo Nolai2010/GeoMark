@@ -59,5 +59,6 @@
       "point": "BP/BF = (√5−1)/2，BFQP 为黄金矩形",
       "score": 4
     }
-  ]
+  ],
+  "geometryDimension": "planar"
 }

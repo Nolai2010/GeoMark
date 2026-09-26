@@ -44,5 +44,6 @@
     "二面角",
     "三垂线",
     "空间向量"
-  ]
+  ],
+  "geometryDimension": "solid"
 }

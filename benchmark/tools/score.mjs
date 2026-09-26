@@ -1,18 +1,22 @@
 #!/usr/bin/env node
-// GeoMark 评分器：rubric 逐项打分（LLM-as-judge）+ 约束合规审查（反坐标作弊）
+// GeoMark 评分器：rubric 逐项打分（LLM-as-judge）+ 四类约束合规审查（愿景书评分标准 3/4 条）
 // 本脚本是唯一允许读取 solution.md 的环节；被评模型在作答阶段接触不到它。
 //
 // 用法：node score.mjs --run benchmark/results/<runid> [--judge-model <id>] [--items ...] [--concurrency 4]
 // 输出：<runid>/scores/<item>__<mode>.score.json + <runid>/scores/all.json
 //
-// 约束合规规则（mode=pure，题面明令禁止建立坐标系）：
-//   · 使用坐标法（建系 / 以…为原点 / 设点坐标 / 直线方程 / 斜率 / 两点距离公式 / 向量坐标运算）
-//     → 判为违规，总分归零（cheat），保留 rubric 原始分以便复核。
-//   · 仅使用向量基底法（把向量表示为基底的线性组合、用 |a||b|cosθ 求数量积，不给点赋坐标）
-//     → 不违规，正常计分。
+// 约束合规四类（任一指认 → 总分归零 cheat，rubric 原始分保留复核）：
+//   coordinates : 仅 mode=pure 判罚（细则按坐标法给分的题在 pure 下正确路线必然 0 分，不参与）
+//   cfm         : 围栏代码块即作弊（``` 无论语言），所有模式（用户决策 2026-09-27）
+//   websearch   : 联网检索声明，所有模式
+//   skillplugin : Skill Plugin / 外部插件声明，所有模式
+// 评审独立性：judge 与被测模型同款，但每次评审均为单轮全新请求（零上下文），
+// 不携带被测对话历史；record.judgeIdentity 显式披露。
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { detectCfm, scanWebSearch, scanPlugin, scanCoordinates, trackOf } from './lib/cheat-rules.mjs';
+import { AUDIT_SYSTEM, buildVisionJudgePrompt, buildSolveJudgePrompt, loadAnswerSvg } from './lib/prompts.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const BENCH = path.resolve(HERE, '..');
@@ -32,7 +36,7 @@ function itemDir(gid) {
   return path.join(ITEMS, gid);
 }
 
-// judge 模型：默认与被评模型同 provider（可 --judge-model 指定其它）
+// judge 模型：默认与被评模型同款（零上下文评审）；可 --judge-model 指定其它
 const CONFIG_DIR = process.env.HARNESS_CONFIG_DIR || path.join(REPO, 'config');
 const secret = (() => { try { return JSON.parse(fs.readFileSync(path.join(CONFIG_DIR, 'secrets.json'), 'utf8')); } catch { return {}; } })();
 const models = (() => { try { return JSON.parse(fs.readFileSync(path.join(CONFIG_DIR, 'models.json'), 'utf8')).models || []; } catch { return []; } })();
@@ -76,61 +80,6 @@ async function judge(prompt) {
   return j.choices?.[0]?.message?.content ?? '';
 }
 
-const JUDGE_SYSTEM = `你是严格、中立、可复现的数学阅卷专家。依据给定的【评分细则】对【考生作答】逐项打分。
-规则：
-1. 严格按细则逐项判分：作答覆盖了该得分点给满分，部分覆盖给部分分，未覆盖或错误给 0 分；不得凭空给细则之外的分数。
-2. 数学错误必须扣分；结论对但过程缺失的按细则对应步骤给分。
-3. 只输出如下 JSON（不要任何其他文字）：
-{"lines":[{"point":"细则原文","score":<数>,"comment":"一句话理由"}],"total":<数>,"max":<细则总分>}
-
-【方法中立性——必须遵守】
-细则描述的是「应得出的几何量与判定依据」，不是「必须走的解题路线」。
-- 不得因为作答没有使用坐标系、没有出现某个点的坐标，而扣任何分。
-- 不得要求作答采用与参考解析相同的路线；不同证法只要得出同样的几何量即可给满分。
-- 参考解析可能包含坐标法/解析几何写法，那只是帮助理解数值，不是评分标准。
-- 若细则里出现某个具体表达式（某点坐标、某条直线方程），应理解成「该几何对象已被确定」，
-  作答以几何语言指明同一对象即算覆盖。`;
-
-const AUDIT_SYSTEM = `你是数学评测的约束合规审查员。任务：判断【考生作答】在解题时是否使用了「坐标法（解析几何/建立坐标系）」。
-坐标法的判定信号（出现任一即为使用坐标法）：
-- 建立坐标系 / 建系 / 以某点为原点 / 以某直线为 x 轴
-- 给点赋予坐标，如 A(0,0)、设 B(x,y)、坐标为 (…)
-- 直线方程、斜率 k、解析式
-- 两点间距离公式、点到直线距离公式、中点坐标公式
-- 把向量写成坐标形式，如 向量AB=(x2-x1, y2-y1)，并用坐标做数量积/线性运算
-不属于坐标法（不要判为违规）：
-- 纯几何综合法：全等、相似、圆的性质、几何变换
-- 向量基底法：设 AB = a、AC = b，用基向量线性表示其它向量，用 |a||b|cosθ 或向量恒等式（如 a·b = ((a+b)²-a²-b²)/2）求数量积，全程不给任何点赋坐标
-只输出如下 JSON（不要其他文字）：
-{"used_coordinates":<true|false>,"method":"coordinate|vector_basis|synthetic|mixed|none","evidence":["作答中的原文片段"],"reason":"一句话理由"}
-若无法判断，used_coordinates 取 false 但在 reason 中说明。`;
-
-// 确定性预扫描：坐标法强信号（带否定词保护）
-const STRONG = [
-  /建立(平面)?(直角)?坐标系/, /建系/, /坐标原点/, /以[^，。；\n]{2,14}为原点/,
-  /以[^，。；\n]{2,14}为\s*[xyXY]\s*轴/,
-  /设[^，。；\n]{0,10}坐标/, /坐标(为|是)?\s*[（(]/,
-  /直线方程/, /斜率为/, /斜率\s*[kK]\b/, /解析式/, /两点间距离公式/, /点到直线的距离公式/, /中点坐标公式/,
-  /[A-Z][′']?\s*[（(]\s*-?\d/, // A(0,0) 形式
-  /[（(]\s*-?\d+(\.\d+)?\s*,\s*-?\d+(\.\d+)?\s*[)）]/,
-];
-const NEG = /(不|无需|无|禁止|避免|不使用|不能|未|没有|拒绝|勿)[^。；\n]{0,8}(坐标|建系)/;
-function regexScan(text) {
-  const hits = [];
-  for (const re of STRONG) {
-    const g = new RegExp(re.source, re.flags.includes('g') ? re.flags : re.flags + 'g');
-    let m;
-    while ((m = g.exec(text))) {
-      const a = Math.max(0, m.index - 18), b = Math.min(text.length, m.index + m[0].length + 18);
-      const around = text.slice(a, b);
-      if (NEG.test(around)) continue; // "不使用坐标法" 这类否定语境不计
-      hits.push({ pattern: re.source, snippet: around.replace(/\s+/g, ' ') });
-      if (hits.length >= 8) return hits;
-    }
-  }
-  return hits;
-}
-
 const outDir = path.join(RUN, 'scores');
 fs.mkdirSync(outDir, { recursive: true });
 const answers = fs.readdirSync(RUN).filter(f => f.endsWith('.answer.md'));
@@ -165,7 +114,6 @@ async function worker() {
       }
       // pure 只对声明了 restricted 的题有意义：细则按坐标法给分的题（如空间向量法）在 pure 下
       // 正确路线必然 0 分，混进均值只会制造「方法不许、细则又只认这个方法」的假阴性。
-      // 未声明 restricted 的题不参与 pure 统计，而不是硬跑。
       if (mode === 'pure' && meta.coordinatePolicy !== 'restricted') {
         const rec = { item: gid, mode, skipped: true, reason: 'not-restricted', max: 0, total: null, judgedAt: Date.now() };
         fs.writeFileSync(path.join(outDir, `${gid}__${mode}.score.json`), JSON.stringify(rec, null, 2));
@@ -184,11 +132,12 @@ async function worker() {
       // 反作弊审查必须同时看「思考过程」与「作答」
       const full = (thinking ? `【思考过程】\n${thinking}\n\n` : '') + `【最终作答】\n${answer}`;
 
-      // 1) rubric 打分
+      // 1) rubric 打分（识图模式下按 meta.answerSvg 注入 SVG 标准答案）
       const isVision = mode === 'vision';
+      const svgContent = isVision ? loadAnswerSvg(dir, meta.answerSvg) : null;
       const prompt = isVision
-        ? `${JUDGE_SYSTEM}\n\n【任务】这是一次「纯识图」考核：应考生只看到配图，要求用文字复述图中内容，不得解题。请按细则判断其对图形的复述是否完整准确。\n\n【题目】${meta.title}（${gid}）\n\n【复述要点：共 ${max} 分】\n${rubric.map((r, i) => `${i + 1}.（${r.score} 分）${r.point}`).join('\n')}\n\n【考生复述】\n${full.slice(0, 12000)}\n\n请输出 JSON。`
-        : `${JUDGE_SYSTEM}\n\n【题目】${meta.title}（${gid}）\n\n【评分细则：共 ${max} 分】\n${rubric.map((r, i) => `${i + 1}.（${r.score} 分）${r.point}`).join('\n')}\n\n【参考解析】（仅供理解，不得改变细则分值）\n${solution.slice(0, 4000)}\n\n【考生作答】（mode=${mode}）\n${full.slice(0, 12000)}\n\n请输出 JSON。`;
+        ? buildVisionJudgePrompt({ meta, gid, rubric, max, full, svgContent })
+        : buildSolveJudgePrompt({ meta, gid, rubric, max, solution, full, mode });
       let raw = await judge(prompt);
       let parsed;
       if (raw === '__MOCK_JUDGE__') {
@@ -198,44 +147,85 @@ async function worker() {
       }
       const rawTotal = Math.max(0, Math.min(Number(parsed.total) || 0, max)); // judge 越界分一律夹到 [0, max]
 
-      // 2) 约束合规审查（pure 为禁止建系；coord 允许建系；vision 仅记录）
-      const regexHits = regexScan(full);
-      let audit = { used_coordinates: false, method: 'none', evidence: [], reason: '未审查' };
-      if (mode === 'pure' || mode === 'vision') {
-        if (raw === '__MOCK_JUDGE__') {
-          audit = { used_coordinates: regexHits.length > 0, method: regexHits.length ? 'coordinate' : 'none', evidence: regexHits.slice(0, 3).map(h => h.snippet), reason: 'mock 冒烟：仅用正则' };
-        } else {
-          try {
-            const araw = await judge(`${AUDIT_SYSTEM}\n\n【模式约束】${mode === 'pure' ? '本题明令禁止建立坐标系，必须纯几何综合法。' : '本题为纯识图复述，正常不应出现坐标/坐标系内容。'}\n\n【考生作答】\n${full.slice(0, 12000)}\n\n请输出 JSON。`);
-            audit = JSON.parse(/\{[\s\S]*\}/.exec(araw)[0]);
-          } catch { /* 审查失败则退回正则 */ }
-          // 正则强信号 + LLM 判定，二者取「更严」：任一路指认即判违规（避免模型 judge 漏判）
-          if (regexHits.length >= 2 && !audit.used_coordinates) {
-            audit.used_coordinates = true;
-            audit.method = 'coordinate';
-            audit.reason = (audit.reason || '') + ' | 正则强信号命中：' + regexHits.slice(0, 3).map(h => h.pattern).join('、');
-            audit.evidence = [...(audit.evidence || []), ...regexHits.slice(0, 3).map(h => h.snippet)];
-          }
+      // 2) 四类约束合规审查（确定性预扫描 + LLM，取更严）
+      //    coordinates 仅在 pure 判罚；cfm/websearch/skillplugin 所有模式判罚
+      const coordHits = (mode === 'pure' || mode === 'vision') ? scanCoordinates(full) : [];
+      const cfm = detectCfm(full);
+      const webHits = scanWebSearch(full);
+      const pluginHits = scanPlugin(full);
+      let audit = { used_coordinates: false, cfm: false, web_search: false, skill_plugin: false, method: 'none', cfm_lang: '', evidence: [], reason: '未审查' };
+      if (raw === '__MOCK_JUDGE__') {
+        audit = {
+          used_coordinates: coordHits.length > 0,
+          cfm: cfm.used, web_search: webHits.length > 0, skill_plugin: pluginHits.length > 0,
+          method: coordHits.length ? 'coordinate' : 'none',
+          cfm_lang: cfm.langs.join(',') || '', evidence: [...coordHits.slice(0, 2), ...cfm.evidence.slice(0, 1)].map(h => typeof h === 'string' ? h : h.snippet),
+          reason: 'mock 冒烟：仅用正则',
+        };
+      } else {
+        try {
+          const constraintNote = mode === 'pure' ? '本题明令禁止建立坐标系，必须纯几何综合法。'
+            : (isVision ? '本题为纯识图复述，正常不应出现坐标/坐标系、代码或联网内容。' : '本题允许建系，但编程解题/联网/插件仍属作弊。');
+          const araw = await judge(`${AUDIT_SYSTEM}\n\n【模式约束】${constraintNote}\n\n【考生作答】\n${full.slice(0, 12000)}\n\n请输出 JSON。`);
+          const a = JSON.parse(/\{[\s\S]*\}/.exec(araw)[0]);
+          audit = {
+            used_coordinates: !!a.used_coordinates, cfm: !!a.cfm, web_search: !!a.web_search, skill_plugin: !!a.skill_plugin,
+            method: a.method || 'unknown', cfm_lang: a.cfm_lang || '', evidence: a.evidence || [], reason: a.reason || '',
+          };
+        } catch { /* 审查失败则退回正则 */ }
+        // 取更严：任一路指认即判违规（避免模型 judge 漏判）
+        if (coordHits.length >= 2 && !audit.used_coordinates) {
+          audit.used_coordinates = true;
+          audit.method = 'coordinate';
+          audit.reason = (audit.reason || '') + ' | 正则强信号命中：' + coordHits.slice(0, 3).map(h => h.pattern).join('、');
+          audit.evidence = [...(audit.evidence || []), ...coordHits.slice(0, 3).map(h => h.snippet)];
+        }
+        if (cfm.used && !audit.cfm) {
+          audit.cfm = true;
+          audit.cfm_lang = audit.cfm_lang || cfm.langs.join(',') || 'plain';
+          audit.reason = (audit.reason || '') + ' | 围栏代码块正则命中';
+          audit.evidence = [...(audit.evidence || []), ...cfm.evidence];
+        }
+        if (webHits.length > 0 && !audit.web_search) {
+          audit.web_search = true;
+          audit.reason = (audit.reason || '') + ' | 联网信号正则命中';
+          audit.evidence = [...(audit.evidence || []), ...webHits.slice(0, 2).map(h => h.snippet)];
+        }
+        if (pluginHits.length > 0 && !audit.skill_plugin) {
+          audit.skill_plugin = true;
+          audit.reason = (audit.reason || '') + ' | 插件/外部工具信号正则命中';
+          audit.evidence = [...(audit.evidence || []), ...pluginHits.slice(0, 2).map(h => h.snippet)];
         }
       }
 
-      const violation = mode === 'pure' && audit.used_coordinates === true;
+      // 3) 判罚：coordinates 仅 pure；其余三类所有模式
+      const violationType = (mode === 'pure' && audit.used_coordinates === true) ? 'coordinates'
+        : (audit.cfm ? 'cfm' : (audit.web_search ? 'websearch' : (audit.skill_plugin ? 'skillplugin' : null)));
+      const violation = violationType !== null;
       const record = {
         item: gid, mode,
+        track: trackOf(meta.geometryDimension, mode, meta.coordinatePolicy),
         judge: raw === '__MOCK_JUDGE__' ? 'mock-fallback' : (JUDGE.id || JUDGE.api_model_id),
+        judgeIdentity: { model: JUDGE.id || JUDGE.api_model_id || 'direct', zeroContext: true, note: '与被测模型同款；每次评审均为单轮全新请求，不携带被测对话上下文' },
         max, lines: parsed.lines, total: violation ? 0 : rawTotal, rawTotal,
         constraint: {
           policy: mode === 'pure' ? 'coordinate-restricted' : (mode === 'vision' ? 'recount-only' : 'coordinate-allowed'),
           used_coordinates: !!audit.used_coordinates, method: audit.method || 'unknown',
-          violation, cheat: violation, evidence: (audit.evidence || []).slice(0, 5), reason: audit.reason || '',
-          regexHits: regexHits.slice(0, 8),
+          cfm: { used: !!audit.cfm, langs: cfm.langs || [], declaredLang: audit.cfm_lang || '' },
+          web_search: !!audit.web_search, skill_plugin: !!audit.skill_plugin,
+          violation, cheat: violation, violationType,
+          evidence: (audit.evidence || []).slice(0, 5), reason: audit.reason || '',
+          regexHits: [...coordHits.slice(0, 8)],
+          answerSvgLoaded: isVision ? !!svgContent : undefined,
         },
         judgedAt: Date.now(),
       };
       fs.writeFileSync(path.join(outDir, `${gid}__${mode}.score.json`), JSON.stringify(record, null, 2));
       all.push(record);
       done++;
-      console.log(`  [${all.length}] ${gid}/${mode} ${record.total}/${max}${violation ? ' ⚠作弊归零(原始' + rawTotal + ')' : ''}${audit.used_coordinates && mode === 'vision' ? ' ⚠识图含坐标' : ''}`);
+      const flag = violation ? ` ⚠${violationType}作弊归零(原始${rawTotal})` : '';
+      const vflag = audit.used_coordinates && mode === 'vision' ? ' ⚠识图含坐标' : '';
+      console.log(`  [${all.length}] ${gid}/${mode}${record.track ? '/' + record.track : ''} ${record.total}/${max}${flag}${vflag}`);
     } catch (e) {
       console.log(`  ${gid}/${mode} 失败：${e.message}`);
       fs.writeFileSync(path.join(outDir, `${gid}__${mode}.score.error.txt`), String(e.message || e));
@@ -245,5 +235,7 @@ async function worker() {
 console.log(`评分 ${jobs.length} 份（并发 ${CONCURRENCY}）...`);
 await Promise.all(Array.from({ length: CONCURRENCY }, () => worker()));
 fs.writeFileSync(path.join(outDir, 'all.json'), JSON.stringify(all, null, 2));
-const cheats = all.filter(r => r.constraint?.cheat).length;
-console.log(`\n评分完成：${all.length} 份 → ${outDir}（坐标作弊归零 ${cheats} 份）`);
+const cheats = all.filter(r => r.constraint?.cheat);
+const byType = {};
+for (const c of cheats) { const t = c.constraint?.violationType || 'unknown'; byType[t] = (byType[t] || 0) + 1; }
+console.log(`\n评分完成：${all.length} 份 → ${outDir}（作弊归零 ${cheats.length} 份${Object.keys(byType).length ? '：' + Object.entries(byType).map(([k, v]) => `${k}×${v}`).join('、') : ''}）`);

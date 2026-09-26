@@ -49,5 +49,6 @@
       "point": "两条内角平分线的唯一公共点为内心",
       "score": 4
     }
-  ]
+  ],
+  "geometryDimension": "planar"
 }

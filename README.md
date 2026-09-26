@@ -27,7 +27,7 @@ Requires **Node.js ≥ 22** (the Harness itself has zero runtime dependencies �
 ```bash
 node harness/surfaces/web/server.mjs      # web UI  → http://127.0.0.1:7788
 node harness/surfaces/cli/cli.mjs --help  # CLI surface
-cd harness && npm test                    # 114 tests, all offline
+cd harness && npm test                    # 129 tests, all offline (no external network)
 ```
 
 Add an API key through the web UI (**API 密钥**) or `harness/config/secrets.json`
@@ -115,21 +115,46 @@ The initial benchmark focuses on geometry reasoning and is designed to investiga
 
 Metadata that actually exists on the items (not every item has every field):
 
-- `coordinatePolicy` — `restricted` on 8 items, `allowed` on 3 (GM-0007/0009/0010, whose rubrics score
-  the coordinate route itself, e.g. 空间向量法), and **absent on the other 7**. A missing value means
+- `coordinatePolicy` — `restricted` on 8 items, `allowed` on 4 (GM-0006/0007/0009/0010, whose rubrics
+  score the coordinate route itself, e.g. 空间向量法), and **absent on the other 6**. A missing value means
   "not declared": `coord` is permissive for everything, and `pure` is only attempted on `restricted`
   items.
-- `category` — `plane_geometry` (8) or `geometry` (10). The latter is a catch-all and currently also
-  holds five solid-geometry items, so the plane/solid split is **not yet a reliable field**.
+- `geometryDimension` — `planar` on 13 items, `solid` on 5 (GM-0006..0010). Combined with the mode it
+  yields the **five parallel-dialogue tracks** (see below).
+- `answerSvg` — optional; when present it is an SVG ground-truth figure fed to the vision judge
+  alongside `visionRubric`. Not yet authored for any item (see EVALUATION-PROTOCOL for the checklist).
 - `visionRubric` — present on 8 items (`hasVisionRubric` in `dataset.json`). Items without it are
   skipped in `vision` mode rather than scored against the solving rubric.
 - `rubric` / `answerKey` / `knowledgeScope` / `difficulty` / `source` — `source` is `null` for the
   10 self-authored items.
 
-So the shipped matrix is **3 modes × 18 items**, not a five-category taxonomy. Earlier drafts of this
-README listed five categories (including *Solid Geometry — Coordinate Methods Allowed*); the metadata
-never supported that split. [`benchmark/dataset.json`](benchmark/dataset.json) is the authoritative
-list; [`benchmark/docs/EVALUATION-PROTOCOL.md`](benchmark/docs/EVALUATION-PROTOCOL.md) is the protocol.
+### Five parallel-dialogue tracks
+
+The shipped request matrix is still **3 modes × 18 items**, but the vision document defines five
+isolated dialogues ("五个并行对话，上下文不互通"). Each `item × mode` request is already a fully
+independent call with no shared context, and the five tracks are a **view** over that matrix:
+
+| Track | Definition | Items today |
+|---|---|---|
+| PNG 识图 | `vision` × has `visionRubric` | 8 |
+| 平面可建系 | `planar` × `coord` | 13 |
+| 平面纯几何 | `planar` × `pure` | 8 |
+| 立体可建系 | `solid` × `coord` | 5 |
+| 立体纯几何 | `solid` × `pure` | **0 — open gap; no solid item is `restricted` yet** |
+
+`summarize.mjs` reports per-track means, and `dataset.json` carries `trackSummary` counts.
+
+### Anti-cheating rules (all tracks)
+
+Four violation classes are detected by a deterministic pre-scan **and** an LLM audit (the stricter of
+the two wins). A violation zeroes the item (cheat), keeping the raw rubric score for review:
+
+| Violation | Where it applies | Signal |
+|---|---|---|
+| `coordinates` | `pure` only | 建系 / 点坐标 / 直线方程 / 斜率 / 坐标向量运算 |
+| `cfm` — Coding for Maths | **all modes** | any fenced code block (```), with or without a language tag; plain-text math is fine |
+| `websearch` | all modes | claims of web retrieval / citing search results |
+| `skillplugin` | all modes | claims of loading Skill Plugins or external tools (GeoGebra, 几何画板, …) |
 
 ---
 
@@ -140,13 +165,15 @@ GeoMark is designed to evaluate more than whether a model produces the final ans
 Dimensions **computed today** are marked ✅; the rest are intended, not implemented.
 
 - ✅ Final Answer Accuracy — rubric score via LLM-as-judge
-- ✅ Constraint Compliance — deterministic regex scan + LLM audit; `pure` violations are zeroed
-- ✅ Diagram Understanding — `vision` mode, scored against `visionRubric`
+- ✅ Constraint Compliance — deterministic regex scan + LLM audit across four classes
+  (`coordinates` / `cfm` / `websearch` / `skillplugin`); violations are zeroed
+- ✅ Diagram Understanding — `vision` mode, scored against `visionRubric` (+ `answerSvg` when present)
 - ✅ Failure Type — automatic classification (only some taxonomy codes are reachable; see below)
+- ✅ Five-Track Means — per-track averages for the five parallel dialogues (`summarize.mjs`)
 - ⬜ Reasoning Validity — needs step-level scoring; not implemented
 - ⬜ Reasoning Method — not implemented
-- ⬜ Run-to-Run Stability — the comparison code exists (`summarize.mjs --runs A,B`), but no repeated
-  run has ever been performed, so no stability table has been produced
+- ⬜ Run-to-Run Stability — the code exists (`run-eval.mjs --rounds N`, `summarize.mjs --runs a,b,c`),
+  but no repeated real run has ever been performed, so no stability table has been produced
 
 ---
 
@@ -160,6 +187,16 @@ One full run exists so far — **one model, one repetition**:
 | `coord` (coordinates allowed) | 69% | 18 |
 | `pure` (coordinates forbidden) | 55% | 18 ⚠ see caveat 2 |
 
+Five-track view of the same run (pure restricted to `restricted` items — this is the modern scope):
+
+| Track | Mean | Items |
+|---|---|---|
+| PNG 识图 | 36% | 8 |
+| 平面可建系 | 67% | 13 |
+| 平面纯几何 | 33% | 8 |
+| 立体可建系 | 75% | 5 |
+| 立体纯几何 | — | 0 |
+
 Run: `deepseek-chat`, temperature 0, max_tokens 8192, 2026-09-18, 54 independent requests, no shared
 context. Full snapshot with the per-item table, failure counts and the one caught constraint
 violation: [`benchmark/docs/RESULTS.md`](benchmark/docs/RESULTS.md).
@@ -171,12 +208,15 @@ Three caveats matter more than the numbers:
 2. The `coord` vs `pure` gap (14 pp) is **not yet a clean measurement of method-following**, for two
    independent reasons found in the 2026-09-19 audit: (a) for six of the eight `restricted` items the
    reference rubric was itself phrased in coordinate terms, biasing compliant answers downward;
-   (b) `pure` ran on all 18 items even though three of them (GM-0007/0009/0010, now marked `allowed`)
-   score the coordinate route itself, so those `pure` scores were structurally zero-able. Both are
-   fixed — rubrics are method-neutral now, and `pure` only applies to `restricted` items. A rerun is
-   required before the gap can be quoted as a number; under the new scope `pure` covers 8 items, not 18.
+   (b) `pure` ran on all 18 items even though four of them (GM-0006/0007/0009/0010, now marked
+   `allowed`) score the coordinate route itself, so those `pure` scores were structurally zero-able.
+   Both are fixed — rubrics are method-neutral now, and `pure` only applies to `restricted` items. A
+   rerun is required before the gap can be quoted as a number; under the modern scope `pure` covers
+   8 items (five-track mean 33%), not 18.
 3. The judge and the model under test are **the same model**. Self-preference bias is unmeasured, and
-   `deepseek-chat` is a moving alias, so this run is not reproducible in the strict sense.
+   `deepseek-chat` is a moving alias, so this run is not reproducible in the strict sense. Every
+   review is, however, a single-turn zero-context request — the judge never sees the examinee's
+   conversation, only the answer text (disclosed per record as `judgeIdentity`).
 
 Producing a cross-model table is the single highest-value next step; see Project Status.
 
@@ -472,7 +512,7 @@ F02 — Geometric Relationship Failure     ⬜ reserved — no detector
 F03 — Incorrect Assumption               ⬜ reserved — no detector
 F04 — Calculation Error                  ✅ auto (70–99%)
 F05 — Reasoning Chain Failure            ✅ auto (40–69%)
-F06 — Constraint Violation               ✅ auto (cheat flag from the compliance audit)
+F06 — Constraint Violation               ✅ auto (cheat flag: coordinates / cfm / websearch / skillplugin)
 F07 — Final Answer Error                 ✅ auto (< 40%)
 F08 — Tool / Execution Failure           ⬜ reserved — transport failures surface as provider_error/timeout instead
 ```

@@ -10,7 +10,7 @@
 ```bash
 git clone https://github.com/Nolai2010/GeoMark.git
 cd GeoMark/harness
-npm test                              # 应显示 114/114 passed（零依赖）
+npm test                              # 应全部通过（129 项，零依赖，无外部网络）
 node surfaces/web/server.mjs          # 打开 http://127.0.0.1:7788
 ```
 

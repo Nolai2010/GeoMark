@@ -69,11 +69,11 @@ build-items.mjs     生成 items/GM-XXXX（problem.md / solution.md / meta.json�
       ↓
 dataset-manifest.mjs  生成 dataset.json（版本化 + 哈希）
 
-run-eval.mjs        并发作答（每题独立请求、无共享上下文）→ results/<runid>/
+run-eval.mjs        并发作答（每题独立请求、无共享上下文）→ results/<runid>/[-r<k>]
       ↓
-score.mjs           rubric 逐项打分 + 约束合规审查（坐标作弊归零）→ scores/
+score.mjs           rubric 逐项打分 + 四类约束审查（坐标/编程/联网/插件，违规归零）→ scores/
       ↓
-summarize.mjs       对比表 + 作弊明细 + 失败分类 + 重复运行稳定性 → summary.md/.csv/.json
+summarize.mjs       对比表 + 作弊明细 + 五轨均值 + 失败分类 + 多轮均值 → summary.md/.csv/.json
 ```
 
 **隔离保证**：`run-eval.mjs` 作答阶段只读取 `problem.md + meta.json + PNG`，代码中不存在读取 `solution.md` 的路径；`score.mjs` 是唯一读取 `solution.md` 的环节。
@@ -103,13 +103,14 @@ node benchmark/tools/dataset-manifest.mjs --version 0.1
 # 作答（并发、断点续跑）
 node benchmark/tools/run-eval.mjs --model deepseek-chat --temperature 0 --concurrency 6 --out benchmark/results/run1
 #   可选：--items GM-0101,GM-0102 --modes coord,pure --resume --dry-run --vision/--no-vision
+#   多轮（愿景书：多次测试取均值）：--rounds 3 → 生成 run1-r1 / run1-r2 / run1-r3
 
-# 评分（含坐标作弊检测）
+# 评分（四类作弊检测：coordinates(pure)/cfm/websearch/skillplugin，违规归零）
 node benchmark/tools/score.mjs --run benchmark/results/run1 --concurrency 4
 
-# 汇总
+# 汇总（含五轨均值：PNG识图/平面可建系/平面纯几何/立体可建系/立体纯几何）
 node benchmark/tools/summarize.mjs --run benchmark/results/run1
-#   重复运行稳定性：--runs benchmark/results/run1,benchmark/results/run2
+#   多轮均值与稳定性（N 轮）：--runs benchmark/results/run1-r1,benchmark/results/run1-r2,benchmark/results/run1-r3
 ```
 
 - 每次请求记录 `promptHash`（SHA-256 前 16 位）、`temperature`、`max_tokens`、usage、时间戳，写入 `run-manifest.json`。

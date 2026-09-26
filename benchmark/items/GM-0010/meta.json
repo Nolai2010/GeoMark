@@ -44,5 +44,6 @@
     "线面角",
     "正方体"
   ],
-  "coordinatePolicy": "allowed"
+  "coordinatePolicy": "allowed",
+  "geometryDimension": "solid"
 }

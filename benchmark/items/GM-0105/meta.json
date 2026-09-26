@@ -73,5 +73,6 @@
       "point": "指出 $A$、$B$ 位于直线 $l$ 同侧，$E$、$F$ 为垂足",
       "score": 1
     }
-  ]
+  ],
+  "geometryDimension": "planar"
 }

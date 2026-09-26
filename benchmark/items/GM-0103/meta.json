@@ -76,5 +76,6 @@
       "point": "指出 $BD$ 与圆相切（切点为 $D$）",
       "score": 2
     }
-  ]
+  ],
+  "geometryDimension": "planar"
 }

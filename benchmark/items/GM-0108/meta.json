@@ -76,5 +76,6 @@
       "point": "指出 $OA\\perp OB$ 的直角记号位于点 $O$",
       "score": 2
     }
-  ]
+  ],
+  "geometryDimension": "planar"
 }

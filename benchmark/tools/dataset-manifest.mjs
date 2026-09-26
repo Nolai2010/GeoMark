@@ -40,12 +40,14 @@ for (const gid of gids) {
     title: meta.title,
     category: meta.category || 'geometry',
     coordinatePolicy: meta.coordinatePolicy || null,
+    geometryDimension: meta.geometryDimension || null,
     difficulty: meta.difficulty || null,
     questionType: meta.questionType || null,
     topics: meta.knowledgeScope?.topics || meta.tags || [],
     source: meta.source || null,
     rubricMax, visionMax,
     hasVisionRubric: visionMax > 0,
+    answerSvg: meta.answerSvg || null,
     figure: figures,
     assets,
     problemHash: sha(fs.readFileSync(probPath)),
@@ -57,6 +59,15 @@ for (const gid of gids) {
 const withFigure = items.filter(i => i.figure.length).length;
 const datasetHash = sha(Buffer.from(items.map(i => [i.id, i.problemHash, i.metaHash, i.solutionHash].join(':')).join('\n')));
 
+// 五轨摘要（track = f(geometryDimension, mode)，见 lib/cheat-rules.mjs trackOf）
+const TRACKS = ['vision', 'planar-coord', 'planar-pure', 'solid-coord', 'solid-pure'];
+const trackSummary = Object.fromEntries(TRACKS.map(t => [t, 0]));
+for (const it of items) {
+  if (it.hasVisionRubric) trackSummary['vision']++;
+  if (it.geometryDimension === 'planar') { trackSummary['planar-coord']++; if (it.coordinatePolicy === 'restricted') trackSummary['planar-pure']++; }
+  if (it.geometryDimension === 'solid') { trackSummary['solid-coord']++; if (it.coordinatePolicy === 'restricted') trackSummary['solid-pure']++; }
+}
+
 const out = {
   name: 'GeoMark Benchmark',
   version: VERSION,
@@ -64,7 +75,15 @@ const out = {
   itemCount: items.length,
   withFigure,
   modes: ['vision', 'coord', 'pure'],
-  scoring: { solve: 'rubric（LLM-as-judge，逐项）', vision: 'visionRubric（图形复述要点）', constraint: '坐标法违规归零（cheat）' },
+  tracks: {
+    'vision': 'PNG识图（vision × 有 visionRubric）',
+    'planar-coord': '平面可建系（planar × coord）',
+    'planar-pure': '平面纯几何（planar × pure，restricted）',
+    'solid-coord': '立体可建系（solid × coord）',
+    'solid-pure': '立体纯几何（solid × pure，restricted）',
+  },
+  trackSummary,
+  scoring: { solve: 'rubric（LLM-as-judge，逐项）', vision: 'visionRubric（图形复述要点，answerSvg 存在时附 SVG 标准答案）', constraint: 'coordinates(pure)/cfm/websearch/skillplugin 违规归零（cheat）' },
   datasetHash,
   items,
 };

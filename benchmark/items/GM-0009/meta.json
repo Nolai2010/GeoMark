@@ -44,5 +44,6 @@
     "表面积",
     "补形法"
   ],
-  "coordinatePolicy": "allowed"
+  "coordinatePolicy": "allowed",
+  "geometryDimension": "solid"
 }

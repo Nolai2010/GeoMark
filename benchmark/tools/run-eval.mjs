@@ -13,6 +13,7 @@
 //        [--base-url ... --api-key ... --protocol openai|anthropic --api-model-id ...]
 //        [--temperature 0] [--concurrency 6] [--max-tokens 8192] [--out benchmark/results/<runid>] [--dry-run]
 //        [--resume]  跳过已存在且非空的作答文件（断点续跑）
+//        [--rounds N]  连跑 N 轮（愿景书：多次测试取均值），输出目录自动加 -r<k> 后缀（默认 1）
 // 模型与密钥默认复用 Harness 配置（config/models.json + config/secrets.json 或环境变量）。
 import fs from 'node:fs';
 import path from 'node:path';
@@ -161,13 +162,21 @@ async function callModel(text, imagePaths) {
 }
 
 // ---------- main ----------
-const runid = opt.out ? path.basename(String(opt.out)) : new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
-const OUT = opt.out ? path.resolve(String(opt.out)) : path.join(BENCH, 'results', runid);
-fs.mkdirSync(OUT, { recursive: true });
+const ROUNDS = Math.max(1, opt.rounds !== undefined ? Number(opt.rounds) : 1);
+const baseRunid = opt.out ? path.basename(String(opt.out)) : new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+const BASE_OUT = opt.out ? path.resolve(String(opt.out)) : path.join(BENCH, 'results', baseRunid);
 
 const gids = onlyItems || listItems();
+let totalRequests = 0, totalFailed = 0, totalSkipped = 0;
+
+for (let round = 1; round <= ROUNDS; round++) {
+  const runid = ROUNDS > 1 ? `${baseRunid}-r${round}` : baseRunid;
+  const OUT = ROUNDS > 1 ? path.join(path.dirname(BASE_OUT), runid) : BASE_OUT;
+  fs.mkdirSync(OUT, { recursive: true });
+
 const manifest = {
-  runid, model: MODEL.id || MODEL.api_model_id, provider: MODEL.provider,
+  runid, round: ROUNDS > 1 ? round : null, rounds: ROUNDS,
+  model: MODEL.id || MODEL.api_model_id, provider: MODEL.provider,
   base_url: MODEL.base_url || null, api_model_id: MODEL.api_model_id || null,
   temperature, maxTokens, concurrency: CONCURRENCY,
   modes: MODES, visionOk: !!MODEL.supports_vision, items: gids, startedAt: Date.now(), requests: 0, skipped: 0, failed: 0,
@@ -241,4 +250,8 @@ await Promise.all(Array.from({ length: CONCURRENCY }, () => worker()));
 
 manifest.finishedAt = Date.now();
 fs.writeFileSync(path.join(OUT, 'run-manifest.json'), JSON.stringify(manifest, null, 2));
-console.log(`\n评测作答完成：成功 ${manifest.requests} · 失败 ${manifest.failed} · 跳过 ${manifest.skipped} → ${OUT}${DRY ? '（dry-run，未调用模型）' : ''}`);
+totalRequests += manifest.requests; totalFailed += manifest.failed; totalSkipped += manifest.skipped;
+console.log(`\n评测作答完成（第 ${round}/${ROUNDS} 轮）：成功 ${manifest.requests} · 失败 ${manifest.failed} · 跳过 ${manifest.skipped} → ${OUT}${DRY ? '（dry-run，未调用模型）' : ''}`);
+} // end rounds
+
+console.log(ROUNDS > 1 ? `\n共 ${ROUNDS} 轮：成功 ${totalRequests} · 失败 ${totalFailed} · 跳过 ${totalSkipped}。均值汇总：node summarize.mjs --runs <runid>-r1,<runid>-r2,...` : '');

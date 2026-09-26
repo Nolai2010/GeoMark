@@ -76,5 +76,6 @@
       "point": "识别出弦 $CE$（连接 $C$ 与 $E$）",
       "score": 2
     }
-  ]
+  ],
+  "geometryDimension": "planar"
 }

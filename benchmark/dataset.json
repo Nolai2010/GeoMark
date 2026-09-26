@@ -1,7 +1,7 @@
 {
   "name": "GeoMark Benchmark",
   "version": "0.1",
-  "generatedAt": "2026-09-19T02:21:12.662Z",
+  "generatedAt": "2026-09-26T18:25:51.040Z",
   "itemCount": 18,
   "withFigure": 16,
   "modes": [
@@ -9,18 +9,33 @@
     "coord",
     "pure"
   ],
+  "tracks": {
+    "vision": "PNG识图（vision × 有 visionRubric）",
+    "planar-coord": "平面可建系（planar × coord）",
+    "planar-pure": "平面纯几何（planar × pure，restricted）",
+    "solid-coord": "立体可建系（solid × coord）",
+    "solid-pure": "立体纯几何（solid × pure，restricted）"
+  },
+  "trackSummary": {
+    "vision": 8,
+    "planar-coord": 13,
+    "planar-pure": 8,
+    "solid-coord": 5,
+    "solid-pure": 0
+  },
   "scoring": {
     "solve": "rubric（LLM-as-judge，逐项）",
-    "vision": "visionRubric（图形复述要点）",
-    "constraint": "坐标法违规归零（cheat）"
+    "vision": "visionRubric（图形复述要点，answerSvg 存在时附 SVG 标准答案）",
+    "constraint": "coordinates(pure)/cfm/websearch/skillplugin 违规归零（cheat）"
   },
-  "datasetHash": "9750f94d6146dd40",
+  "datasetHash": "aebde9a585e46f3d",
   "items": [
     {
       "id": "GM-0001",
       "title": "向量数量积投影条件与三角形内心的判定",
       "category": "geometry",
       "coordinatePolicy": null,
+      "geometryDimension": "planar",
       "difficulty": "medium",
       "questionType": "single_choice",
       "topics": [
@@ -33,17 +48,19 @@
       "rubricMax": 12,
       "visionMax": 0,
       "hasVisionRubric": false,
+      "answerSvg": null,
       "figure": [],
       "assets": {},
       "problemHash": "da72bc9317a2f2e4",
       "solutionHash": "029528283ce56ba7",
-      "metaHash": "ceaee91ed8a73fec"
+      "metaHash": "e135e2426bc8c615"
     },
     {
       "id": "GM-0002",
       "title": "基底表示与共线向量定理：证明 B、E、F 三点共线",
       "category": "geometry",
       "coordinatePolicy": null,
+      "geometryDimension": "planar",
       "difficulty": "medium",
       "questionType": "proof",
       "topics": [
@@ -56,6 +73,7 @@
       "rubricMax": 12,
       "visionMax": 0,
       "hasVisionRubric": false,
+      "answerSvg": null,
       "figure": [
         "assets/figure.png"
       ],
@@ -67,13 +85,14 @@
       },
       "problemHash": "0b9d7c14960bfb80",
       "solutionHash": "8c03320c7ed7f4f7",
-      "metaHash": "6f372476d6873b42"
+      "metaHash": "0a7bc6cf44a0fe75"
     },
     {
       "id": "GM-0003",
       "title": "外心位置、投影向量与二倍角：求 μ 的取值范围",
       "category": "geometry",
       "coordinatePolicy": null,
+      "geometryDimension": "planar",
       "difficulty": "medium",
       "questionType": "open_answer",
       "topics": [
@@ -87,17 +106,19 @@
       "rubricMax": 12,
       "visionMax": 0,
       "hasVisionRubric": false,
+      "answerSvg": null,
       "figure": [],
       "assets": {},
       "problemHash": "212eecdfe6587d63",
       "solutionHash": "f9239fc7b0a46b82",
-      "metaHash": "ff0dd8ecafcf9f10"
+      "metaHash": "e7548341a994ddee"
     },
     {
       "id": "GM-0004",
       "title": "黄金矩形双重折叠：折叠性质、投影与面积法综合",
       "category": "geometry",
       "coordinatePolicy": null,
+      "geometryDimension": "planar",
       "difficulty": "hard",
       "questionType": "comprehensive",
       "topics": [
@@ -111,6 +132,7 @@
       "rubricMax": 12,
       "visionMax": 0,
       "hasVisionRubric": false,
+      "answerSvg": null,
       "figure": [
         "assets/figure-1.png",
         "assets/figure-2.png"
@@ -127,13 +149,14 @@
       },
       "problemHash": "f775ad0c389c4198",
       "solutionHash": "6e01e8689b34d677",
-      "metaHash": "a36cfc013954fc53"
+      "metaHash": "6c6d44a0854b288f"
     },
     {
       "id": "GM-0005",
       "title": "尺规作图 + 相似传递链 + 定角定弦辅助圆：CB 的最大值",
       "category": "geometry",
       "coordinatePolicy": null,
+      "geometryDimension": "planar",
       "difficulty": "hard",
       "questionType": "comprehensive",
       "topics": [
@@ -149,6 +172,7 @@
       "rubricMax": 12,
       "visionMax": 0,
       "hasVisionRubric": false,
+      "answerSvg": null,
       "figure": [
         "assets/figure-1.png",
         "assets/figure-2.png",
@@ -175,13 +199,14 @@
       },
       "problemHash": "69dd6a825600642f",
       "solutionHash": "58f0f1860d5b6fbd",
-      "metaHash": "0461bd0648d1ce9b"
+      "metaHash": "4de6046f46c0d2c3"
     },
     {
       "id": "GM-0006",
       "title": "正方体中 BD₁ ⊥ 平面 AB₁C 的证明",
       "category": "geometry",
-      "coordinatePolicy": null,
+      "coordinatePolicy": "allowed",
+      "geometryDimension": "solid",
       "difficulty": "medium",
       "questionType": "proof",
       "topics": [
@@ -193,6 +218,7 @@
       "rubricMax": 12,
       "visionMax": 0,
       "hasVisionRubric": false,
+      "answerSvg": null,
       "figure": [
         "assets/figure.png"
       ],
@@ -204,13 +230,14 @@
       },
       "problemHash": "17cbd29f585619eb",
       "solutionHash": "33adcf4858c595ed",
-      "metaHash": "a5ef9fb3a5197b0d"
+      "metaHash": "0829bdfbed6027dc"
     },
     {
       "id": "GM-0007",
       "title": "四棱锥中的线面垂直与线面角",
       "category": "geometry",
       "coordinatePolicy": "allowed",
+      "geometryDimension": "solid",
       "difficulty": "medium",
       "questionType": "comprehensive",
       "topics": [
@@ -223,6 +250,7 @@
       "rubricMax": 12,
       "visionMax": 0,
       "hasVisionRubric": false,
+      "answerSvg": null,
       "figure": [
         "assets/figure.png"
       ],
@@ -234,13 +262,14 @@
       },
       "problemHash": "4beac0066c5bb8d7",
       "solutionHash": "38a7977eaf637f74",
-      "metaHash": "edcda864723e5681"
+      "metaHash": "d0767a499b089210"
     },
     {
       "id": "GM-0008",
       "title": "三棱锥中的线面垂直与二面角",
       "category": "geometry",
       "coordinatePolicy": null,
+      "geometryDimension": "solid",
       "difficulty": "medium",
       "questionType": "comprehensive",
       "topics": [
@@ -254,6 +283,7 @@
       "rubricMax": 12,
       "visionMax": 0,
       "hasVisionRubric": false,
+      "answerSvg": null,
       "figure": [
         "assets/figure.png"
       ],
@@ -265,13 +295,14 @@
       },
       "problemHash": "4064155cf261fcd5",
       "solutionHash": "84cd195074f04761",
-      "metaHash": "5c9023b0a24e9873"
+      "metaHash": "8232e56fbd210a2d"
     },
     {
       "id": "GM-0009",
       "title": "锥体外接球的表面积",
       "category": "geometry",
       "coordinatePolicy": "allowed",
+      "geometryDimension": "solid",
       "difficulty": "medium",
       "questionType": "comprehensive",
       "topics": [
@@ -284,6 +315,7 @@
       "rubricMax": 12,
       "visionMax": 0,
       "hasVisionRubric": false,
+      "answerSvg": null,
       "figure": [
         "assets/figure.png"
       ],
@@ -295,13 +327,14 @@
       },
       "problemHash": "3807106f654853bb",
       "solutionHash": "6e001e19e7c8fdca",
-      "metaHash": "37e4b581cf4a9da4"
+      "metaHash": "3b89ab7044ca6973"
     },
     {
       "id": "GM-0010",
       "title": "空间向量法求线面角",
       "category": "geometry",
       "coordinatePolicy": "allowed",
+      "geometryDimension": "solid",
       "difficulty": "medium",
       "questionType": "comprehensive",
       "topics": [
@@ -314,6 +347,7 @@
       "rubricMax": 12,
       "visionMax": 0,
       "hasVisionRubric": false,
+      "answerSvg": null,
       "figure": [
         "assets/figure.png"
       ],
@@ -325,13 +359,14 @@
       },
       "problemHash": "542d617ec7e516e0",
       "solutionHash": "85d8c975547af8cb",
-      "metaHash": "6dbefe9436ca0395"
+      "metaHash": "1f251963e018b24a"
     },
     {
       "id": "GM-0101",
       "title": "圆的切线判定与线段比值：直径、中位线与切线",
       "category": "plane_geometry",
       "coordinatePolicy": "restricted",
+      "geometryDimension": "planar",
       "difficulty": "hard",
       "questionType": "解答题",
       "topics": [
@@ -351,6 +386,7 @@
       "rubricMax": 16,
       "visionMax": 10,
       "hasVisionRubric": true,
+      "answerSvg": null,
       "figure": [
         "assets/figure.png"
       ],
@@ -362,13 +398,14 @@
       },
       "problemHash": "867a8b2c7369fdb7",
       "solutionHash": "dc65867c35b8f115",
-      "metaHash": "335aae3152bec3a0"
+      "metaHash": "9f428825290e99ff"
     },
     {
       "id": "GM-0102",
       "title": "外接圆与切线：圆周角、弦切角与线段长",
       "category": "plane_geometry",
       "coordinatePolicy": "restricted",
+      "geometryDimension": "planar",
       "difficulty": "hard",
       "questionType": "解答题",
       "topics": [
@@ -388,6 +425,7 @@
       "rubricMax": 14,
       "visionMax": 10,
       "hasVisionRubric": true,
+      "answerSvg": null,
       "figure": [
         "assets/figure.png"
       ],
@@ -399,13 +437,14 @@
       },
       "problemHash": "ae8eee4cfde5ebe5",
       "solutionHash": "2ee87ffce69ba66f",
-      "metaHash": "9a3617800a3c5e07"
+      "metaHash": "273c403a9549c69a"
     },
     {
       "id": "GM-0103",
       "title": "尺规作图与切线半径：直角三角形内的切圆",
       "category": "plane_geometry",
       "coordinatePolicy": "restricted",
+      "geometryDimension": "planar",
       "difficulty": "hard",
       "questionType": "作图+解答题",
       "topics": [
@@ -425,6 +464,7 @@
       "rubricMax": 14,
       "visionMax": 10,
       "hasVisionRubric": true,
+      "answerSvg": null,
       "figure": [
         "assets/figure.png"
       ],
@@ -436,13 +476,14 @@
       },
       "problemHash": "0d779967df421025",
       "solutionHash": "f36b0a4e3025bc3a",
-      "metaHash": "3edddf0e8f80a41c"
+      "metaHash": "77ccf2a2c2f23943"
     },
     {
       "id": "GM-0104",
       "title": "尺规作图与二倍角：矩形中的角度关系",
       "category": "plane_geometry",
       "coordinatePolicy": "restricted",
+      "geometryDimension": "planar",
       "difficulty": "hard",
       "questionType": "作图+解答题",
       "topics": [
@@ -462,6 +503,7 @@
       "rubricMax": 14,
       "visionMax": 10,
       "hasVisionRubric": true,
+      "answerSvg": null,
       "figure": [
         "assets/figure.png"
       ],
@@ -473,13 +515,14 @@
       },
       "problemHash": "73efe8037b7b9c5f",
       "solutionHash": "73be11a1cf9b6abf",
-      "metaHash": "c7b3f5de44e9ca29"
+      "metaHash": "6a59645c182351a7"
     },
     {
       "id": "GM-0105",
       "title": "最短路径与费马点：到两点及直线距离之和最小",
       "category": "plane_geometry",
       "coordinatePolicy": "restricted",
+      "geometryDimension": "planar",
       "difficulty": "hard",
       "questionType": "解答题",
       "topics": [
@@ -499,6 +542,7 @@
       "rubricMax": 14,
       "visionMax": 10,
       "hasVisionRubric": true,
+      "answerSvg": null,
       "figure": [
         "assets/figure-1.png",
         "assets/figure-2.png"
@@ -515,13 +559,14 @@
       },
       "problemHash": "7cb0dc8421817b52",
       "solutionHash": "c1a3bc3275a0cfed",
-      "metaHash": "a796eaa0a05cbc33"
+      "metaHash": "aaa38ebfed1f45de"
     },
     {
       "id": "GM-0106",
       "title": "矩形中的中点与角平分线：定比与线段比",
       "category": "plane_geometry",
       "coordinatePolicy": "restricted",
+      "geometryDimension": "planar",
       "difficulty": "hard",
       "questionType": "解答题",
       "topics": [
@@ -541,6 +586,7 @@
       "rubricMax": 15,
       "visionMax": 10,
       "hasVisionRubric": true,
+      "answerSvg": null,
       "figure": [
         "assets/figure.png"
       ],
@@ -552,13 +598,14 @@
       },
       "problemHash": "b021de7ccf622abc",
       "solutionHash": "7e289a2d46973c5b",
-      "metaHash": "715bb8ebd84448c7"
+      "metaHash": "bf8ddcb1b95bfa3a"
     },
     {
       "id": "GM-0107",
       "title": "最短路径的图形变化：对称与两点间线段最短",
       "category": "plane_geometry",
       "coordinatePolicy": "restricted",
+      "geometryDimension": "planar",
       "difficulty": "hard",
       "questionType": "解答题",
       "topics": [
@@ -578,6 +625,7 @@
       "rubricMax": 14,
       "visionMax": 10,
       "hasVisionRubric": true,
+      "answerSvg": null,
       "figure": [
         "assets/figure.png"
       ],
@@ -589,13 +637,14 @@
       },
       "problemHash": "8b8823e0c3db52c6",
       "solutionHash": "ac111d47c583fc63",
-      "metaHash": "dce67ac35ecb1fbb"
+      "metaHash": "14458fdcf9f16165"
     },
     {
       "id": "GM-0108",
       "title": "旋转与面积：直角三角形绕直角顶点旋转",
       "category": "plane_geometry",
       "coordinatePolicy": "restricted",
+      "geometryDimension": "planar",
       "difficulty": "hard",
       "questionType": "解答题",
       "topics": [
@@ -615,6 +664,7 @@
       "rubricMax": 15,
       "visionMax": 10,
       "hasVisionRubric": true,
+      "answerSvg": null,
       "figure": [
         "assets/figure.png"
       ],
@@ -626,7 +676,7 @@
       },
       "problemHash": "d4c0b2c4f17e156e",
       "solutionHash": "d8867e4926115189",
-      "metaHash": "a8ffb630f6a6ddbc"
+      "metaHash": "0a0173062dcef400"
     }
   ]
 }

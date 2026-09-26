@@ -76,5 +76,6 @@
       "point": "指出 $D$ 在 $OB$ 上（$B$、$D$、$O$ 共线），连线 $DP$ 与 $OC$ 相交于 $E$",
       "score": 2
     }
-  ]
+  ],
+  "geometryDimension": "planar"
 }

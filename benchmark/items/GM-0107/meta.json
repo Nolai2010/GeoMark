@@ -76,5 +76,6 @@
       "point": "指出 $\\angle DBC=30^\\circ$ 等角度标注位置",
       "score": 1
     }
-  ]
+  ],
+  "geometryDimension": "planar"
 }

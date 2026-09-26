@@ -44,5 +44,6 @@
       "point": "BF = -(3/5)a + (2/5)b = (3/5)BE，引用共线向量定理收尾",
       "score": 4
     }
-  ]
+  ],
+  "geometryDimension": "planar"
 }
