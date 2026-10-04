@@ -1,9 +1,9 @@
 {
   "name": "GeoMark Benchmark",
   "version": "0.1",
-  "generatedAt": "2026-10-04T16:04:40.456Z",
-  "itemCount": 18,
-  "withFigure": 16,
+  "generatedAt": "2026-10-04T17:22:10.865Z",
+  "itemCount": 25,
+  "withFigure": 23,
   "modes": [
     "vision",
     "coord",
@@ -17,9 +17,9 @@
     "solid-pure": "立体纯几何（solid × pure，restricted）"
   },
   "trackSummary": {
-    "vision": 8,
-    "planar-coord": 13,
-    "planar-pure": 7,
+    "vision": 15,
+    "planar-coord": 20,
+    "planar-pure": 13,
     "solid-coord": 5,
     "solid-pure": 0
   },
@@ -28,7 +28,7 @@
     "vision": "visionRubric（图形复述要点，answerSvg 存在时附 SVG 标准答案）",
     "constraint": "coordinates(pure)/cfm/websearch/skillplugin 违规归零（cheat）"
   },
-  "datasetHash": "7bf33c7635bc530f",
+  "datasetHash": "d178508e53de1d88",
   "items": [
     {
       "id": "GM-0001",
@@ -677,6 +677,279 @@
       "problemHash": "d4c0b2c4f17e156e",
       "solutionHash": "788eb6f84e36f64e",
       "metaHash": "9235ea8eaf80dc96"
+    },
+    {
+      "id": "GM-0109",
+      "title": "圆内接三角形与切线综合求面积",
+      "category": "plane_geometry",
+      "coordinatePolicy": "restricted",
+      "geometryDimension": "planar",
+      "difficulty": "challenge",
+      "questionType": "解答题",
+      "topics": [
+        "圆周角定理",
+        "切线的性质",
+        "相似三角形",
+        "锐角三角函数",
+        "弧与弦的关系"
+      ],
+      "source": {
+        "site": "第一试卷网",
+        "url": "https://www.shijuan1.com/a/sjsxzk/",
+        "paper": "2025年黑龙江省哈尔滨市中考数学试题 第26题",
+        "region": "2025年黑龙江省哈尔滨市中考数学试题",
+        "license": "免费资源"
+      },
+      "rubricMax": 12,
+      "visionMax": 10,
+      "hasVisionRubric": true,
+      "answerSvg": null,
+      "figure": [
+        "assets/figure.png"
+      ],
+      "assets": {
+        "assets/figure.png": {
+          "sha256_16": "7496c52a3b8ce8d9",
+          "bytes": 68335
+        }
+      },
+      "problemHash": "ba5ad0ef4c94c382",
+      "solutionHash": "c89712eeeece3ab2",
+      "metaHash": "4a277f08bd35df3b"
+    },
+    {
+      "id": "GM-0110",
+      "title": "半圆双切线中CD切线的判定与函数综合",
+      "category": "plane_geometry",
+      "coordinatePolicy": "restricted",
+      "geometryDimension": "planar",
+      "difficulty": "hard",
+      "questionType": "解答题",
+      "topics": [
+        "切线的判定与性质",
+        "切线长定理",
+        "勾股定理与代数变形",
+        "相似三角形与比例线段",
+        "函数解析式的建立"
+      ],
+      "source": {
+        "site": "第一试卷网",
+        "url": "https://www.shijuan1.com/a/sjsxzk/",
+        "paper": "2025年湖南省长沙市中考数学试题 第25题",
+        "region": "2025年湖南省长沙市中考数学试题",
+        "license": "免费资源"
+      },
+      "rubricMax": 12,
+      "visionMax": 10,
+      "hasVisionRubric": true,
+      "answerSvg": null,
+      "figure": [
+        "assets/figure.png"
+      ],
+      "assets": {
+        "assets/figure.png": {
+          "sha256_16": "7b6285b373c4fcea",
+          "bytes": 38383
+        }
+      },
+      "problemHash": "bc24438cb04efe92",
+      "solutionHash": "c56911f7d2df9659",
+      "metaHash": "75fb48a3a26bf053"
+    },
+    {
+      "id": "GM-0111",
+      "title": "等腰直角三角形中旋转45°的动点探究",
+      "category": "plane_geometry",
+      "coordinatePolicy": "restricted",
+      "geometryDimension": "planar",
+      "difficulty": "hard",
+      "questionType": "解答题",
+      "topics": [
+        "等腰直角三角形性质",
+        "旋转的性质",
+        "全等三角形的判定与性质",
+        "平行线的性质",
+        "点到直线的距离"
+      ],
+      "source": {
+        "site": "第一试卷网",
+        "url": "https://www.shijuan1.com/a/sjsxzk/",
+        "paper": "2025年吉林省长春市中考数学试题 第23题",
+        "region": "2025年吉林省长春市中考数学试题",
+        "license": "免费资源"
+      },
+      "rubricMax": 10,
+      "visionMax": 10,
+      "hasVisionRubric": true,
+      "answerSvg": null,
+      "figure": [
+        "assets/figure.png"
+      ],
+      "assets": {
+        "assets/figure.png": {
+          "sha256_16": "e8c0c36889388fed",
+          "bytes": 13677
+        }
+      },
+      "problemHash": "f8c6f1844dfe6016",
+      "solutionHash": "dad901753e461a7c",
+      "metaHash": "e7a17376a50178dd"
+    },
+    {
+      "id": "GM-0112",
+      "title": "菱形旋转中的角度与线段长探究",
+      "category": "plane_geometry",
+      "coordinatePolicy": "restricted",
+      "geometryDimension": "planar",
+      "difficulty": "hard",
+      "questionType": "解答题",
+      "topics": [
+        "菱形的性质",
+        "旋转的性质",
+        "等腰三角形与等边三角形",
+        "全等三角形",
+        "解直角三角形"
+      ],
+      "source": {
+        "site": "第一试卷网",
+        "url": "https://www.shijuan1.com/a/sjsxzk/",
+        "paper": "2026年河南省中考数学试题 第23题",
+        "region": "2026年河南省中考数学试题",
+        "license": "免费资源"
+      },
+      "rubricMax": 10,
+      "visionMax": 10,
+      "hasVisionRubric": true,
+      "answerSvg": null,
+      "figure": [
+        "assets/figure.png"
+      ],
+      "assets": {
+        "assets/figure.png": {
+          "sha256_16": "1b020ea5250c6256",
+          "bytes": 57027
+        }
+      },
+      "problemHash": "d508784b7dc14001",
+      "solutionHash": "e00e8fc2ecab8df3",
+      "metaHash": "1135331f19be3c72"
+    },
+    {
+      "id": "GM-0113",
+      "title": "正方形旋转与角平分线综合探究",
+      "category": "plane_geometry",
+      "coordinatePolicy": "restricted",
+      "geometryDimension": "planar",
+      "difficulty": "hard",
+      "questionType": "解答题",
+      "topics": [
+        "正方形的性质",
+        "旋转的性质",
+        "等腰直角三角形的判定与性质",
+        "相似三角形与比例线段",
+        "圆与最值（轨迹思想）"
+      ],
+      "source": {
+        "site": "第一试卷网",
+        "url": "https://www.shijuan1.com/a/sjsxzk/",
+        "paper": "2026年湖北省武汉市中考数学试题 第23题",
+        "region": "2026年湖北省武汉市中考数学试题",
+        "license": "免费资源"
+      },
+      "rubricMax": 12,
+      "visionMax": 10,
+      "hasVisionRubric": true,
+      "answerSvg": null,
+      "figure": [
+        "assets/figure.png"
+      ],
+      "assets": {
+        "assets/figure.png": {
+          "sha256_16": "09f6f79a034b09ae",
+          "bytes": 77220
+        }
+      },
+      "problemHash": "4a6b0877a4ff4173",
+      "solutionHash": "e0e250844a5eacc1",
+      "metaHash": "9015155e1441b501"
+    },
+    {
+      "id": "GM-0114",
+      "title": "圆外接三角形切线判定与面积比较",
+      "category": "plane_geometry",
+      "coordinatePolicy": "restricted",
+      "geometryDimension": "planar",
+      "difficulty": "hard",
+      "questionType": "解答题",
+      "topics": [
+        "切线的判定",
+        "切割线定理",
+        "相似三角形",
+        "三角形中位线",
+        "面积计算"
+      ],
+      "source": {
+        "site": "第一试卷网",
+        "url": "https://www.shijuan1.com/a/sjsxzk/",
+        "paper": "2026年云南省中考数学试题 第27题",
+        "region": "2026年云南省中考数学试题",
+        "license": "免费资源"
+      },
+      "rubricMax": 12,
+      "visionMax": 10,
+      "hasVisionRubric": true,
+      "answerSvg": null,
+      "figure": [
+        "assets/figure.png"
+      ],
+      "assets": {
+        "assets/figure.png": {
+          "sha256_16": "b2889256f46c377c",
+          "bytes": 24471
+        }
+      },
+      "problemHash": "bfc0945e63b4564d",
+      "solutionHash": "7ecfac0a07348505",
+      "metaHash": "d5af574ab1d989af"
+    },
+    {
+      "id": "GM-0115",
+      "title": "等腰直角三角形旋转与最值综合",
+      "category": "plane_geometry",
+      "coordinatePolicy": "allowed",
+      "geometryDimension": "planar",
+      "difficulty": "hard",
+      "questionType": "解答题",
+      "topics": [
+        "等腰直角三角形性质",
+        "旋转与全等",
+        "勾股定理",
+        "三角形中位线定理",
+        "轴对称与最值"
+      ],
+      "source": {
+        "site": "第一试卷网",
+        "url": "https://www.shijuan1.com/a/sjsxzk/",
+        "paper": "2026年重庆市中考数学试题 第25题",
+        "region": "2026年重庆市中考数学试题",
+        "license": "免费资源"
+      },
+      "rubricMax": 12,
+      "visionMax": 10,
+      "hasVisionRubric": true,
+      "answerSvg": null,
+      "figure": [
+        "assets/figure.png"
+      ],
+      "assets": {
+        "assets/figure.png": {
+          "sha256_16": "e42c0f5a6a10d9fe",
+          "bytes": 72674
+        }
+      },
+      "problemHash": "32806afb2ad3e682",
+      "solutionHash": "56e67869eaf33488",
+      "metaHash": "d8ec1108d8241639"
     }
   ]
 }

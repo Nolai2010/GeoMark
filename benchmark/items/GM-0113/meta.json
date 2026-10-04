@@ -1,0 +1,101 @@
+{
+  "id": "GM-0113",
+  "title": "正方形旋转与角平分线综合探究",
+  "subject": "math",
+  "category": "plane_geometry",
+  "coordinatePolicy": "restricted",
+  "reviewStatus": "verified-numeric",
+  "knowledgeScope": {
+    "stage": "初中",
+    "topics": [
+      "正方形的性质",
+      "旋转的性质",
+      "等腰直角三角形的判定与性质",
+      "相似三角形与比例线段",
+      "圆与最值（轨迹思想）"
+    ]
+  },
+  "questionType": "解答题",
+  "answer": "（1）证明见解析，△CGE 为等腰直角三角形；（2）证明见解析；（3）$CK$ 的最小值为 $\\sqrt{34}-\\sqrt{2}$",
+  "answerKey": [
+    "（1）由旋转 DA=DE=DC 与角平分线，证 ∠DAE=∠DEG=∠DCG，得 ∠CGE=90° 且 CG=GE",
+    "（2）由（1）CG⊥AE（G 为 C 到 AE 的垂足），结合 BD 与 AE 交于 H，用相似/等积变形证 AF·AE=2AH·AG",
+    "（3）K 的轨迹是以正方形顶点系下圆心 (1,5)（A 为 (0,4) 时）半径 √2 的圆弧，故 CK_min=|C−圆心|−r=√34−√2"
+  ],
+  "difficulty": "hard",
+  "figure": [
+    "assets/figure.png"
+  ],
+  "source": {
+    "site": "第一试卷网",
+    "url": "https://www.shijuan1.com/a/sjsxzk/",
+    "paper": "2026年湖北省武汉市中考数学试题 第23题",
+    "region": "2026年湖北省武汉市中考数学试题",
+    "license": "免费资源"
+  },
+  "dateAdded": "2026-10-04",
+  "tags": [
+    "正方形的性质",
+    "旋转的性质",
+    "等腰直角三角形的判定与性质",
+    "相似三角形与比例线段",
+    "圆与最值（轨迹思想）"
+  ],
+  "rubric": [
+    {
+      "point": "（1）正确利用旋转性质得 DE=DC 并设角计算",
+      "score": 2
+    },
+    {
+      "point": "（1）证明 ∠DAE=∠DEG=∠DCG，得 ∠CGE=90°、CG=GE",
+      "score": 2
+    },
+    {
+      "point": "（1）证得 △CGE 为等腰直角三角形",
+      "score": 1
+    },
+    {
+      "point": "（2）正确找到相似三角形并建立比例关系",
+      "score": 2
+    },
+    {
+      "point": "（2）完成 AF·AE=2AH·AG 的证明",
+      "score": 2
+    },
+    {
+      "point": "（3）确定 K 的轨迹圆（圆心、半径），三点共线时取最小值，得 CK_min=√34−√2",
+      "score": 3
+    }
+  ],
+  "visionRubric": [
+    {
+      "point": "识别正方形ABCD及顶点标注",
+      "score": 2
+    },
+    {
+      "point": "识别旋转后的点E及线段DE、CE",
+      "score": 2
+    },
+    {
+      "point": "识别角平分线DG及点G的位置",
+      "score": 2
+    },
+    {
+      "point": "识别AE与CD的交点F",
+      "score": 2
+    },
+    {
+      "point": "识别图2中BD与AE的交点H及图3中点K的位置",
+      "score": 2
+    }
+  ],
+  "geometryDimension": "planar",
+  "generation": {
+    "driver": "expand-driver.mjs",
+    "genConfidence": "medium",
+    "verified": true,
+    "conflictReason": "第(3)问参考答案为 2√5 - 2，解题者给出 2√5，两者数值不等。",
+    "adjudication": "数值坐标/解析复核 2026-10-05：原生成答案与独立求解冲突，经精确计算仲裁，详见 solution.md 修正附录",
+    "adjudicatedAt": "2026-10-05"
+  }
+}

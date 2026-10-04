@@ -1,0 +1,94 @@
+{
+  "id": "GM-0111",
+  "title": "等腰直角三角形中旋转45°的动点探究",
+  "subject": "math",
+  "category": "plane_geometry",
+  "coordinatePolicy": "restricted",
+  "reviewStatus": "verified-numeric",
+  "knowledgeScope": {
+    "stage": "初中",
+    "topics": [
+      "等腰直角三角形性质",
+      "旋转的性质",
+      "全等三角形的判定与性质",
+      "平行线的性质",
+      "点到直线的距离"
+    ]
+  },
+  "questionType": "解答题",
+  "answer": "（1）$AB=4\\sqrt{2}$；（2）$AE=\\sqrt{2}$；（3）见解析；（4）$AE=4\\sqrt{2}-4$ 或 $AE=4\\sqrt{2}-\\dfrac{4}{3}$",
+  "answerKey": [
+    "（1）等腰直角三角形斜边 $AB=\\sqrt{4^2+4^2}=4\\sqrt2$",
+    "（2）设 $AE=e\\sqrt2$（E 在 AB 上，坐标 (e,4−e)），D=(0,2)。DE 绕 E 旋转 45° 后 EF∥AC（竖直）⟂ 旋转后纵向分量移入横向：由旋转公式 $F_x=e+\\dfrac{(D_x-E_x)-(D_y-E_y)}{\\sqrt2}$，令 $F_x=E_x$ 解得 $e=1$，即 $AE=\\sqrt2$",
+    "（3）此时 $e=4-\\sqrt2$，$F=(6-4\\sqrt2,\\,0)$ 在 BC 上；$AD=BE=2$，$DE=EF$（旋转不变量），$AE=BF=4\\sqrt2-2$，SSS 得 △ADE≅△BEF",
+    "（4）E 到 BC 距离 $=4-e$；F 到 BC 距离 $=|4-e-\\sqrt2|$（旋转后纵向分量恒为 $-\\sqrt2$）。由 $4-e=2|4-e-\\sqrt2|$ 解得 $e=4-2\\sqrt2$（F 在 BC 上方）或 $e=4-\\dfrac{2\\sqrt2}{3}$（F 在 BC 下方），即 $AE=4\\sqrt2-4$ 或 $AE=4\\sqrt2-\\dfrac43$"
+  ],
+  "difficulty": "hard",
+  "figure": [
+    "assets/figure.png"
+  ],
+  "source": {
+    "site": "第一试卷网",
+    "url": "https://www.shijuan1.com/a/sjsxzk/",
+    "paper": "2025年吉林省长春市中考数学试题 第23题",
+    "region": "2025年吉林省长春市中考数学试题",
+    "license": "免费资源"
+  },
+  "dateAdded": "2026-10-04",
+  "tags": [
+    "等腰直角三角形性质",
+    "旋转的性质",
+    "全等三角形的判定与性质",
+    "平行线的性质",
+    "点到直线的距离"
+  ],
+  "rubric": [
+    {
+      "point": "正确求出 $AB=4\\sqrt{2}$",
+      "score": 2
+    },
+    {
+      "point": "（2）建立坐标/角度关系，正确利用旋转 45° 的分量公式",
+      "score": 1
+    },
+    {
+      "point": "（2）解得 $AE=\\sqrt{2}$",
+      "score": 2
+    },
+    {
+      "point": "（3）利用旋转和等腰直角三角形条件证明 △ADE≅△BEF（AD=BE、DE=EF、AE=BF）",
+      "score": 3
+    },
+    {
+      "point": "（4）分类讨论 F 在 BC 上方/下方，解得 $AE=4\\sqrt{2}-4$ 或 $AE=4\\sqrt{2}-\\dfrac{4}{3}$",
+      "score": 2
+    }
+  ],
+  "visionRubric": [
+    {
+      "point": "识别 $\\mathrm{Rt}\\triangle ABC$ 中 $\\angle C=90^\\circ$，$AC=BC=4$",
+      "score": 2
+    },
+    {
+      "point": "识别点 $D$ 为 $AC$ 中点，$AD=DC=2$",
+      "score": 2
+    },
+    {
+      "point": "识别点 $E$ 在 $AB$ 上，线段 $DE$ 绕 $E$ 顺时针旋转 $45^\\circ$ 得 $EF$",
+      "score": 3
+    },
+    {
+      "point": "识别图中 $F$ 的位置及 $E$、$F$ 到 $BC$ 的距离标注",
+      "score": 3
+    }
+  ],
+  "geometryDimension": "planar",
+  "generation": {
+    "driver": "expand-driver.mjs",
+    "genConfidence": "high",
+    "verified": true,
+    "conflictReason": "第(2)问解题者答√2而参考答案为2√2-2，第(4)问答案4√2-4或4√2-4/3与参考答案2√2或8√2/3均不一致。",
+    "adjudication": "数值坐标/解析复核 2026-10-05：原生成答案与独立求解冲突，经精确计算仲裁，详见 solution.md 修正附录",
+    "adjudicatedAt": "2026-10-05"
+  }
+}

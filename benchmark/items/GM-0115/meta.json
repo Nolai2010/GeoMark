@@ -1,0 +1,98 @@
+{
+  "id": "GM-0115",
+  "title": "等腰直角三角形旋转与最值综合",
+  "subject": "math",
+  "category": "plane_geometry",
+  "coordinatePolicy": "allowed",
+  "reviewStatus": "verified-numeric",
+  "knowledgeScope": {
+    "stage": "初中",
+    "topics": [
+      "等腰直角三角形性质",
+      "旋转与全等",
+      "勾股定理",
+      "三角形中位线定理",
+      "轴对称与最值"
+    ]
+  },
+  "questionType": "解答题",
+  "answer": "（1）$AC=\\sqrt{6}$；（2）证明见解析；（3）$\\triangle CQN$ 面积的最大值为 $\\dfrac{42+13\\sqrt{37}}{2}$",
+  "answerKey": [
+    "（1）BC 为斜边的等腰直角三角形 BCD 中 $BC=\\sqrt2\\,BD=3\\sqrt2$；由 ∠ABC=30° 得 $AC=BC\\tan30^\\circ=\\sqrt6$",
+    "（2）由旋转得 △DAE（E 为 A 绕 D 顺时针旋转 90° 的像）相关全等，配合中位线 GH∥? 与 ∠ 关系证 BC−AC=√2·GH",
+    "（3）P=(5,0) 时 AQ+DQ 取最小值 3√37（把 AQ 旋转后化为折线 A′→P→D，A′=(3,12)，D 关于直线 BC 的对称点 D*=(6,−6)，|A′D*|=√333=3√37）；此时 Q=(12,5)，CQ=13",
+    "（3）N 为 Q 关于过 D 的动直线（交直线 AB 于 M）的反射像，N 在以 D 为圆心、DQ=√37 为半径的圆上；圆心 D 到直线 CQ 的距离为 42/13，故 max S△CQN=½·13·(42/13+√37)=(42+13√37)/2"
+  ],
+  "difficulty": "hard",
+  "figure": [
+    "assets/figure.png"
+  ],
+  "source": {
+    "site": "第一试卷网",
+    "url": "https://www.shijuan1.com/a/sjsxzk/",
+    "paper": "2026年重庆市中考数学试题 第25题",
+    "region": "2026年重庆市中考数学试题",
+    "license": "免费资源"
+  },
+  "dateAdded": "2026-10-04",
+  "tags": [
+    "等腰直角三角形性质",
+    "旋转与全等",
+    "勾股定理",
+    "三角形中位线定理",
+    "轴对称与最值"
+  ],
+  "rubric": [
+    {
+      "point": "（1）正确求出 BC=3√2、AC=√6",
+      "score": 2
+    },
+    {
+      "point": "（2）正确利用旋转全等与中位线表示 GH",
+      "score": 2
+    },
+    {
+      "point": "（2）完成证明 BC−AC=√2·GH",
+      "score": 2
+    },
+    {
+      "point": "（3）正确求出 AQ+DQ 最小值条件（P=(5,0)，最小值 3√37，Q=(12,5)，CQ=13）",
+      "score": 3
+    },
+    {
+      "point": "（3）确定 N 的轨迹圆（圆心 D、半径 √37）并求出面积最大值 (42+13√37)/2",
+      "score": 3
+    }
+  ],
+  "visionRubric": [
+    {
+      "point": "识别等腰直角三角形BCD，BD=CD，∠BDC=90°",
+      "score": 2
+    },
+    {
+      "point": "识别Rt△ABC，∠ACB=90°，BC>AC",
+      "score": 2
+    },
+    {
+      "point": "识别旋转后的线段DE，ED⊥AD且DE=DA",
+      "score": 2
+    },
+    {
+      "point": "识别点G、H分别为AB、CE的中点",
+      "score": 2
+    },
+    {
+      "point": "识别图3中P在直线BC上，Q由DP旋转90°得到",
+      "score": 2
+    }
+  ],
+  "geometryDimension": "planar",
+  "generation": {
+    "driver": "expand-driver.mjs",
+    "genConfidence": "medium",
+    "verified": true,
+    "conflictReason": "第三问参考答案为 27√2/2，解题者给出 (42+13√37)/2，两者数值不等价。",
+    "adjudication": "数值坐标/解析复核 2026-10-05：原生成答案与独立求解冲突，经精确计算仲裁，详见 solution.md 修正附录",
+    "adjudicatedAt": "2026-10-05"
+  }
+}
