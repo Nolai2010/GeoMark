@@ -170,55 +170,51 @@ Dimensions **computed today** are marked ✅; the rest are intended, not impleme
 - ✅ Diagram Understanding — `vision` mode, scored against `visionRubric` (+ `answerSvg` when present)
 - ✅ Failure Type — automatic classification (only some taxonomy codes are reachable; see below)
 - ✅ Five-Track Means — per-track averages for the five parallel dialogues (`summarize.mjs`)
+- ✅ Run-to-Run Stability — `--rounds N` / `--runs a,b,c`; first real 3-round run delivered
+  (2026-10-04): 17/34 item-modes within 10pp, track-level means stable within 5pp
 - ⬜ Reasoning Validity — needs step-level scoring; not implemented
 - ⬜ Reasoning Method — not implemented
-- ⬜ Run-to-Run Stability — the code exists (`run-eval.mjs --rounds N`, `summarize.mjs --runs a,b,c`),
-  but no repeated real run has ever been performed, so no stability table has been produced
 
 ---
 
 ## Results
 
-One full run exists so far — **one model, one repetition**:
+One full run exists — **one model, 3 repetitions** (2026-10-04, current dataset `aebde9a585e46f3d`):
 
-| Mode | Mean score | Items scored |
-|---|---|---|
-| `vision` (describe the figure) | 36% | 8 |
-| `coord` (coordinates allowed) | 69% | 18 |
-| `pure` (coordinates forbidden) | 55% | 18 ⚠ see caveat 2 |
+| Mode | Mean of 3 rounds | Per-round | Items scored |
+|---|---|---|---|
+| `vision` (describe the figure) | **46%** | 44 / 44 / 51% | 8 |
+| `coord` (coordinates allowed) | **69%** | 70 / 68 / 69% | 18 |
+| `pure` (coordinates forbidden, `restricted` only) | **34%** | 45 / 26 / 32% | 8 |
 
-Five-track view of the same run (pure restricted to `restricted` items — this is the modern scope):
+Five-track view (3-round mean):
 
 | Track | Mean | Items |
 |---|---|---|
-| PNG 识图 | 36% | 8 |
-| 平面可建系 | 67% | 13 |
-| 平面纯几何 | 33% | 8 |
-| 立体可建系 | 75% | 5 |
+| PNG 识图 | 46% | 8 |
+| 平面可建系 | 66% | 13 |
+| 平面纯几何 | 34% | 8 |
+| 立体可建系 | 76% | 5 |
 | 立体纯几何 | — | 0 |
 
-Run: `deepseek-chat`, temperature 0, max_tokens 8192, 2026-09-18, 54 independent requests, no shared
-context. Full snapshot with the per-item table, failure counts and the one caught constraint
-violation: [`benchmark/docs/RESULTS.md`](benchmark/docs/RESULTS.md).
+**Anti-cheating caught a reproducible violation**: on GM-0106, `deepseek-chat` built a coordinate
+system in all 3 rounds despite the explicit ban (raw rubric 11/15, 11/15, 15/15 → zeroed each time);
+GM-0108 was additionally zeroed once in round 3. Vector-basis answers were not false-positived.
+Run: temperature 0, max_tokens 8192, 126 answer requests + 252 judge calls, **0 failures**.
+Full snapshot: [`benchmark/docs/RESULTS-2026-10-04.md`](benchmark/docs/RESULTS-2026-10-04.md).
+Earlier single-round run on the pre-audit dataset: [`benchmark/docs/RESULTS.md`](benchmark/docs/RESULTS.md).
 
-Three caveats matter more than the numbers:
+Stability (first real repeated-run data): 17/34 item-mode pairs within 10pp across rounds (worst
+75pp on one item), but **track-level means stay within 5pp** — cite track/mode means, not single
+items. Caveats that still matter:
 
-1. **n = 1 model, 1 repetition.** Cross-model comparison — the headline claim of this project — has
-   **no delivered data yet**. Everything above is a hypothesis, not a measurement.
-2. The `coord` vs `pure` gap (14 pp) is **not yet a clean measurement of method-following**, for two
-   independent reasons found in the 2026-09-19 audit: (a) for six of the eight `restricted` items the
-   reference rubric was itself phrased in coordinate terms, biasing compliant answers downward;
-   (b) `pure` ran on all 18 items even though four of them (GM-0006/0007/0009/0010, now marked
-   `allowed`) score the coordinate route itself, so those `pure` scores were structurally zero-able.
-   Both are fixed — rubrics are method-neutral now, and `pure` only applies to `restricted` items. A
-   rerun is required before the gap can be quoted as a number; under the modern scope `pure` covers
-   8 items (five-track mean 33%), not 18.
-3. The judge and the model under test are **the same model**. Self-preference bias is unmeasured, and
-   `deepseek-chat` is a moving alias, so this run is not reproducible in the strict sense. Every
-   review is, however, a single-turn zero-context request — the judge never sees the examinee's
-   conversation, only the answer text (disclosed per record as `judgeIdentity`).
-
-Producing a cross-model table is the single highest-value next step; see Project Status.
+1. **n = 1 model.** Cross-model comparison — the headline claim of this project — has **no delivered
+   data yet**. Everything above describes one model, not a ranking.
+2. `pure` covers only the 8 `restricted` items under the modern scope; the `coord`→`pure` gap (35pp)
+   mixes method-following difficulty with rubric strictness on synthetic-method answers.
+3. The judge and the model under test are **the same model** (zero-context single-turn review,
+   disclosed per record as `judgeIdentity`). Self-preference bias is unmeasured, and `deepseek-chat`
+   is a moving alias, so runs are not reproducible in the strict sense.
 
 ---
 
