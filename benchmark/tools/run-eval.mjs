@@ -19,6 +19,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
+import { withRetry } from './lib/retry.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const BENCH = path.resolve(HERE, '..');
@@ -228,7 +229,8 @@ async function worker() {
     if (DRY) { done++; continue; }
     fs.writeFileSync(path.join(OUT, `${t.gid}__${t.mode}.prompt.json`), JSON.stringify({ text: t.text, images: t.imgs.map(p => path.basename(p)) }, null, 2));
     try {
-      const { text: answer, thinking, usage } = await callModel(t.text, t.imgs);
+      // 429/5xx/网络抖动指数退避重试（默认 3 次），仍失败才落 error.txt 供 --resume 补跑
+      const { text: answer, thinking, usage } = await withRetry(`${t.gid}/${t.mode}`, () => callModel(t.text, t.imgs));
       fs.writeFileSync(path.join(OUT, `${t.gid}__${t.mode}.answer.md`), answer);
       if (thinking) fs.writeFileSync(path.join(OUT, `${t.gid}__${t.mode}.thinking.md`), thinking);
       fs.writeFileSync(path.join(OUT, `${t.gid}__${t.mode}.meta.json`), JSON.stringify({

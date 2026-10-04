@@ -16,7 +16,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { detectCfm, scanWebSearch, scanPlugin, scanCoordinates, trackOf } from './lib/cheat-rules.mjs';
-import { AUDIT_SYSTEM, buildVisionJudgePrompt, buildSolveJudgePrompt, loadAnswerSvg } from './lib/prompts.mjs';
+import { JUDGE_SYSTEM, AUDIT_SYSTEM, buildVisionJudgePrompt, buildSolveJudgePrompt, loadAnswerSvg } from './lib/prompts.mjs';
+import { withRetry } from './lib/retry.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const BENCH = path.resolve(HERE, '..');
@@ -61,23 +62,26 @@ if (!JUDGE._key && process.env.GM_ALLOW_MOCK_JUDGE !== '1') { console.error('未
 
 async function judge(prompt) {
   if (process.env.GM_ALLOW_MOCK_JUDGE === '1') return '__MOCK_JUDGE__';
-  const isAnthropic = JUDGE.provider === 'anthropic';
-  if (isAnthropic) {
-    const res = await fetch((JUDGE._direct?.base_url || JUDGE.base_url).replace(/\/+$/, '') + '/v1/messages', {
-      method: 'POST', headers: { 'content-type': 'application/json', 'x-api-key': JUDGE._key, 'anthropic-version': '2023-06-01' },
-      body: JSON.stringify({ model: (JUDGE._direct?.api_model_id || JUDGE.api_model_id), max_tokens: 4096, temperature: 0, messages: [{ role: 'user', content: prompt }] }),
+  // 429/5xx/网络抖动指数退避重试（默认 3 次），评审大规模跑批不再因瞬时错误缺分
+  return withRetry('judge', async () => {
+    const isAnthropic = JUDGE.provider === 'anthropic';
+    if (isAnthropic) {
+      const res = await fetch((JUDGE._direct?.base_url || JUDGE.base_url).replace(/\/+$/, '') + '/v1/messages', {
+        method: 'POST', headers: { 'content-type': 'application/json', 'x-api-key': JUDGE._key, 'anthropic-version': '2023-06-01' },
+        body: JSON.stringify({ model: (JUDGE._direct?.api_model_id || JUDGE.api_model_id), max_tokens: 4096, temperature: 0, messages: [{ role: 'user', content: prompt }] }),
+      });
+      const j = await res.json();
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return (j.content || []).map(c => c.text || '').join('');
+    }
+    const res = await fetch((JUDGE._direct?.base_url || JUDGE.base_url).replace(/\/+$/, '') + '/chat/completions', {
+      method: 'POST', headers: { 'content-type': 'application/json', authorization: 'Bearer ' + JUDGE._key },
+      body: JSON.stringify({ model: (JUDGE._direct?.api_model_id || JUDGE.api_model_id), temperature: 0, max_tokens: 4096, messages: [{ role: 'user', content: prompt }] }),
     });
     const j = await res.json();
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return (j.content || []).map(c => c.text || '').join('');
-  }
-  const res = await fetch((JUDGE._direct?.base_url || JUDGE.base_url).replace(/\/+$/, '') + '/chat/completions', {
-    method: 'POST', headers: { 'content-type': 'application/json', authorization: 'Bearer ' + JUDGE._key },
-    body: JSON.stringify({ model: (JUDGE._direct?.api_model_id || JUDGE.api_model_id), temperature: 0, max_tokens: 4096, messages: [{ role: 'user', content: prompt }] }),
+    return j.choices?.[0]?.message?.content ?? '';
   });
-  const j = await res.json();
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return j.choices?.[0]?.message?.content ?? '';
 }
 
 const outDir = path.join(RUN, 'scores');
