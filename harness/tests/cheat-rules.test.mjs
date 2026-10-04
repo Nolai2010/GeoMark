@@ -123,12 +123,13 @@ test('18 题 meta 全部声明 geometryDimension；GM-0006 补标 allowed；data
     if (meta.geometryDimension === 'solid' && meta.coordinatePolicy === 'restricted') solidPure++;
   }
   assert.equal(planar, 13); assert.equal(solid, 5);
-  assert.equal(planarPure, 8); assert.equal(solidPure, 0, '立体纯几何轨当前为缺口');
+  assert.equal(planarPure, 7, 'GM-0108 审计后改标 allowed（题目本质依赖坐标/向量法）');
+  assert.equal(solidPure, 0, '立体纯几何轨当前为缺口');
   const g6 = JSON.parse(fs.readFileSync(path.join(itemsDir, 'GM-0006', 'meta.json'), 'utf8'));
   assert.equal(g6.coordinatePolicy, 'allowed', 'GM-0006 评分说明提供向量法给分，必须为 allowed');
   const ds = JSON.parse(fs.readFileSync(path.join(ROOT, 'benchmark', 'dataset.json'), 'utf8'));
   assert.deepEqual(ds.trackSummary, {
-    'vision': 8, 'planar-coord': 13, 'planar-pure': 8, 'solid-coord': 5, 'solid-pure': 0,
+    'vision': 8, 'planar-coord': 13, 'planar-pure': 7, 'solid-coord': 5, 'solid-pure': 0,
   });
   for (const it of ds.items) assert.ok(it.geometryDimension === 'planar' || it.geometryDimension === 'solid');
 });

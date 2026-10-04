@@ -46,7 +46,7 @@
 |---|---|---|
 | PNG 识图 | `vision` × 有 `visionRubric` | 8 |
 | 平面可建系 | `planar` × `coord` | 13 |
-| 平面纯几何 | `planar` × `pure` | 8 |
+| 平面纯几何 | `planar` × `pure` | 7（GM-0108 审计后改标 allowed）|
 | 立体可建系 | `solid` × `coord` | 5 |
 | 立体纯几何 | `solid` × `pure` | **0（缺口：尚无 `restricted` 的立体题）** |
 

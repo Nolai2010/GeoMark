@@ -3,7 +3,7 @@
   "title": "旋转与面积：直角三角形绕直角顶点旋转",
   "subject": "math",
   "category": "plane_geometry",
-  "coordinatePolicy": "restricted",
+  "coordinatePolicy": "allowed",
   "knowledgeScope": {
     "stage": "初中",
     "topics": [
@@ -77,5 +77,6 @@
       "score": 2
     }
   ],
-  "geometryDimension": "planar"
+  "geometryDimension": "planar",
+  "policyNote": "题目本质依赖坐标/向量法（旋转后中点共线的标准路线为解析法），细则按坐标/向量路线给分；2026-10-04 审计后由 restricted 改标 allowed，退出 pure 轨"
 }

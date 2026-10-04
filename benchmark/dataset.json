@@ -1,7 +1,7 @@
 {
   "name": "GeoMark Benchmark",
   "version": "0.1",
-  "generatedAt": "2026-09-26T18:25:51.040Z",
+  "generatedAt": "2026-10-04T16:04:40.456Z",
   "itemCount": 18,
   "withFigure": 16,
   "modes": [
@@ -19,7 +19,7 @@
   "trackSummary": {
     "vision": 8,
     "planar-coord": 13,
-    "planar-pure": 8,
+    "planar-pure": 7,
     "solid-coord": 5,
     "solid-pure": 0
   },
@@ -28,7 +28,7 @@
     "vision": "visionRubric（图形复述要点，answerSvg 存在时附 SVG 标准答案）",
     "constraint": "coordinates(pure)/cfm/websearch/skillplugin 违规归零（cheat）"
   },
-  "datasetHash": "aebde9a585e46f3d",
+  "datasetHash": "7bf33c7635bc530f",
   "items": [
     {
       "id": "GM-0001",
@@ -397,7 +397,7 @@
         }
       },
       "problemHash": "867a8b2c7369fdb7",
-      "solutionHash": "dc65867c35b8f115",
+      "solutionHash": "27df89482620f2d0",
       "metaHash": "9f428825290e99ff"
     },
     {
@@ -597,7 +597,7 @@
         }
       },
       "problemHash": "b021de7ccf622abc",
-      "solutionHash": "7e289a2d46973c5b",
+      "solutionHash": "2fa424516af3e411",
       "metaHash": "bf8ddcb1b95bfa3a"
     },
     {
@@ -636,14 +636,14 @@
         }
       },
       "problemHash": "8b8823e0c3db52c6",
-      "solutionHash": "ac111d47c583fc63",
+      "solutionHash": "866aa201335dd402",
       "metaHash": "14458fdcf9f16165"
     },
     {
       "id": "GM-0108",
       "title": "旋转与面积：直角三角形绕直角顶点旋转",
       "category": "plane_geometry",
-      "coordinatePolicy": "restricted",
+      "coordinatePolicy": "allowed",
       "geometryDimension": "planar",
       "difficulty": "hard",
       "questionType": "解答题",
@@ -675,8 +675,8 @@
         }
       },
       "problemHash": "d4c0b2c4f17e156e",
-      "solutionHash": "d8867e4926115189",
-      "metaHash": "0a0173062dcef400"
+      "solutionHash": "788eb6f84e36f64e",
+      "metaHash": "9235ea8eaf80dc96"
     }
   ]
 }

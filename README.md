@@ -115,8 +115,9 @@ The initial benchmark focuses on geometry reasoning and is designed to investiga
 
 Metadata that actually exists on the items (not every item has every field):
 
-- `coordinatePolicy` — `restricted` on 8 items, `allowed` on 4 (GM-0006/0007/0009/0010, whose rubrics
-  score the coordinate route itself, e.g. 空间向量法), and **absent on the other 6**. A missing value means
+- `coordinatePolicy` — `restricted` on 7 items, `allowed` on 5 (GM-0006/0007/0009/0010/0108, whose
+  rubrics score the coordinate route itself — GM-0108 is analytic by nature, marked `allowed` after
+  the 2026-10-04 audit), and **absent on the other 6**. A missing value means
   "not declared": `coord` is permissive for everything, and `pure` is only attempted on `restricted`
   items.
 - `geometryDimension` — `planar` on 13 items, `solid` on 5 (GM-0006..0010). Combined with the mode it
@@ -138,7 +139,7 @@ independent call with no shared context, and the five tracks are a **view** over
 |---|---|---|
 | PNG 识图 | `vision` × has `visionRubric` | 8 |
 | 平面可建系 | `planar` × `coord` | 13 |
-| 平面纯几何 | `planar` × `pure` | 8 |
+| 平面纯几何 | `planar` × `pure` | 7 |
 | 立体可建系 | `solid` × `coord` | 5 |
 | 立体纯几何 | `solid` × `pure` | **0 — open gap; no solid item is `restricted` yet** |
 
@@ -193,9 +194,12 @@ Five-track view (3-round mean):
 |---|---|---|
 | PNG 识图 | 46% | 8 |
 | 平面可建系 | 66% | 13 |
-| 平面纯几何 | 34% | 8 |
+| 平面纯几何 | 34% | 7 ⁱ |
 | 立体可建系 | 76% | 5 |
 | 立体纯几何 | — | 0 |
+
+ⁱ The run executed with 8 `restricted` items; GM-0108 was subsequently marked `allowed` (its
+solution is analytic by nature — see the 2026-10-04 policy audit), so the modern pure scope is 7.
 
 **Anti-cheating caught a reproducible violation**: on GM-0106, `deepseek-chat` built a coordinate
 system in all 3 rounds despite the explicit ban (raw rubric 11/15, 11/15, 15/15 → zeroed each time);
@@ -210,7 +214,7 @@ items. Caveats that still matter:
 
 1. **n = 1 model.** Cross-model comparison — the headline claim of this project — has **no delivered
    data yet**. Everything above describes one model, not a ranking.
-2. `pure` covers only the 8 `restricted` items under the modern scope; the `coord`→`pure` gap (35pp)
+2. `pure` covers only the 8 `restricted` items at run time (GM-0108 has since been marked `allowed`; modern scope is 7); the `coord`→`pure` gap (35pp)
    mixes method-following difficulty with rubric strictness on synthetic-method answers.
 3. The judge and the model under test are **the same model** (zero-context single-turn review,
    disclosed per record as `judgeIdentity`). Self-preference bias is unmeasured, and `deepseek-chat`

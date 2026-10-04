@@ -87,7 +87,7 @@ GeoMark Benchmark 是项目的评测层。
 
 - PNG 识图 —— `vision` × 有 `visionRubric`（8 题）
 - 平面可建系 —— `planar` × `coord`（13 题）
-- 平面纯几何 —— `planar` × `pure`（8 题）
+- 平面纯几何 —— `planar` × `pure`（7 题；GM-0108 题目本质依赖坐标/向量法，2026-10-04 审计后改标 `allowed`）
 - 立体可建系 —— `solid` × `coord`（5 题）
 - 立体纯几何 —— `solid` × `pure`（**0 题，缺口待补**）
 
