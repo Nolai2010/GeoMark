@@ -109,27 +109,35 @@ test('loadAnswerSvg：读到内容；缺失/不存在返回 null 不抛错', () 
   }
 });
 
-// ---------- 题库完整性：geometryDimension 全覆盖 + 五轨计数 ----------
-test('18 题 meta 全部声明 geometryDimension；GM-0006 补标 allowed；dataset trackSummary 与实况一致', () => {
+// ---------- 题库完整性：geometryDimension 全覆盖 + 五轨计数（数据驱动，扩题不改测试） ----------
+test('题库 meta 全部声明 geometryDimension；GM-0006 补标 allowed；dataset trackSummary 与实况一致', () => {
   const itemsDir = path.join(ROOT, 'benchmark', 'items');
   const gids = fs.readdirSync(itemsDir).filter(d => d.startsWith('GM-')).sort();
-  assert.equal(gids.length, 18);
-  let planar = 0, solid = 0, planarPure = 0, solidPure = 0;
+  assert.ok(gids.length >= 25, `题库规模不得回退（当前 ${gids.length}，扩题下限 25）`);
+  // 与 dataset-manifest.mjs 同口径重算五轨计数
+  const summary = { 'vision': 0, 'planar-coord': 0, 'planar-pure': 0, 'solid-coord': 0, 'solid-pure': 0 };
   for (const gid of gids) {
     const meta = JSON.parse(fs.readFileSync(path.join(itemsDir, gid, 'meta.json'), 'utf8'));
     assert.ok(meta.geometryDimension === 'planar' || meta.geometryDimension === 'solid', `${gid} 缺 geometryDimension`);
-    if (meta.geometryDimension === 'planar') planar++; else solid++;
-    if (meta.geometryDimension === 'planar' && meta.coordinatePolicy === 'restricted') planarPure++;
-    if (meta.geometryDimension === 'solid' && meta.coordinatePolicy === 'restricted') solidPure++;
+    const visionMax = (meta.visionRubric || []).reduce((s, r) => s + r.score, 0);
+    if (visionMax > 0) summary['vision']++;
+    if (meta.geometryDimension === 'planar') {
+      summary['planar-coord']++;
+      if (meta.coordinatePolicy === 'restricted') summary['planar-pure']++;
+    } else {
+      summary['solid-coord']++;
+      if (meta.coordinatePolicy === 'restricted') summary['solid-pure']++;
+    }
+    // 配图声明必须真实存在（vision 轨作答依赖 PNG）；figure 可能是字符串或数组，与 run-eval 同口径
+    for (const fig of [].concat(meta.figure || [])) {
+      assert.ok(fs.existsSync(path.join(itemsDir, gid, fig)), `${gid} 声明的配图缺失: ${fig}`);
+    }
   }
-  assert.equal(planar, 13); assert.equal(solid, 5);
-  assert.equal(planarPure, 7, 'GM-0108 审计后改标 allowed（题目本质依赖坐标/向量法）');
-  assert.equal(solidPure, 0, '立体纯几何轨当前为缺口');
+  assert.equal(summary['solid-pure'], 0, '立体纯几何轨当前为缺口');
   const g6 = JSON.parse(fs.readFileSync(path.join(itemsDir, 'GM-0006', 'meta.json'), 'utf8'));
   assert.equal(g6.coordinatePolicy, 'allowed', 'GM-0006 评分说明提供向量法给分，必须为 allowed');
   const ds = JSON.parse(fs.readFileSync(path.join(ROOT, 'benchmark', 'dataset.json'), 'utf8'));
-  assert.deepEqual(ds.trackSummary, {
-    'vision': 8, 'planar-coord': 13, 'planar-pure': 7, 'solid-coord': 5, 'solid-pure': 0,
-  });
+  assert.deepEqual(ds.trackSummary, summary, 'dataset.json 需与 meta 实况一致（跑 node benchmark/tools/dataset-manifest.mjs 重建）');
+  assert.equal(ds.items.length, gids.length, 'dataset 条目数应与题库目录一致');
   for (const it of ds.items) assert.ok(it.geometryDimension === 'planar' || it.geometryDimension === 'solid');
 });
