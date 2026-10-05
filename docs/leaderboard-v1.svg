@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 330" font-family="-apple-system,'Segoe UI','Microsoft YaHei',sans-serif">
+  <rect width="680" height="330" fill="#ffffff"/>
+  <!-- legend -->
+  <rect x="110" y="14" width="14" height="14" fill="#4C6EF5"/>
+  <text x="130" y="26" font-size="13" fill="#333">deepseek-chat</text>
+  <rect x="240" y="14" width="14" height="14" fill="#F76707"/>
+  <text x="260" y="26" font-size="13" fill="#333">deepseek-flash</text>
+
+  <!-- group 1: PNG识图 -->
+  <text x="100" y="66" font-size="13" fill="#333" text-anchor="end">PNG识图</text>
+  <rect x="110" y="56" width="170" height="16" fill="#4C6EF5" rx="2"/>
+  <text x="288" y="69" font-size="12" fill="#333">37%</text>
+  <text x="110" y="90" font-size="12" fill="#999">flash 不支持图像输入</text>
+
+  <!-- group 2: 平面可建系 -->
+  <text x="100" y="128" font-size="13" fill="#333" text-anchor="end">平面可建系</text>
+  <rect x="110" y="118" width="239" height="16" fill="#4C6EF5" rx="2"/>
+  <text x="357" y="131" font-size="12" fill="#333">52%</text>
+  <rect x="110" y="140" width="396" height="16" fill="#F76707" rx="2"/>
+  <text x="514" y="153" font-size="12" fill="#333">86%</text>
+
+  <!-- group 3: 平面纯几何 -->
+  <text x="100" y="190" font-size="13" fill="#333" text-anchor="end">平面纯几何</text>
+  <rect x="110" y="180" width="133" height="16" fill="#4C6EF5" rx="2"/>
+  <text x="251" y="193" font-size="12" fill="#333">29%</text>
+  <rect x="110" y="202" width="2" height="16" fill="#F76707" rx="1"/>
+  <text x="120" y="215" font-size="12" fill="#333">0%</text>
+
+  <!-- group 4: 立体可建系 -->
+  <text x="100" y="252" font-size="13" fill="#333" text-anchor="end">立体可建系</text>
+  <rect x="110" y="242" width="382" height="16" fill="#4C6EF5" rx="2"/>
+  <text x="500" y="255" font-size="12" fill="#333">83%</text>
+  <rect x="110" y="264" width="368" height="16" fill="#F76707" rx="2"/>
+  <text x="486" y="277" font-size="12" fill="#333">80%</text>
+
+  <!-- axis -->
+  <line x1="110" y1="45" x2="110" y2="292" stroke="#ccc" stroke-width="1"/>
+  <text x="110" y="310" font-size="11" fill="#999" text-anchor="middle">0%</text>
+  <text x="345" y="310" font-size="11" fill="#999" text-anchor="middle">50%</text>
+  <line x1="345" y1="45" x2="345" y2="292" stroke="#eee" stroke-width="1"/>
+  <text x="580" y="310" font-size="11" fill="#999" text-anchor="middle">100%</text>
+  <line x1="580" y1="45" x2="580" y2="292" stroke="#eee" stroke-width="1"/>
+</svg>
