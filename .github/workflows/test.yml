@@ -1,0 +1,26 @@
+name: test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # Harness 零运行时依赖（无 npm install）；Benchmark 工具同为纯 Node ESM
+      - name: Run test suite
+        working-directory: harness
+        run: node --test tests/*.test.mjs
+      # 题库与工具脚本语法兜底（不调外部 API，纯离线检查）
+      - name: Syntax-check benchmark tools
+        run: |
+          for f in benchmark/tools/*.mjs benchmark/tools/lib/*.mjs; do
+            node --check "$f"
+          done
