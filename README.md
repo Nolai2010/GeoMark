@@ -1,6 +1,8 @@
 
 # GeoMark
 
+[![test](https://github.com/Nolai2010/GeoMark/actions/workflows/test.yml/badge.svg)](https://github.com/Nolai2010/GeoMark/actions/workflows/test.yml)
+
 > A model-agnostic benchmark and agent harness for fair, reproducible evaluation of AI reasoning capabilities.
 
 [English](README.md) | [简体中文](README.zh.md)

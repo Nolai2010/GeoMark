@@ -1,5 +1,7 @@
 # GeoMark
 
+[![test](https://github.com/Nolai2010/GeoMark/actions/workflows/test.yml/badge.svg)](https://github.com/Nolai2010/GeoMark/actions/workflows/test.yml)
+
 > 一个模型无关的 AI 推理能力评测基准与 Agent Harness，致力于实现公平、可复现的模型评测。
 
 [English](README.md) | [简体中文](README.zh.md)
