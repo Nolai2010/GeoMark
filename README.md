@@ -28,9 +28,11 @@ Three notable numbers (full evidence in [LEADERBOARD.md](LEADERBOARD.md) and the
 
 | Mode | Input | Constraint | Measures |
 |---|---|---|---|
-| vision | Problem figure (PNG) | Any method | Figure understanding |
-| coord | Text-only problem | Unrestricted | Full reasoning |
-| pure | Text-only problem | **Coordinates forbidden** | Pure geometry |
+| vision | **Figure only** (PNG) | Describe, don't solve | Figure understanding |
+| coord | Problem + figure | Unrestricted | Full reasoning |
+| pure | Problem + figure | **Coordinates forbidden** | Pure geometry |
+
+> **v1 caveat**: coord/pure should ship the figure per protocol; in this round, vision-capable models received it while others got text-only problems (deepseek-flash, due to a mislabeled config flag, now fixed). v1.1 will send figures uniformly in all modes. See [LEADERBOARD.md](LEADERBOARD.md).
 
 Each problem is split into independent conversations (no shared context); conflicting answers are settled by numeric adjudication (exact coordinate recomputation) before the reference answer is fixed.
 
