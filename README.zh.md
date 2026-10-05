@@ -8,7 +8,7 @@
 
 ## 榜单
 
-完整榜单与证据：[LEADERBOARD.md](LEADERBOARD.md)
+完整榜单与证据：[LEADERBOARD.zh.md](LEADERBOARD.zh.md)（English: [LEADERBOARD.md](LEADERBOARD.md)）
 
 | 模型 | PNG识图 | 平面可建系 | 平面纯几何 | 立体可建系 | 作弊归零 | 总分 |
 |---|---|---|---|---|---|---|
@@ -32,7 +32,7 @@
 | coord | 题面 + 配图 | 无限制 | 完整推理 |
 | pure | 题面 + 配图 | **禁止坐标法** | 纯几何能力 |
 
-> **v1 口径提示**：coord/pure 按协议应发送配图；本轮实测中支持图像的模型收到了配图，不支持图像输入的模型仅收到文字题干（如 deepseek-flash，配置误标已修正）。v1.1 将统一全部模式发图。详见 [LEADERBOARD.md](LEADERBOARD.md)。
+> **v1 口径提示**：coord/pure 按协议应发送配图；本轮实测中支持图像的模型收到了配图，不支持图像输入的模型仅收到文字题干（如 deepseek-flash，配置误标已修正）。v1.1 将统一全部模式发图。详见 [LEADERBOARD.zh.md](LEADERBOARD.zh.md)。
 
 同一道题拆成独立对话分别作答（上下文不互通），答案冲突时先数值仲裁（精确坐标计算复核）再定标准答案。
 
@@ -54,6 +54,7 @@ API 密钥通过 Web UI 或 `harness/config/secrets.json` 配置。新手教程�
 - 评测协议：[`benchmark/docs/EVALUATION-PROTOCOL.md`](benchmark/docs/EVALUATION-PROTOCOL.md)
 - 题库与数据集：[`benchmark/README.md`](benchmark/README.md)
 - 英文版：[`README.md`](README.md)
+- AI 编码工具（Claude Code、Cursor、Codex、Gemini CLI 等）：[`AGENTS.md`](AGENTS.md)
 
 ## License
 

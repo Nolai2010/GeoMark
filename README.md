@@ -8,7 +8,7 @@
 
 ## Leaderboard
 
-Full leaderboard and evidence: [LEADERBOARD.md](LEADERBOARD.md)
+Full leaderboard and evidence: [LEADERBOARD.md](LEADERBOARD.md)（中文：[LEADERBOARD.zh.md](LEADERBOARD.zh.md)）
 
 | Model | PNG vision | Planar w/ coords | Planar pure | Solid w/ coords | Cheating | Score |
 |---|---|---|---|---|---|---|
@@ -54,6 +54,7 @@ Configure your API key via the Web UI or `harness/config/secrets.json`. New here
 - Evaluation protocol: [`benchmark/docs/EVALUATION-PROTOCOL.md`](benchmark/docs/EVALUATION-PROTOCOL.md)
 - Items & dataset: [`benchmark/README.md`](benchmark/README.md)
 - 中文版：[`README.zh.md`](README.zh.md)
+- AI coding agents (Claude Code, Cursor, Codex, Gemini CLI, ...): [`AGENTS.md`](AGENTS.md)
 
 ## License
 
