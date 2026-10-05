@@ -25,23 +25,23 @@
 | 厂商 | 型号 |
 |---|---|
 | OpenAI | gpt-6-astra、gpt-6.1-sol、gpt-6-sol、gpt-6-luna、gpt-5.6-sol、gpt-5.6-terra、gpt-5.6-luna |
-| Anthropic | claude-fable-5-1、claude-fable-5、claude-opus-5-5、claude-sonnet-5-5、claude-haiku-4-5 |
-| Google | gemini-3.8-flash、gemini-3.7-flash、gemini-3.6-flash、gemini-3.5-flash、gemini-3.1-pro-preview |
-| DeepSeek | deepseek-v4-pro、deepseek-flash |
-| 阿里 | qwen3.8-max、qwen3.8-flash、qwen3.7-plus |
-| 月之暗面 | kimi-k3 |
-| 字节 | doubao-seed-2.1-pro、doubao-seed-2.1-turbo、doubao-seed-evolving |
-| 智谱 | glm-5.3、glm-5.3-flash、glm-5.2 |
-| MiniMax | minimax-m3 |
-| 百度 | ernie-5.1、ernie-5.0 |
-| 腾讯 | hunyuan-turbos、hunyuan-t1 |
-| 阶跃星辰 | step-5-preview、step-3.7-flash |
-| 讯飞 | spark-x2.5 |
-| 百川 | Baichuan4 |
-| 书生 | Intern-S2 |
-| 小米 | mimo-v2.5-pro |
+| Anthropic | claude-fable-5-1、claude-fable-5、claude-opus-5-5、claude-sonnet-5-5、claude-haiku-4-5-20251001、claude-opus-5、claude-opus-4-8、claude-opus-4-7、claude-opus-4-6、claude-opus-4-5-20251101、claude-sonnet-5、claude-sonnet-4-6 |
+| Google | gemini-3.8-flash、gemini-3.7-flash、gemini-3.6-flash、gemini-3.5-flash、gemini-3.5-flash-lite、gemini-3.1-flash-lite、gemini-3.1-pro-preview、gemini-3-flash-preview |
+| 阿里 | qwen3.8-max、qwen3.8-flash、qwen3.8-27b、qwen3.7-plus、qwen3.6-plus、qwen3.6-flash、qwen3-coder-480b |
+| 字节 | doubao-seed-2.1-pro、doubao-seed-2.1-turbo、doubao-seed-2.1-lite、doubao-seed-2.0-pro、doubao-seed-2.0-lite、doubao-seed-evolving |
+| 腾讯 | hunyuan-turbos、hunyuan-turbo-s、hunyuan-t1、hunyuan-a13b、hunyuan-pro、hunyuan-standard、hunyuan-lite、hunyuan-vision、hunyuan-turbos-vision、hunyuan-t1-vision、hunyuan-translation、hunyuan-translation-lite、hunyuan-role、hunyuan-functions |
+| 百度 | ernie-5.1、ernie-5.0、ernie-5.0-thinking-preview、ernie-4.5-turbo-128k、ernie-4.5-turbo-32k、ernie-4.5-turbo-vl、ernie-4.5-turbo-vl-32k、ernie-x1.1-preview、ernie-4.5-vl-28b-a3b |
+| 月之暗面 | kimi-k3、kimi-k2.8-preview、kimi-k2.7-code、kimi-k2.7-code-highspeed、kimi-k2.6 |
+| DeepSeek | deepseek-v4-pro、deepseek-v41-flash、deepseek-v4-pro-0813、deepseek-v4-flash-0731、deepseek-v3.2 |
+| 智谱 | glm-5.3、glm-5.3-flash、glm-5.2、glm-5.1、glm-5、glm-4-plus、glm-4-airx、glm-4-air、glm-4-long、glm-4-flashx、glm-4-flash、glm-4v-plus |
+| 阶跃星辰 | step-5-preview、step-3.7-flash、step-3.5-flash |
+| MiniMax | minimax-m3、minimax-m3.1-flash-preview、minimax-m2.7、minimax-m2.5、minimax-m2.5-lightning、minimax-m2.1、minimax-m1、abab6.5、abab6.5s、abab6.5g、abab5.5s |
+| 百川 | Baichuan4、Baichuan4-Turbo、Baichuan4-Air、Baichuan3-Turbo、Baichuan3-Turbo-128k、Baichuan-M3、Baichuan-M2、Baichuan-M1 |
+| 讯飞 | spark-x2.5、spark-x2.5-4b、spark-x2.5-1.7b、spark-x2、spark-x2-flash、spark-x1.5、spark-ultra、spark-pro、spark-lite |
+| 书生 | Intern-S2、Intern-S2-Preview-397B、internlm3、internlm2.5、internlm2-chat |
+| 小米 | mimo-v2.5-pro、mimo-v2.5、mimo-v2-flash |
 
-<sub>名单联网核实于 2026-10-05：OpenAI 至 MiniMax 各型号已逐项验证在售，百度及以下仅核实代表性型号；接入前以各厂商官方文档为准。注意 deepseek-chat/reasoner 别名已进入退役流程，DashScope 将于 2026-10-10 下线 30+ 旧模型 ID。</sub>
+<sub>名单联网核实于 2026-10-05：OpenAI、Anthropic、Google、DeepSeek、阿里、月之暗面、字节、智谱、MiniMax 各旗舰型号已逐项验证在售，其余系列型号以厂商官方文档为准。注意 deepseek-chat / deepseek-reasoner 老别名已进入退役流程；DashScope 将于 2026-10-10 下线 30+ 旧模型 ID。</sub>
 
 ## 运行明细
 
