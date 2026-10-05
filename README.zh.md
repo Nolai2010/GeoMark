@@ -2,432 +2,57 @@
 
 [![test](https://github.com/Nolai2010/GeoMark/actions/workflows/test.yml/badge.svg)](https://github.com/Nolai2010/GeoMark/actions/workflows/test.yml)
 
-> 一个模型无关的 AI 推理能力评测基准与 Agent Harness，致力于实现公平、可复现的模型评测。
+**AI 几何推理评测基准**：25 道全双盲几何题 × 5 个独立轨道，rubric 逐项评分，内置作弊检测（禁止建系仍建系 → 归零）。
 
 [English](README.md) | [简体中文](README.zh.md)
 
----
+## 榜单
 
-## 项目简介
+完整榜单与证据：[LEADERBOARD.md](LEADERBOARD.md)
 
-GeoMark 是一个用于评估和研究 AI 模型推理能力的开源项目。
+| 模型 | PNG识图 | 平面可建系 | 平面纯几何 | 立体可建系 | 作弊归零 | 总分 |
+|---|---|---|---|---|---|---|
+| deepseek-flash | — | 86% | 0%¹ | 80% | 13 题 | **55.3** |
+| deepseek-chat (V3.2) | 37% | 52% | 29% | 83% | 3 题 | **50.2** |
+| 更多模型 | 待测 | 待测 | 待测 | 待测 | — | — |
 
-项目由两个相互关联的核心部分组成：
+¹ 13 道禁建系题的思维链里全部出现坐标草稿（多数原始分满分），按规则全数归零——思维链让「偷跑坐标校验」无处遁形。
 
-- **GeoMark Benchmark** —— 标准化的推理任务、数据集、评测协议、指标与失败分析体系。
-- **GeoMark Harness** —— 模型无关的实验环境，用于在明确且统一的条件下运行不同 AI 模型。
+几个值得注意的数字（完整证据见 [LEADERBOARD.md](LEADERBOARD.md) 与[评测报告](benchmark/docs/results/lb-deepseek-chat/summary.md)）：
 
-GeoMark 当前以 **AI 几何推理**作为主要研究方向，同时从架构上为未来扩展到更广泛的推理任务保留空间。
+- **看图做（37%）远差于读题做（52%）** —— 模型"看不懂"几何图。
+- **禁用坐标法后均分跌至 29%** —— 纯几何推理是灾难区。
+- **3 题被作弊检测抓到**：题目明确禁止建系，模型仍偷偷建立坐标系，文本证据坐实，总分归零。
 
----
+## 三种评测模式
 
-## 为什么需要 GeoMark？
+| 模式 | 输入 | 约束 | 考察 |
+|---|---|---|---|
+| vision | 题目配图 PNG | 可用任何方法 | 图形理解 |
+| coord | 纯文字题干 | 无限制 | 完整推理 |
+| pure | 纯文字题干 | **禁止坐标法** | 纯几何能力 |
 
-不同 AI 模型往往运行在不同的界面、Prompt、系统提示词、工具和执行环境中。
+同一道题拆成独立对话分别作答（上下文不互通），答案冲突时先数值仲裁（精确坐标计算复核）再定标准答案。
 
-因此，当两个模型产生不同结果时，我们很难直接判断差异究竟来自：
+## Quick Start
 
-- 模型本身的能力；
-- System Prompt；
-- 可用工具；
-- 执行环境；
-- 推理配置；
-- 或其他实验变量。
+Node.js ≥ 22，零运行时依赖，无需 `npm install`：
 
-GeoMark 希望让这些变量变得明确、可记录、可比较。
-
-> **同一道题，同一套条件，交给不同的模型。**
-
-Harness 不负责让某一个模型表现得更好，而是提供一个可以明确配置、记录、复现和比较实验条件的环境。
-
----
-
-## 核心原则
-
-### 模型无关
-
-GeoMark 不围绕某一个特定 AI 模型或厂商进行设计。
-
-不同模型可以通过统一的接口接入，从而使用相同的评测任务进行实验。
-
-### 公平
-
-Harness 不主动为特定模型优化 Prompt，不注入针对某个模型的隐藏人格或特殊能力，也不应为特定模型提供额外优势。
-
-实验条件应当被明确配置，而不是被 Harness 静默修改。
-
-### 可复现
-
-实验应当保存理解和复现实验所需要的信息，包括：
-
-- 模型与 Provider
-- API Endpoint
-- System Prompt
-- User Prompt
-- 推理配置
-- 附加文件
-- Token 使用量
-- 延迟
-- 结束原因
-- 实验元数据
-
-### 透明
-
-失败同样是实验结果。
-
-Timeout、Provider Error、无效响应以及其他执行错误都会被记录，而不是被静默丢弃。
-
----
-
-# GeoMark Benchmark
-
-GeoMark Benchmark 是项目的评测层。
-
-当前 Benchmark 主要关注几何推理，用于研究 AI 模型如何理解、分析和解决几何问题。
-
-当前 Benchmark v0.1 收录 18 题 × 3 请求模式（vision / coord / pure），按「五个并行对话（上下文不互通）」组成五轨视图：
-
-- PNG 识图 —— `vision` × 有 `visionRubric`（8 题）
-- 平面可建系 —— `planar` × `coord`（13 题）
-- 平面纯几何 —— `planar` × `pure`（7 题；GM-0108 题目本质依赖坐标/向量法，2026-10-04 审计后改标 `allowed`）
-- 立体可建系 —— `solid` × `coord`（5 题）
-- 立体纯几何 —— `solid` × `pure`（**0 题，缺口待补**）
-
-反作弊四类违规（确定性预扫描 + LLM 审查取更严，违规全题归零）：坐标法（仅 pure 判罚）、编程解题 CFM（围栏代码块，所有模式）、联网检索（所有模式）、Skill Plugin / 外部插件（所有模式）。详见 `benchmark/docs/EVALUATION-PROTOCOL.md` 与英文 README。
-
-未来可以扩展到更多推理任务和模态。
-
----
-
-## 评测维度
-
-GeoMark 不仅关注模型最终答案是否正确。
-
-已实现维度：
-
-- 最终答案准确率（rubric 逐项 + LLM-as-judge）
-- 约束遵循情况（四类违规审查，违规归零）
-- 图示理解能力（`vision` 模式，`visionRubric` + 可选 `answerSvg` 标准答案）
-- 五轨均值（`summarize.mjs` 按五轨输出）
-- 失败类型（F01–F08 自动分类）
-
-待实现维度：
-
-- 推理有效性（需步骤级评分）
-- 推理方法
-- 多次运行稳定性（首次 3 轮真实运行已交付：逐题 17/34 组 ≤10pp，轨道级均值波动 ≤5pp；快照见 `benchmark/docs/RESULTS-2026-10-04.md`）
-
----
-
-# GeoMark Harness
-
-GeoMark Harness 是项目的实验执行层。
-
-它提供统一的模型交互接口，同时将实验变量显式暴露出来。
-
-简化的数据流如下：
-
-```text
-Benchmark Task
-      │
-      ▼
-GeoMark Harness
-      │
-      ├── Model Adapter
-      │
-      ├── Prompt / Configuration
-      │
-      ├── File Input
-      │
-      ├── Streaming Events
-      │
-      └── Experiment Recorder
-      │
-      ▼
-AI Model
-      │
-      ▼
-Structured Experiment Result
-````
-
-Harness 的目标是提供实验环境，而不是决定哪个模型更强。
-
----
-
-## 当前 Harness 能力
-
-当前开发版本已经支持：
-
-* 模型无关的 Provider 架构
-* OpenAI-compatible API
-* Anthropic-compatible API
-* 模型切换
-* 自定义模型配置
-* System Prompt 配置
-* Temperature 配置
-* 最大 Token 配置
-* 模型原生推理配置
-* Reasoning Effort 配置
-* Reasoning Budget 配置
-* 显式文件附加
-* 流式响应
-* TTFT 测量
-* Token 使用量记录
-* 结束原因记录
-* 实验历史
-* 实验包持久化
-* Provider Error 记录
-* Timeout 记录
-
-当前 Harness 仍处于持续开发阶段。
-
----
-
-# 实验记录
-
-每次实验都会获得唯一的实验 ID。
-
-例如：
-
-```text
-exp-2026-09-12T18-34-14-482b29b6
+```bash
+node harness/surfaces/web/server.mjs                 # Web UI → http://127.0.0.1:7788
+node benchmark/tools/run-eval.mjs --model <id>       # 跑评测
+node benchmark/tools/score.mjs --run <runid>         # 评分（rubric + 作弊检测）
+node benchmark/tools/summarize.mjs --run <runid>     # 汇总榜单
 ```
 
-一次完整实验可以记录：
+API 密钥通过 Web UI 或 `harness/config/secrets.json` 配置。新手教程：[`GETTING-STARTED.zh.md`](GETTING-STARTED.zh.md)。
 
-```text
-Model
-Provider
-Endpoint
-System Prompt
-User Prompt
-Reasoning Configuration
-Attached Files
-TTFT
-Total Latency
-Input Tokens
-Output Tokens
-Termination Reason
-Experiment Status
-Timestamp
-```
+## 文档
 
-这样可以对每一次独立运行进行检查，而不是简单地将实验压缩成一个最终分数。
+- 评测协议：[`benchmark/docs/EVALUATION-PROTOCOL.md`](benchmark/docs/EVALUATION-PROTOCOL.md)
+- 题库与数据集：[`benchmark/README.md`](benchmark/README.md)
+- 英文版：[`README.md`](README.md)
 
----
+## License
 
-# 实验轨道
-
-GeoMark 计划支持多种评测轨道。
-
-### Real-World Track
-
-通过模型正常面向用户的产品界面进行测试。
-
-这一轨道更接近普通用户实际使用 AI 模型时获得的体验。
-
-### Controlled Track
-
-通过 GeoMark Harness 在明确配置的实验条件下运行模型。
-
-这一轨道主要用于减少环境差异，更集中地研究模型自身能力。
-
-### Agent Track
-
-将模型与 Agent Harness 结合，对不同 Agent 配置对任务表现的影响进行评测。
-
-在这一模式下，Harness 本身也可以成为实验变量，而不是一个隐藏的实现细节。
-
----
-
-# 数据集结构
-
-一个 Benchmark 数据集样本可以采用类似以下结构：
-
-```text
-geo_0001/
-├── problem.txt
-├── diagram_original.jpg
-├── diagram_clean.png
-├── answer.txt
-└── metadata.json
-```
-
-例如：
-
-```json
-{
-  "id": "geo_0001",
-  "category": "plane_geometry",
-  "coordinate_policy": "restricted",
-  "difficulty": "medium"
-}
-```
-
-具体数据结构会随着项目发展进行调整。
-
----
-
-# 失败分析
-
-GeoMark 不仅希望回答：
-
-> **模型答对了多少？**
-
-还希望进一步研究：
-
-> **模型为什么答错？**
-
-未来计划建立统一的失败分类体系，例如：
-
-```text
-F01 — 图示理解失败
-F02 — 几何关系理解失败
-F03 — 错误前提或错误假设
-F04 — 计算错误
-F05 — 推理链错误
-F06 — 违反题目约束
-F07 — 最终答案错误
-F08 — 工具 / 执行错误
-```
-
-随着 Benchmark 实验结果积累，失败分类体系将持续调整。
-
----
-
-# 项目状态
-
-GeoMark 当前处于早期研究与开发阶段。
-
-### 当前进展
-
-* [x] GeoMark 项目概念
-* [x] 模型无关 Harness 原型
-* [x] 多 Provider 架构
-* [x] 流式交互
-* [x] 实验记录
-* [x] 文件输入
-* [x] 基础实验指标
-* [x] Error 与 Timeout 记录
-* [x] Harness v0.6.0
-
-### 下一阶段
-
-图例：`[x]` 已交付且有证据 · `[~]` 部分交付（附原因）· `[ ]` 未开始。
-
-* [x] GeoMark Benchmark 0.1 —— 版本化数据集清单 `benchmark/dataset.json`（含逐产物哈希）
-* [~] 初始几何数据集 —— 18 题，但仅 16 题有配图、8 题有来源标注（其余 10 道为自编，source 为 null）、
-  8 题有 `visionRubric`
-* [x] 标准化评测协议 —— `benchmark/docs/EVALUATION-PROTOCOL.md`
-* [x] 自动化结果统计 —— `benchmark/tools/summarize.mjs`（对比表 / CSV / JSON）
-* [~] 多次重复实验 —— `summarize.mjs --runs A,B` 已实现，但**从未真正跑过第二轮**，因此不存在任何稳定性表
-* [~] 失败分类体系 —— 定义了 F01–F08，其中仅 5 个有自动检测器（见 Failure Analysis 一节）
-* [~] Benchmark 结果可视化 —— `benchmark/viz/` 是 Remotion 视频工程：需要 `npm install` 且无 lockfile，
-  并不是开箱即用的看板
-* [~] 可复现实验包 —— `datasetHash` + `promptHash` + judge 配置均有记录，但 judge 与被测模型相同、
-  `deepseek-chat` 是可变别名，且没有任何运行产物入库（见 Results）
-
-### 长期计划
-
-* [~] 多模态推理评测 —— `vision` 模式已实现并按 `visionRubric` 判分，但 18 题中仅 8 题有该细则，
-  其余按跳过处理而非计分
-* [ ] 更大规模 Benchmark
-* [ ] Agent 能力评测 —— 当前 Agent 赛道只负责「把 Agent 拉起来」，不做评测
-* [ ] 代码与工具调用评测
-* [ ] 更多推理领域
-* [ ] 跨模型对比 —— 尚未发布任何多模型运行结果
-* [ ] 持续集成 —— 目前没有 `.github/workflows`，「测试通过」只能由作者本人验证
-* [ ] 学术研究与论文
-
----
-
-# 项目结构
-
-项目围绕 Benchmark 与 Harness 两个核心部分组织：
-
-```text
-GeoMark/
-├── benchmark/
-│   ├── datasets/
-│   ├── evaluation/
-│   └── ...
-│
-├── harness/
-│   └── ...
-│
-├── docs/
-├── examples/
-├── scripts/
-├── results/
-│
-├── README.md
-├── README.zh.md
-├── LICENSE
-└── .gitignore
-```
-
-随着项目发展，仓库结构可能继续调整。
-
----
-
-# 设计理念
-
-GeoMark 遵循一个简单的原则：
-
-> **评测环境应该是显式的，而不是隐藏的。**
-
-一个可靠的 AI 模型评测应该能够回答：
-
-1. 测试了什么模型？
-2. 在什么条件下测试？
-3. 使用了什么 Prompt？
-4. 使用了哪些工具或文件？
-5. 进行了多少次测试？
-6. 每一次实验具体发生了什么？
-7. 其他研究者能否复现实验？
-
-GeoMark 围绕这些问题进行设计。
-
----
-
-# 参与贡献
-
-欢迎提交代码、Issue、Benchmark 任务、评测方案、研究想法以及 Bug 报告。
-
-如果发现 GeoMark Harness 存在问题，请尽可能提供：
-
-* 复现步骤；
-* 模型 / Provider 信息；
-* 相关配置；
-* 错误信息；
-* 预期行为；
-* 实际行为。
-
-如果希望贡献 Benchmark 任务，请提供：
-
-* 任务描述；
-* 标准答案；
-* 评测标准；
-* 相关来源或标注信息。
-
----
-
-# 开源协议
-
-GeoMark 使用 MIT License 开源。
-
-详细内容请参阅 [LICENSE](LICENSE)。
-
----
-
-# 引用
-
-GeoMark 当前仍处于持续开发阶段。
-
-当 Benchmark 方法论与研究结果达到稳定版本后，将提供正式的论文引用格式。
-
----
-
-# GeoMark
-
-**公平评测 · 可复现实验 · 模型无关基础设施**
+MIT

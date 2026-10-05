@@ -1,0 +1,711 @@
+{
+  "manifest": {
+    "runid": "lb-deepseek-flash",
+    "round": null,
+    "rounds": 1,
+    "model": "deepseek-flash",
+    "provider": "openai-compatible",
+    "base_url": "https://api.deepseek.com",
+    "api_model_id": "deepseek-flash",
+    "temperature": 0,
+    "maxTokens": 65536,
+    "concurrency": 6,
+    "modes": [
+      "coord",
+      "pure"
+    ],
+    "visionOk": false,
+    "items": [
+      "GM-0001",
+      "GM-0002",
+      "GM-0003",
+      "GM-0004",
+      "GM-0005",
+      "GM-0006",
+      "GM-0007",
+      "GM-0008",
+      "GM-0009",
+      "GM-0010",
+      "GM-0101",
+      "GM-0102",
+      "GM-0103",
+      "GM-0104",
+      "GM-0105",
+      "GM-0106",
+      "GM-0107",
+      "GM-0108",
+      "GM-0109",
+      "GM-0110",
+      "GM-0111",
+      "GM-0112",
+      "GM-0113",
+      "GM-0114",
+      "GM-0115"
+    ],
+    "startedAt": 1791205143399,
+    "requests": 6,
+    "skipped": 44,
+    "failed": 0,
+    "finishedAt": 1791205431120
+  },
+  "modeAvg": [
+    0,
+    85,
+    0
+  ],
+  "cheatItems": [
+    "GM-0101",
+    "GM-0102",
+    "GM-0103",
+    "GM-0104",
+    "GM-0105",
+    "GM-0106",
+    "GM-0107",
+    "GM-0109",
+    "GM-0110",
+    "GM-0111",
+    "GM-0112",
+    "GM-0113",
+    "GM-0114"
+  ],
+  "failureCounts": {
+    "PASS": 17,
+    "F07": 2,
+    "F06": 13,
+    "F04": 4,
+    "F01": 15,
+    "F05": 2
+  },
+  "trackStats": [
+    {
+      "track": "vision",
+      "n": 15,
+      "avg": 0
+    },
+    {
+      "track": "planar-coord",
+      "n": 20,
+      "avg": 86
+    },
+    {
+      "track": "planar-pure",
+      "n": 13,
+      "avg": 0
+    },
+    {
+      "track": "solid-coord",
+      "n": 5,
+      "avg": 80
+    },
+    {
+      "track": "solid-pure",
+      "n": 0,
+      "avg": null
+    }
+  ],
+  "judge": null,
+  "table": {
+    "GM-0001": {
+      "vision": null,
+      "coord": {
+        "total": 12,
+        "max": 12,
+        "pct": 100,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 12,
+        "failure": "PASS"
+      },
+      "pure": null
+    },
+    "GM-0002": {
+      "vision": null,
+      "coord": {
+        "total": 12,
+        "max": 12,
+        "pct": 100,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 12,
+        "failure": "PASS"
+      },
+      "pure": null
+    },
+    "GM-0003": {
+      "vision": null,
+      "coord": {
+        "total": 12,
+        "max": 12,
+        "pct": 100,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 12,
+        "failure": "PASS"
+      },
+      "pure": null
+    },
+    "GM-0004": {
+      "vision": null,
+      "coord": {
+        "total": 12,
+        "max": 12,
+        "pct": 100,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 12,
+        "failure": "PASS"
+      },
+      "pure": null
+    },
+    "GM-0005": {
+      "vision": null,
+      "coord": {
+        "total": 0,
+        "max": 12,
+        "pct": 0,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 0,
+        "failure": "F07"
+      },
+      "pure": null
+    },
+    "GM-0006": {
+      "vision": null,
+      "coord": {
+        "total": 0,
+        "max": 12,
+        "pct": 0,
+        "cheat": false,
+        "violationType": null,
+        "track": "solid-coord",
+        "rawTotal": 0,
+        "failure": "F07"
+      },
+      "pure": null
+    },
+    "GM-0007": {
+      "vision": null,
+      "coord": {
+        "total": 12,
+        "max": 12,
+        "pct": 100,
+        "cheat": false,
+        "violationType": null,
+        "track": "solid-coord",
+        "rawTotal": 12,
+        "failure": "PASS"
+      },
+      "pure": null
+    },
+    "GM-0008": {
+      "vision": null,
+      "coord": {
+        "total": 12,
+        "max": 12,
+        "pct": 100,
+        "cheat": false,
+        "violationType": null,
+        "track": "solid-coord",
+        "rawTotal": 12,
+        "failure": "PASS"
+      },
+      "pure": null
+    },
+    "GM-0009": {
+      "vision": null,
+      "coord": {
+        "total": 12,
+        "max": 12,
+        "pct": 100,
+        "cheat": false,
+        "violationType": null,
+        "track": "solid-coord",
+        "rawTotal": 12,
+        "failure": "PASS"
+      },
+      "pure": null
+    },
+    "GM-0010": {
+      "vision": null,
+      "coord": {
+        "total": 12,
+        "max": 12,
+        "pct": 100,
+        "cheat": false,
+        "violationType": null,
+        "track": "solid-coord",
+        "rawTotal": 12,
+        "failure": "PASS"
+      },
+      "pure": null
+    },
+    "GM-0101": {
+      "vision": {
+        "total": 0,
+        "max": 10,
+        "pct": 0,
+        "cheat": false,
+        "violationType": null,
+        "track": "vision",
+        "rawTotal": 0,
+        "failure": "F01"
+      },
+      "coord": {
+        "total": 13,
+        "max": 16,
+        "pct": 81,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 13,
+        "failure": "F04"
+      },
+      "pure": {
+        "total": 0,
+        "max": 16,
+        "pct": 0,
+        "cheat": true,
+        "violationType": "coordinates",
+        "track": "planar-pure",
+        "rawTotal": 16,
+        "failure": "F06"
+      }
+    },
+    "GM-0102": {
+      "vision": {
+        "total": 0,
+        "max": 10,
+        "pct": 0,
+        "cheat": false,
+        "violationType": null,
+        "track": "vision",
+        "rawTotal": 0,
+        "failure": "F01"
+      },
+      "coord": {
+        "total": 11,
+        "max": 14,
+        "pct": 79,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 11,
+        "failure": "F04"
+      },
+      "pure": {
+        "total": 0,
+        "max": 14,
+        "pct": 0,
+        "cheat": true,
+        "violationType": "coordinates",
+        "track": "planar-pure",
+        "rawTotal": 14,
+        "failure": "F06"
+      }
+    },
+    "GM-0103": {
+      "vision": {
+        "total": 0,
+        "max": 10,
+        "pct": 0,
+        "cheat": false,
+        "violationType": null,
+        "track": "vision",
+        "rawTotal": 0,
+        "failure": "F01"
+      },
+      "coord": {
+        "total": 14,
+        "max": 14,
+        "pct": 100,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 14,
+        "failure": "PASS"
+      },
+      "pure": {
+        "total": 0,
+        "max": 14,
+        "pct": 0,
+        "cheat": true,
+        "violationType": "coordinates",
+        "track": "planar-pure",
+        "rawTotal": 7,
+        "failure": "F06"
+      }
+    },
+    "GM-0104": {
+      "vision": {
+        "total": 0,
+        "max": 10,
+        "pct": 0,
+        "cheat": false,
+        "violationType": null,
+        "track": "vision",
+        "rawTotal": 0,
+        "failure": "F01"
+      },
+      "coord": {
+        "total": 14,
+        "max": 14,
+        "pct": 100,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 14,
+        "failure": "PASS"
+      },
+      "pure": {
+        "total": 0,
+        "max": 14,
+        "pct": 0,
+        "cheat": true,
+        "violationType": "coordinates",
+        "track": "planar-pure",
+        "rawTotal": 8,
+        "failure": "F06"
+      }
+    },
+    "GM-0105": {
+      "vision": {
+        "total": 0,
+        "max": 10,
+        "pct": 0,
+        "cheat": false,
+        "violationType": null,
+        "track": "vision",
+        "rawTotal": 0,
+        "failure": "F01"
+      },
+      "coord": {
+        "total": 10,
+        "max": 14,
+        "pct": 71,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 10,
+        "failure": "F04"
+      },
+      "pure": {
+        "total": 0,
+        "max": 14,
+        "pct": 0,
+        "cheat": true,
+        "violationType": "coordinates",
+        "track": "planar-pure",
+        "rawTotal": 14,
+        "failure": "F06"
+      }
+    },
+    "GM-0106": {
+      "vision": {
+        "total": 0,
+        "max": 10,
+        "pct": 0,
+        "cheat": false,
+        "violationType": null,
+        "track": "vision",
+        "rawTotal": 0,
+        "failure": "F01"
+      },
+      "coord": {
+        "total": 15,
+        "max": 15,
+        "pct": 100,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 15,
+        "failure": "PASS"
+      },
+      "pure": {
+        "total": 0,
+        "max": 15,
+        "pct": 0,
+        "cheat": true,
+        "violationType": "coordinates",
+        "track": "planar-pure",
+        "rawTotal": 15,
+        "failure": "F06"
+      }
+    },
+    "GM-0107": {
+      "vision": {
+        "total": 0,
+        "max": 10,
+        "pct": 0,
+        "cheat": false,
+        "violationType": null,
+        "track": "vision",
+        "rawTotal": 0,
+        "failure": "F01"
+      },
+      "coord": {
+        "total": 14,
+        "max": 14,
+        "pct": 100,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 14,
+        "failure": "PASS"
+      },
+      "pure": {
+        "total": 0,
+        "max": 14,
+        "pct": 0,
+        "cheat": true,
+        "violationType": "coordinates",
+        "track": "planar-pure",
+        "rawTotal": 14,
+        "failure": "F06"
+      }
+    },
+    "GM-0108": {
+      "vision": {
+        "total": 0,
+        "max": 10,
+        "pct": 0,
+        "cheat": false,
+        "violationType": null,
+        "track": "vision",
+        "rawTotal": 0,
+        "failure": "F01"
+      },
+      "coord": {
+        "total": 8,
+        "max": 15,
+        "pct": 53,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 8,
+        "failure": "F05"
+      },
+      "pure": null
+    },
+    "GM-0109": {
+      "vision": {
+        "total": 0,
+        "max": 10,
+        "pct": 0,
+        "cheat": false,
+        "violationType": null,
+        "track": "vision",
+        "rawTotal": 0,
+        "failure": "F01"
+      },
+      "coord": {
+        "total": 7,
+        "max": 12,
+        "pct": 58,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 7,
+        "failure": "F05"
+      },
+      "pure": {
+        "total": 0,
+        "max": 12,
+        "pct": 0,
+        "cheat": true,
+        "violationType": "coordinates",
+        "track": "planar-pure",
+        "rawTotal": 0,
+        "failure": "F06"
+      }
+    },
+    "GM-0110": {
+      "vision": {
+        "total": 0,
+        "max": 10,
+        "pct": 0,
+        "cheat": false,
+        "violationType": null,
+        "track": "vision",
+        "rawTotal": 0,
+        "failure": "F01"
+      },
+      "coord": {
+        "total": 12,
+        "max": 12,
+        "pct": 100,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 12,
+        "failure": "PASS"
+      },
+      "pure": {
+        "total": 0,
+        "max": 12,
+        "pct": 0,
+        "cheat": true,
+        "violationType": "coordinates",
+        "track": "planar-pure",
+        "rawTotal": 12,
+        "failure": "F06"
+      }
+    },
+    "GM-0111": {
+      "vision": {
+        "total": 0,
+        "max": 10,
+        "pct": 0,
+        "cheat": false,
+        "violationType": null,
+        "track": "vision",
+        "rawTotal": 0,
+        "failure": "F01"
+      },
+      "coord": {
+        "total": 10,
+        "max": 10,
+        "pct": 100,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 10,
+        "failure": "PASS"
+      },
+      "pure": {
+        "total": 0,
+        "max": 10,
+        "pct": 0,
+        "cheat": true,
+        "violationType": "coordinates",
+        "track": "planar-pure",
+        "rawTotal": 10,
+        "failure": "F06"
+      }
+    },
+    "GM-0112": {
+      "vision": {
+        "total": 0,
+        "max": 10,
+        "pct": 0,
+        "cheat": false,
+        "violationType": null,
+        "track": "vision",
+        "rawTotal": 0,
+        "failure": "F01"
+      },
+      "coord": {
+        "total": 10,
+        "max": 10,
+        "pct": 100,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 10,
+        "failure": "PASS"
+      },
+      "pure": {
+        "total": 0,
+        "max": 10,
+        "pct": 0,
+        "cheat": true,
+        "violationType": "coordinates",
+        "track": "planar-pure",
+        "rawTotal": 10,
+        "failure": "F06"
+      }
+    },
+    "GM-0113": {
+      "vision": {
+        "total": 0,
+        "max": 10,
+        "pct": 0,
+        "cheat": false,
+        "violationType": null,
+        "track": "vision",
+        "rawTotal": 0,
+        "failure": "F01"
+      },
+      "coord": {
+        "total": 9,
+        "max": 12,
+        "pct": 75,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 9,
+        "failure": "F04"
+      },
+      "pure": {
+        "total": 0,
+        "max": 12,
+        "pct": 0,
+        "cheat": true,
+        "violationType": "coordinates",
+        "track": "planar-pure",
+        "rawTotal": 12,
+        "failure": "F06"
+      }
+    },
+    "GM-0114": {
+      "vision": {
+        "total": 0,
+        "max": 10,
+        "pct": 0,
+        "cheat": false,
+        "violationType": null,
+        "track": "vision",
+        "rawTotal": 0,
+        "failure": "F01"
+      },
+      "coord": {
+        "total": 12,
+        "max": 12,
+        "pct": 100,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 12,
+        "failure": "PASS"
+      },
+      "pure": {
+        "total": 0,
+        "max": 12,
+        "pct": 0,
+        "cheat": true,
+        "violationType": "coordinates",
+        "track": "planar-pure",
+        "rawTotal": 0,
+        "failure": "F06"
+      }
+    },
+    "GM-0115": {
+      "vision": {
+        "total": 0,
+        "max": 10,
+        "pct": 0,
+        "cheat": false,
+        "violationType": null,
+        "track": "vision",
+        "rawTotal": 0,
+        "failure": "F01"
+      },
+      "coord": {
+        "total": 12,
+        "max": 12,
+        "pct": 100,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 12,
+        "failure": "PASS"
+      },
+      "pure": null
+    }
+  }
+}

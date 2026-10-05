@@ -1,0 +1,702 @@
+{
+  "manifest": {
+    "runid": "lb-deepseek-chat",
+    "round": null,
+    "rounds": 1,
+    "model": "deepseek-chat",
+    "provider": "openai-compatible",
+    "base_url": "https://api.deepseek.com",
+    "api_model_id": "deepseek-chat",
+    "temperature": 0,
+    "maxTokens": 8192,
+    "concurrency": 6,
+    "modes": [
+      "vision",
+      "coord",
+      "pure"
+    ],
+    "visionOk": true,
+    "items": [
+      "GM-0001",
+      "GM-0002",
+      "GM-0003",
+      "GM-0004",
+      "GM-0005",
+      "GM-0006",
+      "GM-0007",
+      "GM-0008",
+      "GM-0009",
+      "GM-0010",
+      "GM-0101",
+      "GM-0102",
+      "GM-0103",
+      "GM-0104",
+      "GM-0105",
+      "GM-0106",
+      "GM-0107",
+      "GM-0108",
+      "GM-0109",
+      "GM-0110",
+      "GM-0111",
+      "GM-0112",
+      "GM-0113",
+      "GM-0114",
+      "GM-0115"
+    ],
+    "startedAt": 1791203847275,
+    "requests": 61,
+    "skipped": 14,
+    "failed": 0,
+    "finishedAt": 1791203944464
+  },
+  "modeAvg": [
+    37,
+    58,
+    29
+  ],
+  "cheatItems": [
+    "GM-0105",
+    "GM-0106",
+    "GM-0110"
+  ],
+  "failureCounts": {
+    "PASS": 7,
+    "F05": 15,
+    "F07": 13,
+    "F04": 7,
+    "F01": 8,
+    "F06": 3
+  },
+  "trackStats": [
+    {
+      "track": "vision",
+      "n": 15,
+      "avg": 37
+    },
+    {
+      "track": "planar-coord",
+      "n": 20,
+      "avg": 52
+    },
+    {
+      "track": "planar-pure",
+      "n": 13,
+      "avg": 29
+    },
+    {
+      "track": "solid-coord",
+      "n": 5,
+      "avg": 83
+    },
+    {
+      "track": "solid-pure",
+      "n": 0,
+      "avg": null
+    }
+  ],
+  "judge": null,
+  "table": {
+    "GM-0001": {
+      "vision": null,
+      "coord": {
+        "total": 12,
+        "max": 12,
+        "pct": 100,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 12,
+        "failure": "PASS"
+      },
+      "pure": null
+    },
+    "GM-0002": {
+      "vision": null,
+      "coord": {
+        "total": 12,
+        "max": 12,
+        "pct": 100,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 12,
+        "failure": "PASS"
+      },
+      "pure": null
+    },
+    "GM-0003": {
+      "vision": null,
+      "coord": {
+        "total": 0,
+        "max": 12,
+        "pct": 0,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 0,
+        "failure": "F07"
+      },
+      "pure": null
+    },
+    "GM-0004": {
+      "vision": null,
+      "coord": {
+        "total": 5,
+        "max": 12,
+        "pct": 42,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 5,
+        "failure": "F05"
+      },
+      "pure": null
+    },
+    "GM-0005": {
+      "vision": null,
+      "coord": {
+        "total": 4,
+        "max": 12,
+        "pct": 33,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 4,
+        "failure": "F07"
+      },
+      "pure": null
+    },
+    "GM-0006": {
+      "vision": null,
+      "coord": {
+        "total": 8,
+        "max": 12,
+        "pct": 67,
+        "cheat": false,
+        "violationType": null,
+        "track": "solid-coord",
+        "rawTotal": 8,
+        "failure": "F05"
+      },
+      "pure": null
+    },
+    "GM-0007": {
+      "vision": null,
+      "coord": {
+        "total": 12,
+        "max": 12,
+        "pct": 100,
+        "cheat": false,
+        "violationType": null,
+        "track": "solid-coord",
+        "rawTotal": 12,
+        "failure": "PASS"
+      },
+      "pure": null
+    },
+    "GM-0008": {
+      "vision": null,
+      "coord": {
+        "total": 9,
+        "max": 12,
+        "pct": 75,
+        "cheat": false,
+        "violationType": null,
+        "track": "solid-coord",
+        "rawTotal": 9,
+        "failure": "F04"
+      },
+      "pure": null
+    },
+    "GM-0009": {
+      "vision": null,
+      "coord": {
+        "total": 12,
+        "max": 12,
+        "pct": 100,
+        "cheat": false,
+        "violationType": null,
+        "track": "solid-coord",
+        "rawTotal": 12,
+        "failure": "PASS"
+      },
+      "pure": null
+    },
+    "GM-0010": {
+      "vision": null,
+      "coord": {
+        "total": 9,
+        "max": 12,
+        "pct": 75,
+        "cheat": false,
+        "violationType": null,
+        "track": "solid-coord",
+        "rawTotal": 9,
+        "failure": "F04"
+      },
+      "pure": null
+    },
+    "GM-0101": {
+      "vision": {
+        "total": 6,
+        "max": 10,
+        "pct": 60,
+        "cheat": false,
+        "violationType": null,
+        "track": "vision",
+        "rawTotal": 6,
+        "failure": "F05"
+      },
+      "coord": {
+        "total": 11,
+        "max": 16,
+        "pct": 69,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 11,
+        "failure": "F05"
+      },
+      "pure": {
+        "total": 11,
+        "max": 16,
+        "pct": 69,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-pure",
+        "rawTotal": 11,
+        "failure": "F05"
+      }
+    },
+    "GM-0102": {
+      "vision": {
+        "total": 6,
+        "max": 10,
+        "pct": 60,
+        "cheat": false,
+        "violationType": null,
+        "track": "vision",
+        "rawTotal": 6,
+        "failure": "F05"
+      },
+      "coord": {
+        "total": 11,
+        "max": 14,
+        "pct": 79,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 11,
+        "failure": "F04"
+      },
+      "pure": {
+        "total": 14,
+        "max": 14,
+        "pct": 100,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-pure",
+        "rawTotal": 14,
+        "failure": "PASS"
+      }
+    },
+    "GM-0103": {
+      "vision": {
+        "total": 3,
+        "max": 10,
+        "pct": 30,
+        "cheat": false,
+        "violationType": null,
+        "track": "vision",
+        "rawTotal": 3,
+        "failure": "F01"
+      },
+      "coord": {
+        "total": 4,
+        "max": 14,
+        "pct": 29,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 4,
+        "failure": "F07"
+      },
+      "pure": {
+        "total": 9,
+        "max": 14,
+        "pct": 64,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-pure",
+        "rawTotal": 9,
+        "failure": "F05"
+      }
+    },
+    "GM-0104": {
+      "vision": {
+        "total": 8,
+        "max": 10,
+        "pct": 80,
+        "cheat": false,
+        "violationType": null,
+        "track": "vision",
+        "rawTotal": 8,
+        "failure": "F04"
+      },
+      "coord": {
+        "total": 10,
+        "max": 14,
+        "pct": 71,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 10,
+        "failure": "F04"
+      },
+      "pure": {
+        "total": 0,
+        "max": 14,
+        "pct": 0,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-pure",
+        "rawTotal": 0,
+        "failure": "F07"
+      }
+    },
+    "GM-0105": {
+      "vision": {
+        "total": 3,
+        "max": 10,
+        "pct": 30,
+        "cheat": false,
+        "violationType": null,
+        "track": "vision",
+        "rawTotal": 3,
+        "failure": "F01"
+      },
+      "coord": {
+        "total": 2,
+        "max": 14,
+        "pct": 14,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 2,
+        "failure": "F07"
+      },
+      "pure": {
+        "total": 0,
+        "max": 14,
+        "pct": 0,
+        "cheat": true,
+        "violationType": "coordinates",
+        "track": "planar-pure",
+        "rawTotal": 4,
+        "failure": "F06"
+      }
+    },
+    "GM-0106": {
+      "vision": {
+        "total": 5,
+        "max": 10,
+        "pct": 50,
+        "cheat": false,
+        "violationType": null,
+        "track": "vision",
+        "rawTotal": 5,
+        "failure": "F05"
+      },
+      "coord": {
+        "total": 15,
+        "max": 15,
+        "pct": 100,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 15,
+        "failure": "PASS"
+      },
+      "pure": {
+        "total": 0,
+        "max": 15,
+        "pct": 0,
+        "cheat": true,
+        "violationType": "coordinates",
+        "track": "planar-pure",
+        "rawTotal": 11,
+        "failure": "F06"
+      }
+    },
+    "GM-0107": {
+      "vision": {
+        "total": 5,
+        "max": 10,
+        "pct": 50,
+        "cheat": false,
+        "violationType": null,
+        "track": "vision",
+        "rawTotal": 5,
+        "failure": "F05"
+      },
+      "coord": {
+        "total": 14,
+        "max": 14,
+        "pct": 100,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 14,
+        "failure": "PASS"
+      },
+      "pure": {
+        "total": 4,
+        "max": 14,
+        "pct": 29,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-pure",
+        "rawTotal": 4,
+        "failure": "F07"
+      }
+    },
+    "GM-0108": {
+      "vision": {
+        "total": 1,
+        "max": 10,
+        "pct": 10,
+        "cheat": false,
+        "violationType": null,
+        "track": "vision",
+        "rawTotal": 1,
+        "failure": "F01"
+      },
+      "coord": {
+        "total": 11,
+        "max": 15,
+        "pct": 73,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 11,
+        "failure": "F04"
+      },
+      "pure": null
+    },
+    "GM-0109": {
+      "vision": {
+        "total": 2,
+        "max": 10,
+        "pct": 20,
+        "cheat": false,
+        "violationType": null,
+        "track": "vision",
+        "rawTotal": 2,
+        "failure": "F01"
+      },
+      "coord": {
+        "total": 0,
+        "max": 12,
+        "pct": 0,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 0,
+        "failure": "F07"
+      },
+      "pure": {
+        "total": 0,
+        "max": 12,
+        "pct": 0,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-pure",
+        "rawTotal": 0,
+        "failure": "F07"
+      }
+    },
+    "GM-0110": {
+      "vision": {
+        "total": 5,
+        "max": 10,
+        "pct": 50,
+        "cheat": false,
+        "violationType": null,
+        "track": "vision",
+        "rawTotal": 5,
+        "failure": "F05"
+      },
+      "coord": {
+        "total": 3,
+        "max": 12,
+        "pct": 25,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 3,
+        "failure": "F07"
+      },
+      "pure": {
+        "total": 0,
+        "max": 12,
+        "pct": 0,
+        "cheat": true,
+        "violationType": "coordinates",
+        "track": "planar-pure",
+        "rawTotal": 4,
+        "failure": "F06"
+      }
+    },
+    "GM-0111": {
+      "vision": {
+        "total": 2,
+        "max": 10,
+        "pct": 20,
+        "cheat": false,
+        "violationType": null,
+        "track": "vision",
+        "rawTotal": 2,
+        "failure": "F01"
+      },
+      "coord": {
+        "total": 5,
+        "max": 10,
+        "pct": 50,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 5,
+        "failure": "F05"
+      },
+      "pure": {
+        "total": 8,
+        "max": 10,
+        "pct": 80,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-pure",
+        "rawTotal": 8,
+        "failure": "F04"
+      }
+    },
+    "GM-0112": {
+      "vision": {
+        "total": 1,
+        "max": 10,
+        "pct": 10,
+        "cheat": false,
+        "violationType": null,
+        "track": "vision",
+        "rawTotal": 1,
+        "failure": "F01"
+      },
+      "coord": {
+        "total": 5,
+        "max": 10,
+        "pct": 50,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 5,
+        "failure": "F05"
+      },
+      "pure": {
+        "total": 0,
+        "max": 10,
+        "pct": 0,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-pure",
+        "rawTotal": 0,
+        "failure": "F07"
+      }
+    },
+    "GM-0113": {
+      "vision": {
+        "total": 6,
+        "max": 10,
+        "pct": 60,
+        "cheat": false,
+        "violationType": null,
+        "track": "vision",
+        "rawTotal": 6,
+        "failure": "F05"
+      },
+      "coord": {
+        "total": 8,
+        "max": 12,
+        "pct": 67,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 8,
+        "failure": "F05"
+      },
+      "pure": {
+        "total": 5,
+        "max": 12,
+        "pct": 42,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-pure",
+        "rawTotal": 5,
+        "failure": "F05"
+      }
+    },
+    "GM-0114": {
+      "vision": {
+        "total": 0,
+        "max": 10,
+        "pct": 0,
+        "cheat": false,
+        "violationType": null,
+        "track": "vision",
+        "rawTotal": 0,
+        "failure": "F01"
+      },
+      "coord": {
+        "total": 2,
+        "max": 12,
+        "pct": 17,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 2,
+        "failure": "F07"
+      },
+      "pure": {
+        "total": 0,
+        "max": 12,
+        "pct": 0,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-pure",
+        "rawTotal": 0,
+        "failure": "F07"
+      }
+    },
+    "GM-0115": {
+      "vision": {
+        "total": 2,
+        "max": 10,
+        "pct": 20,
+        "cheat": false,
+        "violationType": null,
+        "track": "vision",
+        "rawTotal": 2,
+        "failure": "F01"
+      },
+      "coord": {
+        "total": 2,
+        "max": 12,
+        "pct": 17,
+        "cheat": false,
+        "violationType": null,
+        "track": "planar-coord",
+        "rawTotal": 2,
+        "failure": "F07"
+      },
+      "pure": null
+    }
+  }
+}

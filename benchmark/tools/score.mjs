@@ -131,6 +131,14 @@ async function worker() {
         : (meta.rubric || []);
       const max = rubric.reduce((s, r) => s + r.score, 0);
       const answer = fs.readFileSync(path.join(RUN, file), 'utf8');
+      // 空作答（模型不支持该模式 / 输出异常）无法评审：跳过而非评 0，避免污染轨道均值
+      if (answer.trim().length < 10) {
+        const rec = { item: gid, mode, skipped: true, reason: 'empty-answer', max: 0, total: null, judgedAt: Date.now() };
+        fs.writeFileSync(path.join(outDir, `${gid}__${mode}.score.json`), JSON.stringify(rec, null, 2));
+        all.push(rec);
+        console.log(`  ${gid}/${mode} 跳过（作答为空）`);
+        continue;
+      }
       const thinkingPath = path.join(RUN, `${gid}__${mode}.thinking.md`);
       const thinking = fs.existsSync(thinkingPath) ? fs.readFileSync(thinkingPath, 'utf8') : '';
       // 反作弊审查必须同时看「思考过程」与「作答」
@@ -153,8 +161,10 @@ async function worker() {
 
       // 2) 四类约束合规审查（确定性预扫描 + LLM，取更严）
       //    coordinates 仅在 pure 判罚；cfm/websearch/skillplugin 所有模式判罚
+      //    cfm 例外：只扫最终作答。思维链里的围栏代码块是模型内部演算草稿，
+      //    不是调用编程工具，若与作答一起扫会把思维链模型全部误杀（2026-10-05 实测）。
       const coordHits = (mode === 'pure' || mode === 'vision') ? scanCoordinates(full) : [];
-      const cfm = detectCfm(full);
+      const cfm = detectCfm(answer);
       const webHits = scanWebSearch(full);
       const pluginHits = scanPlugin(full);
       let audit = { used_coordinates: false, cfm: false, web_search: false, skill_plugin: false, method: 'none', cfm_lang: '', evidence: [], reason: '未审查' };
